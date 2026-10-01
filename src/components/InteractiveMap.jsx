@@ -14,31 +14,37 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-// High-speed, high-resolution, crystal-clear tile providers
+// 100% Free, NO API Key Required, Zero Watermark Tile Providers
 const TILE_PROVIDERS = {
-  voyager: {
-    id: 'voyager',
-    name: '精緻旅遊 (超清晰)',
-    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    subdomains: 'abcd',
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  },
-  gsi: {
-    id: 'gsi',
-    name: '日本官方地理院 (詳細鐵道與出口)',
-    url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
+  gsi_pale: {
+    id: 'gsi_pale',
+    name: '🗾 日本官方地理院 (詳細鐵道與出口)',
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
     subdomains: 'a',
     maxZoom: 18,
-    attribution: '&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html">國土地理院</a>'
+    attribution: '&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">國土地理院</a>'
+  },
+  esri: {
+    id: 'esri',
+    name: '🗺️ Esri 全球高解析街道圖',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.esri.com" target="_blank">Esri</a>, HERE, USGS'
+  },
+  hot: {
+    id: 'hot',
+    name: '🌸 OpenStreetMap 法國人文圖',
+    url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+    subdomains: 'abc',
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
   },
   dark: {
     id: 'dark',
-    name: '黑金夜間模式',
-    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    subdomains: 'abcd',
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a>'
+    name: '🌙 暗夜黑金模式',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    maxZoom: 16,
+    attribution: '&copy; <a href="https://www.esri.com" target="_blank">Esri</a>'
   }
 };
 
@@ -123,14 +129,12 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
   const stationLayerRef = useRef(null);
   const markersMapRef = useRef(new Map());
 
-  const [activeTileKey, setActiveTileKey] = useState(theme === 'dark' ? 'dark' : 'voyager');
+  const [activeTileKey, setActiveTileKey] = useState(theme === 'dark' ? 'dark' : 'gsi_pale');
   const [showLayerMenu, setShowLayerMenu] = useState(false);
 
-  // Sync active tile with theme if user hasn't explicitly picked GSI
+  // Sync active tile with theme
   useEffect(() => {
-    if (activeTileKey !== 'gsi') {
-      setActiveTileKey(theme === 'dark' ? 'dark' : 'voyager');
-    }
+    setActiveTileKey(theme === 'dark' ? 'dark' : 'gsi_pale');
   }, [theme]);
 
   // 1. Initialize Map
@@ -144,13 +148,11 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
       zoomControl: false
     });
 
-    const isRetina = L.Browser.retina;
-    const provider = TILE_PROVIDERS[activeTileKey] || TILE_PROVIDERS.voyager;
+    const provider = TILE_PROVIDERS[activeTileKey] || TILE_PROVIDERS.gsi_pale;
 
     const tileLayer = L.tileLayer(provider.url, {
-      subdomains: provider.subdomains,
-      maxZoom: provider.maxZoom,
-      r: isRetina ? '@2x' : '',
+      subdomains: provider.subdomains || 'abc',
+      maxZoom: provider.maxZoom || 18,
       attribution: provider.attribution
     }).addTo(map);
 
@@ -222,13 +224,11 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
       map.removeLayer(tileLayerRef.current);
     }
 
-    const provider = TILE_PROVIDERS[activeTileKey] || TILE_PROVIDERS.voyager;
-    const isRetina = L.Browser.retina;
+    const provider = TILE_PROVIDERS[activeTileKey] || TILE_PROVIDERS.gsi_pale;
 
     const newTileLayer = L.tileLayer(provider.url, {
-      subdomains: provider.subdomains,
-      maxZoom: provider.maxZoom,
-      r: isRetina ? '@2x' : '',
+      subdomains: provider.subdomains || 'abc',
+      maxZoom: provider.maxZoom || 18,
       attribution: provider.attribution
     }).addTo(map);
 
