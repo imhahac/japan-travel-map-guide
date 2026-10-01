@@ -1,0 +1,44 @@
+{
+  "name": "Japan Travel Map Guide Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "remoteUser": "node",
+  "forwardPorts": [3000, 5173, 8787],
+  "portsAttributes": {
+    "3000": {
+      "label": "Web App (Next.js/Astro)",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "8787": {
+      "label": "Cloudflare Wrangler Dev",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "files.eol": "\n"
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "GitHub.vscode-pull-request-github",
+        "cloudflare.workers-cloudflare",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  "postCreateCommand": "pnpm -v && wrangler --version && gh --version"
+}

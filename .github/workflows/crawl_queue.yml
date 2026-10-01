@@ -1,0 +1,32 @@
+name: Process Crawl Queue
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6 hours
+  workflow_dispatch: # Allows manual run
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Queue Crawler
+        env:
+          GAS_WEBHOOK_URL: ${{ secrets.GAS_WEBHOOK_URL || vars.GAS_WEBHOOK_URL }}
+        run: |
+          if [ -n "$GAS_WEBHOOK_URL" ]; then
+            npm run crawl:url -- --from-queue
+          else
+            echo "GAS_WEBHOOK_URL is not set. Skipping queue crawl."
+          fi
