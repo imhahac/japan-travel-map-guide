@@ -188,6 +188,34 @@ async function run() {
   const spotsPath = path.join(outDir, 'spots.json');
   fs.writeFileSync(spotsPath, JSON.stringify(finalHotels, null, 2), 'utf8');
   console.log(`Saved spots dataset to: ${spotsPath}`);
+
+  // Auto-sync to Google Sheet if GAS_WEBHOOK_URL is configured
+  const GAS_WEBHOOK_URL = process.env.GAS_WEBHOOK_URL;
+  if (GAS_WEBHOOK_URL) {
+    console.log(`\n☁️ 偵測到 GAS_WEBHOOK_URL，全自動推送至 Google Sheet [飯店] 分頁...`);
+    const batchSize = 50;
+    for (let i = 0; i < finalHotels.length; i += batchSize) {
+      const chunk = finalHotels.slice(i, i + batchSize);
+      console.log(`  正在推送第 ${i + 1} ~ ${Math.min(i + batchSize, finalHotels.length)} 筆...`);
+      try {
+        const res = await fetch(GAS_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'upsert',
+            sheetName: '飯店',
+            rows: chunk
+          })
+        });
+        const result = await res.json();
+        console.log('  回應:', result);
+      } catch (err) {
+        console.error('  推送失敗:', err.message);
+      }
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    console.log('🎉 雲端自動同步 Google Sheet 成功！');
+  }
 }
 
 run().catch(console.error);

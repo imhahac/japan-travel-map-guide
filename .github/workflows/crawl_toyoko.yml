@@ -1,0 +1,42 @@
+name: Cloud Crawl Toyoko Inn to Google Sheet
+
+on:
+  schedule:
+    - cron: '0 2 * * 0' # Weekly every Sunday at 02:00 UTC
+  workflow_dispatch: # One-click manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  crawl:
+    name: Crawl Toyoko Inn & Sync to Sheet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js (Node 24)
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Toyoko Inn Crawler in Cloud
+        env:
+          GAS_WEBHOOK_URL: ${{ secrets.GAS_WEBHOOK_URL || vars.GAS_WEBHOOK_URL }}
+        run: npm run crawl:toyoko
+
+      - name: Commit Updated Seed Data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/toyoko_seed.json src/data/spots.json
+          if git diff --staged --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore(data): auto-update Toyoko Inn seed dataset from cloud crawler [skip ci]"
+            git push
+          fi

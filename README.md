@@ -72,66 +72,51 @@ npm run crawl:toyoko
 ```
 爬取結果會儲存至 `src/data/toyoko_seed.json` 與 `src/data/spots.json`。
 
-### 2. 爬取任意新飯店、餐廳或便利商店網址
-當您在網路上看到推薦的日本美食或飯店，執行下列指令即可自動解析標題、地址、經緯度與鄰近車站：
-```bash
-# 爬取餐廳範例
-npm run crawl:url -- --url "https://example.com/ramen-shop" --category "美食餐廳"
+## ☁️ 100% 全雲端自動化架構 (Zero-Local, Cloud-Native)
 
-# 爬取飯店範例
-npm run crawl:url -- --url "https://example.com/hotel" --category "飯店"
-```
-若有設定環境變數 `GAS_WEBHOOK_URL`，解析結果會自動透過 Webhook 直接寫入您的 Google Sheet 對應分頁！
+本專案所有的爬蟲、同步、資料庫寫入與網站建置**全部由 GitHub Actions 雲端自動處理**，完全不需要在本地電腦執行任何指令！
 
-### 3. 處理 Google Sheet「待爬清單」佇列
-```bash
-npm run crawl:url -- --from-queue
-```
+### 1. 雲端一鍵同步東橫 INN 至 Google Sheet
+- 前往 GitHub 倉庫的 **`Actions`** 頁籤。
+- 點選左側 **`Cloud Sync Seed to Google Sheet`** → 點擊 **`Run workflow`**。
+- GitHub 雲端伺服器會自動將 347 筆飯店資料分批推送至您的 Google Sheet「飯店」分頁！
 
----
+### 2. 雲端輸入網址，自動爬取寫入試算表
+- 當您在網路上看到值得推薦的日本飯店、拉麵店或超商：
+- 前往 **`Actions`** 頁籤 → 點選 **`Cloud Crawl URL to Google Sheet`** → 點擊 **`Run workflow`**：
+  - 輸入 **網址 (URL)**
+  - 選擇 **類別 (飯店 / 美食餐廳 / 便利商店 / 購物藥妝)**
+- GitHub Actions 雲端機器人會立即造訪該網址、解析店家名稱、地址、電話、經緯度與最近車站，並直接寫入您的 Google Sheet 對應分頁！
 
-## 📑 Google Sheet 串接與 Apps Script (GAS) 設定教學
+### 3. 試算表「待爬清單」排程全自動處理
+- 自由行途中，您只需在 Google Sheet 的「**待爬清單**」工作表中貼上網址。
+- GitHub Actions **每 6 小時**（或手動觸發 `Process Crawl Queue`）會自動讀取該佇列，爬取完成後自動將店家轉移至「美食餐廳」等正式分頁，並將狀態標記為 `DONE`！
 
-本專案完全不需申請複雜的 Google Cloud Console 服務帳號或信用卡，只需 3 步驟：
-
-### 第一步：建立 Google 試算表
-在您的 Google 雲端硬碟建立一份空白 Google Sheet。
-
-### 第二步：貼上 Webhook 程式碼
-1. 在試算表中點選上方選單：「**擴充功能 (Extensions)**」 → 「**Apps Script**」。
-2. 將本專案中的 [`gas/Code.gs`](gas/Code.gs) 內容完整複製貼上。
-3. 點選右上角「**部署 (Deploy)**」 → 「**新部署 (New deployment)**」。
-4. 齒輪選擇「**網頁應用程式 (Web app)**」：
-   - 說明：`Japan Map Webhook`
-   - 執行身分：`我 (Me)`
-   - 誰可以存取：`任何人 (Anyone)`
-5. 點擊「部署」，並複製產生的 **網頁應用程式網址 (Web App URL)**。
-
-### 第三步：一鍵將東橫 INN 種子資料同步至試算表
-在終端機輸入：
-```bash
-node scripts/sync_to_sheet.js <YOUR_WEB_APP_URL>
-```
-系統會自動在您的試算表中建立「飯店」分頁，並將 347 間飯店完整寫入！
+### 4. 網站自動同步與發布 (GitHub Pages)
+- **`Deploy to GitHub Pages`**：每天 UTC 00:00 自動從 Google Sheet 抓取最新分頁資料，打包成靜態網站並發布至 GitHub Pages。
+- 您在 Google Sheet 上新增或修改的任何店名、推薦筆記，都會自動反映到地圖上！
 
 ---
 
-## ☁️ GitHub Actions 自動化部署至 GitHub Pages
+## 📑 Google Sheet 串接與 Apps Script (GAS) 3 分鐘設定
 
-本專案已配置完整的 CI/CD 工作流：
+完全不需申請複雜的 Google Cloud Console 服務帳號或信用卡：
 
-1. **前往您的 GitHub Repo 設定**：
-   - **Settings** → **Pages** → 將 **Source** 改為 **`GitHub Actions`**。
-   - **Settings** → **Actions** → **General** → **Workflow permissions** 改為 **`Read and write permissions`**。
-2. **（選填）綁定 Google Sheet 變數**：
-   - 到 **Settings** → **Secrets and variables** → **Actions** → **Variables**：
-     - `SHEET_ID`：您的 Google 試算表 ID。
-     - `GID`：飯店分頁 GID（通常為 0）。
-     - `GID_FOOD`：美食餐廳分頁 GID。
-   - 若未設定 `SHEET_ID`，GitHub Actions 會自動採用專案內建的 347 間飯店種子資料進行打包發布。
-3. **自動更新排程**：
-   - 每天 UTC 00:00 自動同步最新資料並發布至 GitHub Pages。
-   - 也可在 **Actions** 頁籤隨時點擊 **Run workflow** 手動觸發部署。
+1. **建立 Google 試算表**：在 Google 雲端硬碟建立一份空白 Google Sheet。
+2. **貼上 Webhook 程式碼**：
+   - 點選上方選單：「**擴充功能 (Extensions)**」 → 「**Apps Script**」。
+   - 將本專案中的 [`gas/Code.gs`](gas/Code.gs) 內容完整複製貼上。
+   - 點選右上角「**部署 (Deploy)**」 → 「**新部署 (New deployment)**」。
+   - 齒輪選擇「**網頁應用程式 (Web app)**」，將「誰可以存取」設為 **任何人 (Anyone)**。
+   - 點擊「部署」，並複製產生的 **網頁應用程式網址 (Web App URL)**。
+3. **設定 GitHub Secret (一次性設定)**：
+   - 前往您的 GitHub 倉庫 → **Settings** → **Secrets and variables** → **Actions**。
+   - 點擊 **New repository secret**：
+     - Name: `GAS_WEBHOOK_URL`
+     - Secret: 貼上您的 Web App 網址。
+4. **（選填）綁定讀取變數**：
+   - 在相同頁面切換至 **Variables** 頁籤，新增 `SHEET_ID`（網址列 `/d/` 後的一串亂碼）。
+   - 若未設定 `SHEET_ID`，網站會自動採用內建的 347 間東橫 INN 種子資料打包發布。
 
 ---
 

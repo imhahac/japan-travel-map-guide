@@ -112,14 +112,21 @@ export default function SyncModal({ isOpen, onClose }) {
                 點擊「部署」→「新部署」→ 選擇「網頁應用程式 (Web app)」，將「誰可以存取」設為<strong>任何人 (Anyone)</strong>。
               </div>
             </li>
+            <li>
+              <strong>設定至 GitHub Secrets (全雲端自動化)</strong>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
+                前往您的 GitHub Repo → <strong>Settings</strong> → <strong>Secrets and variables</strong> → <strong>Actions</strong>，新增 Secret <code>GAS_WEBHOOK_URL</code> 填入上述網址。
+              </div>
+            </li>
           </ol>
 
-          <div style={{ background: '#fef3c7', color: '#92400e', padding: '0.85rem', borderRadius: '8px', fontSize: '0.8rem' }}>
-            💡 <strong>一鍵推送種子資料</strong>：取得 Web App 網址後，在終端機輸入：<br />
-            <code style={{ background: 'rgba(0,0,0,0.06)', padding: '0.2rem 0.4rem', borderRadius: '4px', display: 'inline-block', marginTop: '0.3rem' }}>
-              node scripts/sync_to_sheet.js &lt;YOUR_WEB_APP_URL&gt;
-            </code><br />
-            即可將全日本東橫 INN 完整分店一口氣全部寫入您的 Google Sheet！
+          <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#166534', padding: '0.85rem', borderRadius: '8px', fontSize: '0.82rem' }}>
+            ☁️ <strong>全雲端自動處理 (無需任何本機指令)</strong>：
+            <ul style={{ paddingLeft: '1.1rem', marginTop: '0.35rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+              <li><strong>一鍵同步至 Google Sheet</strong>：至 Actions 頁籤執行 <code>Cloud Sync Seed to Google Sheet</code>。</li>
+              <li><strong>雲端網址爬蟲</strong>：至 Actions 頁籤執行 <code>Cloud Crawl URL to Google Sheet</code>，直接輸入網址即自動寫入試算表！</li>
+              <li><strong>待爬清單排程</strong>：在試算表「待爬清單」貼上網址，GitHub Actions 每 6 小時全自動爬取歸檔。</li>
+            </ul>
           </div>
         </div>
 

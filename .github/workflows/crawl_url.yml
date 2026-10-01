@@ -1,0 +1,49 @@
+name: Cloud Crawl URL to Google Sheet
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: '欲爬取的店家/飯店網址 (URL)'
+        required: true
+        type: string
+      category:
+        description: '店家類別 (將自動寫入對應 Google Sheet 分頁)'
+        required: true
+        default: '美食餐廳'
+        type: choice
+        options:
+          - '飯店'
+          - '美食餐廳'
+          - '便利商店'
+          - '購物藥妝'
+      name:
+        description: '自訂名稱 (選填，若留空將自動從網頁標題或 Schema 萃取)'
+        required: false
+        type: string
+
+jobs:
+  crawl:
+    name: Crawl URL & Sync to Sheet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js (Node 24)
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Scrape URL in Cloud
+        env:
+          GAS_WEBHOOK_URL: ${{ secrets.GAS_WEBHOOK_URL || vars.GAS_WEBHOOK_URL }}
+        run: |
+          CMD="npm run crawl:url -- --url \"${{ inputs.url }}\" --category \"${{ inputs.category }}\""
+          if [ -n "${{ inputs.name }}" ]; then
+            CMD="$CMD --name \"${{ inputs.name }}\""
+          fi
+          eval $CMD

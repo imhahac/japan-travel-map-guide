@@ -1,0 +1,37 @@
+name: Cloud Sync Seed to Google Sheet
+
+on:
+  workflow_dispatch:
+    inputs:
+      gas_webhook_url:
+        description: 'Google Apps Script Webhook 網址 (若已設定 Repository Secret 可留空)'
+        required: false
+        type: string
+
+jobs:
+  sync:
+    name: Sync Toyoko Inn Seed to Sheet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js (Node 24)
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Push Seed Data to Google Sheet
+        env:
+          INPUT_URL: ${{ inputs.gas_webhook_url }}
+          ENV_URL: ${{ secrets.GAS_WEBHOOK_URL || vars.GAS_WEBHOOK_URL }}
+        run: |
+          TARGET_URL="${INPUT_URL:-$ENV_URL}"
+          if [ -z "$TARGET_URL" ]; then
+            echo "::error::未提供 GAS_WEBHOOK_URL！請在執行時輸入或至 Settings -> Secrets 設定 GAS_WEBHOOK_URL。"
+            exit 1
+          fi
+          node scripts/sync_to_sheet.js "$TARGET_URL"
