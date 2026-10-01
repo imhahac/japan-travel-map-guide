@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import { Locate, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react';
+import { Locate, RotateCcw, ZoomIn, ZoomOut, Layers, Train } from 'lucide-react';
 
 // Fix Leaflet default icon URL issues in Vite
 delete L.Icon.Default.prototype._getIconUrl;
@@ -14,19 +14,47 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
+// High-speed, high-resolution, crystal-clear tile providers
+const TILE_PROVIDERS = {
+  voyager: {
+    id: 'voyager',
+    name: '精緻旅遊 (超清晰)',
+    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    subdomains: 'abcd',
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  },
+  gsi: {
+    id: 'gsi',
+    name: '日本官方地理院 (詳細鐵道與出口)',
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
+    subdomains: 'a',
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html">國土地理院</a>'
+  },
+  dark: {
+    id: 'dark',
+    name: '黑金夜間模式',
+    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    subdomains: 'abcd',
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a>'
+  }
+};
+
 function createCustomPin(spot) {
   let bgColor = '#00489d'; // Blue for Toyoko Inn
-  let iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg>`;
+  let iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg>`;
 
   if (spot.category === '美食餐廳') {
     bgColor = '#ea580c';
-    iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
   } else if (spot.category === '便利商店') {
     bgColor = '#16a34a';
-    iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
   } else if (spot.category === '購物藥妝') {
     bgColor = '#9333ea';
-    iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`;
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`;
   }
 
   const html = `
@@ -37,7 +65,7 @@ function createCustomPin(spot) {
       border-radius: 50% 50% 50% 0;
       transform: rotate(-45deg);
       border: 2px solid #ffffff;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -62,17 +90,16 @@ function createStationPin(station) {
   const html = `
     <div style="
       background: #f59e0b;
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 3px solid #ffffff;
-      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.4), 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.4), 0 6px 16px rgba(0,0,0,0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: pulse 2s infinite;
     ">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
         <rect x="4" y="3" width="16" height="16" rx="2"/>
         <path d="M4 11h16M12 3v8M8 19l-2 3M16 19l2 3M8 15h.01M16 15h.01"/>
       </svg>
@@ -82,49 +109,95 @@ function createStationPin(station) {
   return L.divIcon({
     className: 'station-leaflet-pin',
     html: html,
-    iconSize: [38, 38],
-    iconAnchor: [19, 19],
-    popupAnchor: [0, -19]
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -20]
   });
 }
 
-export default function InteractiveMap({ spots = [], selectedSpot, selectedStation, onSelectSpot }) {
+export default function InteractiveMap({ spots = [], selectedSpot, selectedStation, onSelectSpot, theme = 'light' }) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const tileLayerRef = useRef(null);
   const clusterGroupRef = useRef(null);
   const stationLayerRef = useRef(null);
   const markersMapRef = useRef(new Map());
+
+  const [activeTileKey, setActiveTileKey] = useState(theme === 'dark' ? 'dark' : 'voyager');
+  const [showLayerMenu, setShowLayerMenu] = useState(false);
+
+  // Sync active tile with theme if user hasn't explicitly picked GSI
+  useEffect(() => {
+    if (activeTileKey !== 'gsi') {
+      setActiveTileKey(theme === 'dark' ? 'dark' : 'voyager');
+    }
+  }, [theme]);
 
   // 1. Initialize Map
   useEffect(() => {
     if (!mapContainerRef.current || mapInstanceRef.current) return;
 
+    // Default view centered on Tokyo metropolitan area
     const map = L.map(mapContainerRef.current, {
-      center: [36.2048, 138.2529], // Center of Japan
-      zoom: 6,
+      center: [35.6812, 139.7671],
+      zoom: 11,
       zoomControl: false
     });
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    const isRetina = L.Browser.retina;
+    const provider = TILE_PROVIDERS[activeTileKey] || TILE_PROVIDERS.voyager;
+
+    const tileLayer = L.tileLayer(provider.url, {
+      subdomains: provider.subdomains,
+      maxZoom: provider.maxZoom,
+      r: isRetina ? '@2x' : '',
+      attribution: provider.attribution
     }).addTo(map);
 
+    tileLayerRef.current = tileLayer;
+
+    // Cluster group with high-visibility modern badge design
     const cluster = L.markerClusterGroup({
-      maxClusterRadius: 42,
+      maxClusterRadius: 40,
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
       iconCreateFunction: function (c) {
         const count = c.getChildCount();
-        let sizeClass = 'marker-cluster-small';
-        if (count > 20) sizeClass = 'marker-cluster-medium';
-        if (count > 50) sizeClass = 'marker-cluster-large';
+        let size = 42;
+        let bgGrad = 'linear-gradient(135deg, #00489d, #1a68d1)';
+
+        if (count > 25) {
+          size = 48;
+          bgGrad = 'linear-gradient(135deg, #1e3a8a, #00489d)';
+        }
+        if (count > 60) {
+          size = 54;
+          bgGrad = 'linear-gradient(135deg, #0f172a, #1e3a8a)';
+        }
 
         return L.divIcon({
-          html: `<div><span>${count}</span></div>`,
-          className: `marker-cluster ${sizeClass}`,
-          iconSize: L.point(40, 40)
+          html: `
+            <div style="
+              background: ${bgGrad};
+              color: #ffffff;
+              width: ${size}px;
+              height: ${size}px;
+              border-radius: 50%;
+              border: 3px solid #ffffff;
+              box-shadow: 0 4px 14px rgba(0, 72, 157, 0.45);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 800;
+              font-size: 14px;
+              font-family: inherit;
+            ">
+              ${count}
+            </div>
+          `,
+          className: 'custom-cluster-icon',
+          iconSize: L.point(size, size)
         });
       }
     });
@@ -140,7 +213,29 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
     };
   }, []);
 
-  // 2. Render Spot Markers
+  // 2. Switch Tile Layers Dynamically
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (tileLayerRef.current) {
+      map.removeLayer(tileLayerRef.current);
+    }
+
+    const provider = TILE_PROVIDERS[activeTileKey] || TILE_PROVIDERS.voyager;
+    const isRetina = L.Browser.retina;
+
+    const newTileLayer = L.tileLayer(provider.url, {
+      subdomains: provider.subdomains,
+      maxZoom: provider.maxZoom,
+      r: isRetina ? '@2x' : '',
+      attribution: provider.attribution
+    }).addTo(map);
+
+    tileLayerRef.current = newTileLayer;
+  }, [activeTileKey]);
+
+  // 3. Render Spot Markers
   useEffect(() => {
     const map = mapInstanceRef.current;
     const cluster = clusterGroupRef.current;
@@ -157,27 +252,40 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
         title: spot.name
       });
 
-      // Build popup content
+      // Build rich popup content
       const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}&travelmode=walking`;
       const popupHtml = `
-        <div style="font-family: inherit; width: 240px; padding: 4px;">
+        <div style="font-family: inherit; width: 250px; padding: 4px;">
           ${spot.imageUrl ? `
-            <img src="${spot.imageUrl}" style="width: 100%; height: 110px; object-fit: cover; border-radius: 6px; margin-bottom: 8px;" onerror="this.style.display='none'" />
+            <img src="${spot.imageUrl}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" onerror="this.style.display='none'" />
           ` : ''}
-          <div style="font-size: 11px; font-weight: 700; color: #00489d; text-transform: uppercase;">${spot.brand || spot.category}</div>
-          <div style="font-size: 14px; font-weight: 700; color: #0f172a; margin: 2px 0 6px 0; line-height: 1.3;">${spot.name}</div>
-          <div style="font-size: 12px; color: #00489d; font-weight: 600; margin-bottom: 4px;">🚉 ${spot.stationAccess || spot.nearestStation}</div>
-          <div style="font-size: 11px; color: #64748b; margin-bottom: 10px;">📍 ${spot.address || spot.prefecture}</div>
+          <div style="font-size: 11px; font-weight: 800; color: #00489d; letter-spacing: 0.5px; text-transform: uppercase;">
+            ${spot.brand || spot.category}
+          </div>
+          <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 2px 0 6px 0; line-height: 1.3;">
+            ${spot.name}
+          </div>
+          <div style="font-size: 12px; color: #00489d; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+            <span>🚉</span>
+            <span>${spot.stationAccess || spot.nearestStation}</span>
+          </div>
+          <div style="font-size: 11px; color: #64748b; margin-bottom: 12px;">
+            📍 ${spot.address || spot.prefecture}
+          </div>
           <div style="display: flex; gap: 6px;">
-            <a href="${navUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: #f1f5f9; color: #0f172a; font-size: 11px; font-weight: 600; padding: 6px; border-radius: 4px; text-decoration: none; border: 1px solid #cbd5e1;">🚶 步行導航</a>
+            <a href="${navUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: #f1f5f9; color: #0f172a; font-size: 11px; font-weight: 700; padding: 7px 4px; border-radius: 6px; text-decoration: none; border: 1px solid #cbd5e1;">
+              🚶 步行導航
+            </a>
             ${spot.bookingUrl ? `
-              <a href="${spot.bookingUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: #00489d; color: #ffffff; font-size: 11px; font-weight: 600; padding: 6px; border-radius: 4px; text-decoration: none;">🏨 官方訂房</a>
+              <a href="${spot.bookingUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: #00489d; color: #ffffff; font-size: 11px; font-weight: 700; padding: 7px 4px; border-radius: 6px; text-decoration: none; box-shadow: 0 2px 6px rgba(0,72,157,0.3);">
+                🏨 官方預約
+              </a>
             ` : ''}
           </div>
         </div>
       `;
 
-      marker.bindPopup(popupHtml, { maxWidth: 280 });
+      marker.bindPopup(popupHtml, { maxWidth: 290 });
 
       marker.on('click', () => {
         onSelectSpot(spot);
@@ -188,7 +296,7 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
     });
   }, [spots, onSelectSpot]);
 
-  // 3. Handle Station Focus & Walking Radius Circles
+  // 4. Handle Station Focus & Walking Radius Circles
   useEffect(() => {
     const map = mapInstanceRef.current;
     const stationLayer = stationLayerRef.current;
@@ -205,10 +313,10 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
         zIndexOffset: 1000
       });
       stMarker.bindPopup(`
-        <div style="font-family: inherit; padding: 4px; text-align: center;">
+        <div style="font-family: inherit; padding: 6px; text-align: center;">
           <div style="font-size: 11px; color: #b45309; font-weight: 700;">主要樞紐車站</div>
-          <div style="font-size: 16px; font-weight: 800; color: #0f172a;">${selectedStation.name}</div>
-          <div style="font-size: 12px; color: #64748b; margin-top: 2px;">周圍涵蓋 ${selectedStation.count} 間東橫 INN / 商店</div>
+          <div style="font-size: 17px; font-weight: 800; color: #0f172a;">${selectedStation.name}</div>
+          <div style="font-size: 12px; color: #64748b; margin-top: 4px;">生活圈內有 ${selectedStation.count} 間東橫 INN / 店家</div>
         </div>
       `);
       stationLayer.addLayer(stMarker);
@@ -217,7 +325,7 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
       const circle500 = L.circle(pos, {
         radius: 500,
         color: '#10b981',
-        weight: 2,
+        weight: 2.5,
         dashArray: '6, 6',
         fillColor: '#10b981',
         fillOpacity: 0.12
@@ -228,10 +336,10 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
       const circle1000 = L.circle(pos, {
         radius: 1000,
         color: '#f59e0b',
-        weight: 1.5,
-        dashArray: '4, 4',
+        weight: 2,
+        dashArray: '5, 5',
         fillColor: '#f59e0b',
-        fillOpacity: 0.05
+        fillOpacity: 0.06
       }).bindTooltip('1000m 步行約 12 分鐘', { permanent: false, direction: 'top' });
       stationLayer.addLayer(circle1000);
 
@@ -240,7 +348,7 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
     }
   }, [selectedStation]);
 
-  // 4. Handle Spot Selection & Zoom
+  // 5. Handle Spot Selection & Zoom
   useEffect(() => {
     const map = mapInstanceRef.current;
     const cluster = clusterGroupRef.current;
@@ -256,7 +364,7 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
     }
   }, [selectedSpot]);
 
-  // Map Controls Handlers
+  // Controls Handlers
   const handleZoomIn = () => mapInstanceRef.current?.zoomIn();
   const handleZoomOut = () => mapInstanceRef.current?.zoomOut();
   const handleResetJapan = () => {
@@ -279,11 +387,70 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
   };
 
   return (
-    <div className="map-container">
-      <div id="leaflet-map" ref={mapContainerRef} />
+    <div className="map-container" style={{ position: 'relative' }}>
+      <div id="leaflet-map" ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
 
       {/* Floating Map Controls */}
       <div className="map-floating-panel">
+        {/* Layer Switcher Button */}
+        <div style={{ position: 'relative' }}>
+          <button
+            className="map-control-btn"
+            onClick={() => setShowLayerMenu(prev => !prev)}
+            title="切換地圖圖層樣式"
+          >
+            <Layers size={18} color="#00489d" />
+          </button>
+
+          {showLayerMenu && (
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: '48px',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              borderRadius: '12px',
+              boxShadow: 'var(--shadow-lg)',
+              padding: '0.4rem',
+              width: '210px',
+              zIndex: 1100,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.3rem'
+            }}>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 700, padding: '0.2rem 0.5rem' }}>
+                選擇地圖圖資
+              </div>
+              {Object.values(TILE_PROVIDERS).map(p => (
+                <button
+                  key={p.id}
+                  onClick={() => {
+                    setActiveTileKey(p.id);
+                    setShowLayerMenu(false);
+                  }}
+                  style={{
+                    background: activeTileKey === p.id ? 'var(--primary-light)' : 'transparent',
+                    color: activeTileKey === p.id ? 'var(--primary)' : 'var(--text-main)',
+                    border: 'none',
+                    textAlign: 'left',
+                    padding: '0.45rem 0.6rem',
+                    borderRadius: '6px',
+                    fontSize: '0.8rem',
+                    fontWeight: activeTileKey === p.id ? 700 : 500,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <span>{p.name}</span>
+                  {activeTileKey === p.id && <span style={{ fontSize: '0.75rem' }}>✓</span>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
         <button className="map-control-btn" onClick={handleLocateMe} title="定位我的目前位置">
           <Locate size={18} color="#00489d" />
         </button>

@@ -259,6 +259,7 @@ export default function App() {
           selectedSpot={selectedSpot}
           selectedStation={selectedStation}
           onSelectSpot={handleSelectSpot}
+          theme={theme}
         />
       </div>
 
