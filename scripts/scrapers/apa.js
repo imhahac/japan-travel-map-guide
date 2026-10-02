@@ -375,8 +375,377 @@ export const APA_HOTELS_SEED = [
     urlKey: 'kyushu/okinawa/naha-matsuyama',
     tags: ['國際通商圈', '大浴場', '單軌電車美榮橋站'],
     notes: '單軌電車美榮橋站步行約 7 分鐘，步行至國際通僅需 8 分鐘，附設人工溫泉大浴場。'
+  },
+  {
+    code: 'naha-wakasa',
+    name: 'APA飯店〈那霸若狹大通〉',
+    nameJa: 'アパホテル〈那覇若狭大通〉',
+    region: '九州・沖繩',
+    prefecture: '沖繩縣',
+    address: '沖縄県那覇市松山2-22-1',
+    lat: 26.2205,
+    lng: 127.6745,
+    phone: '098-866-9111',
+    urlKey: 'kyushu/okinawa/naha-wakasa',
+    tags: ['波之上神宮旁', '大浴場', '海灘散步圈'],
+    notes: '鄰近波之上沙灘與若狹大通，設有景觀大浴場。'
+  },
+
+  // --- 首都圈擴充 (秋葉原/池袋/淺草/銀座/品川/橫濱) ---
+  {
+    code: 'akihabara-ekimae',
+    name: 'APA飯店〈秋葉原站前〉',
+    nameJa: 'アパホテル〈秋葉原駅前〉',
+    region: '關東',
+    prefecture: '東京都',
+    address: '東京都千代田区神田佐久間町2-13-20',
+    lat: 35.6982,
+    lng: 139.7745,
+    phone: '03-5822-5111',
+    urlKey: 'syutoken/tokyo/akihabara-ekimae',
+    tags: ['秋葉原電氣街', 'JR昭和通口步行1分', '車站步行1分內'],
+    notes: 'JR 秋葉原站昭和通口步行 1 分鐘，直達筑波快線與日比谷線。'
+  },
+  {
+    code: 'akihabara-denkigai',
+    name: 'APA飯店〈秋葉原站電氣街口〉',
+    nameJa: 'アパホテル〈秋葉原駅電気街口〉',
+    region: '關東',
+    prefecture: '東京都',
+    address: '東京都千代田区外神田3-11-4',
+    lat: 35.7005,
+    lng: 139.7712,
+    phone: '03-5295-8111',
+    urlKey: 'syutoken/tokyo/akihabara-denkigai',
+    tags: ['動漫商圈核心', '電氣街中央通旁'],
+    notes: '秋葉原電氣街核心中心，周邊動漫遊戲旗艦店林立。'
+  },
+  {
+    code: 'asakusa-ekimae',
+    name: 'APA飯店〈淺草站前〉',
+    nameJa: 'アパホテル〈浅草駅前〉',
+    region: '關東',
+    prefecture: '東京都',
+    address: '東京都台東区駒形1-12-16',
+    lat: 35.7092,
+    lng: 139.7945,
+    phone: '03-5830-0211',
+    urlKey: 'syutoken/tokyo/asakusa-ekimae',
+    tags: ['淺草雷門步行2分', '晴空塔展望', '車站步行1分內'],
+    notes: '都營淺草線淺草站 A1 出口步行 1 分鐘，直達成田與羽田機場。'
+  },
+  {
+    code: 'ikebukuro-kitaguchi',
+    name: 'APA飯店〈池袋站北口〉',
+    nameJa: 'アパホテル〈池袋駅北口〉',
+    region: '關東',
+    prefecture: '東京都',
+    address: '東京都豊島区池袋2-48-7',
+    lat: 35.7335,
+    lng: 139.7110,
+    phone: '03-5911-8111',
+    urlKey: 'syutoken/tokyo/ikebukuro-kitaguchi',
+    tags: ['池袋商圈', '大浴場', '車站步行4分內'],
+    notes: '池袋站西口（北）出站步行 4 分鐘，池袋商圈生活機能極佳。'
+  },
+  {
+    code: 'ginza-kyobashi',
+    name: 'APA飯店〈銀座 京橋〉',
+    nameJa: 'アパホテル〈銀座 京橋〉',
+    region: '關東',
+    prefecture: '東京都',
+    address: '東京都中央区京橋3-6-7',
+    lat: 35.6745,
+    lng: 139.7705,
+    phone: '03-5159-5311',
+    urlKey: 'syutoken/tokyo/ginza-kyobashi',
+    tags: ['銀座購物圈', '東京站步行圈', '地下鐵京橋站旁'],
+    notes: '銀座線京橋站步行 1 分鐘，走路至東京站八重洲口僅約 8 分鐘。'
+  },
+  {
+    code: 'shinagawa-sengakuji',
+    name: 'APA飯店〈品川 泉岳寺站前〉',
+    nameJa: 'アパホテル〈品川 泉岳寺駅前〉',
+    region: '關東',
+    prefecture: '東京都',
+    address: '東京都港区高輪2-16-30',
+    lat: 35.6385,
+    lng: 139.7395,
+    phone: '03-5475-6811',
+    urlKey: 'syutoken/tokyo/shinagawa-sengakuji',
+    tags: ['頂樓展望大浴場', '露天風呂', '直達羽田機場'],
+    notes: '泉岳寺站 A2 出口徒步 1 分鐘，頂樓展望大浴場眺望東京鐵塔。'
+  },
+  {
+    code: 'ryogoku-tower',
+    name: 'APA飯店＆度假村〈兩國站塔〉',
+    nameJa: 'アパホテル＆リゾート〈両国駅タワー〉',
+    region: '關東',
+    prefecture: '東京都',
+    address: '東京都墨田区横網1-11-10',
+    lat: 35.6965,
+    lng: 139.7925,
+    phone: '03-5625-8111',
+    urlKey: 'syutoken/tokyo/ryogoku-tower',
+    tags: ['大浴場', '露天水療風呂', '相撲國技館旁', '地下鐵直通'],
+    notes: '31 層超大型度假型商旅，設有超大地下浴場與屋頂景觀泳池。'
+  },
+  {
+    code: 'yokohama-bay-tower',
+    name: 'APA飯店＆度假村〈橫濱海灣塔〉',
+    nameJa: 'アパホテル＆リゾート〈横浜ベイタワー〉',
+    region: '關東',
+    prefecture: '神奈川縣',
+    address: '神奈川県横浜市中区海岸通5-25-3',
+    lat: 35.4525,
+    lng: 139.6380,
+    phone: '045-226-5111',
+    urlKey: 'syutoken/kanagawa/yokohama-baytower',
+    tags: ['2311間旗艦客房', '大浴場', '橫濱港未來景觀', '露天風呂'],
+    notes: '全日本客房數最多的大型旗艦地標塔樓，設有超寬敞景觀大浴場。'
+  },
+  {
+    code: 'yokohama-kannai',
+    name: 'APA飯店〈橫濱關內〉',
+    nameJa: 'アパホテル〈横浜関内〉',
+    region: '關東',
+    prefecture: '神奈川縣',
+    address: '神奈川県横浜市中区住吉町3-37-2',
+    lat: 35.4455,
+    lng: 139.6355,
+    phone: '045-650-6111',
+    urlKey: 'syutoken/kanagawa/yokohama-kannai',
+    tags: ['大浴場', '桑拿', '橫濱球場旁', '中華街步行圈'],
+    notes: 'JR 關內站北口步行 3 分鐘，頂樓配有人工溫泉大浴場與桑拿。'
+  },
+  {
+    code: 'kawasaki-ekimae',
+    name: 'APA飯店〈川崎站前〉',
+    nameJa: 'アパホテル〈川崎駅前〉',
+    region: '關東',
+    prefecture: '神奈川縣',
+    address: '神奈川県川崎市川崎区砂子1-7-1',
+    lat: 35.5295,
+    lng: 139.7005,
+    phone: '044-222-1111',
+    urlKey: 'syutoken/kanagawa/kawasaki-ekimae',
+    tags: ['川崎站步行5分', '羽田機場快線直通'],
+    notes: 'JR 川崎站東口步行 5 分鐘，前往羽田機場與橫濱樞紐極為快速。'
+  },
+
+  // --- 近畿大區擴充 (新大阪/難波/心齋橋/京都/神戶) ---
+  {
+    code: 'shin-osaka-minami',
+    name: 'APA飯店〈新大阪站南〉',
+    nameJa: 'アパホテル〈新大阪駅南〉',
+    region: '近畿',
+    prefecture: '大阪府',
+    address: '大阪府大阪市淀川区西中島7-1-6',
+    lat: 34.7305,
+    lng: 135.5005,
+    phone: '06-6302-8111',
+    urlKey: 'kansai/osaka/shin-osaka-minami',
+    tags: ['新幹線新大阪站', '大浴場', '地下鐵御堂筋線'],
+    notes: 'JR 新大阪站正面出口步行 6 分鐘，地下鐵西中島南方站步行 3 分鐘。'
+  },
+  {
+    code: 'osaka-tanimachi4',
+    name: 'APA飯店〈大阪谷町四丁目站前〉',
+    nameJa: 'アパホテル〈大阪谷町四丁目駅前〉',
+    region: '近畿',
+    prefecture: '大阪府',
+    address: '大阪府大阪市中央区内本町1-3-12',
+    lat: 34.6850,
+    lng: 135.5190,
+    phone: '06-6941-8111',
+    urlKey: 'kansai/osaka/tanimachi4',
+    tags: ['大浴場', '露天風呂', '大阪城公園旁', '車站步行1分內'],
+    notes: '谷町四丁目站 8 號出口步行 1 分鐘，緊鄰大阪城天守閣與大手門。'
+  },
+  {
+    code: 'namba-shinsaibashi',
+    name: 'APA飯店〈難波心齋橋〉',
+    nameJa: 'アパホテル〈なんば心斎橋〉',
+    region: '近畿',
+    prefecture: '大阪府',
+    address: '大阪府大阪市中央区西心斎橋2-7-12',
+    lat: 34.6695,
+    lng: 135.4990,
+    phone: '06-6214-8111',
+    urlKey: 'kansai/osaka/namba-shinsaibashi',
+    tags: ['心齋橋美國村', '道頓堀跑跑人旁', '商圈核心'],
+    notes: '座落於美國村中心，步行至道頓堀與心齋橋筋商店街僅 3 分鐘。'
+  },
+  {
+    code: 'kyoto-gion',
+    name: 'APA飯店〈京都祇園 Excellence〉',
+    nameJa: 'アパホテル〈京都祇園エクセレント〉',
+    region: '近畿',
+    prefecture: '京都府',
+    address: '京都府京都市東山区祇園町南側555',
+    lat: 35.0035,
+    lng: 135.7765,
+    phone: '075-551-2111',
+    urlKey: 'kansai/kyoto/kyoto-gion',
+    tags: ['八坂神社前', '祇園花見小路', '清水寺步行圈'],
+    notes: '八坂神社正門斜對面，祇園散步觀光與和服體驗極佳據點。'
+  },
+  {
+    code: 'kyoto-horikawa',
+    name: 'APA飯店〈京都堀川通〉',
+    nameJa: 'アパホテル〈京都駅堀川通〉',
+    region: '近畿',
+    prefecture: '京都府',
+    address: '京都府京都市下京区油小路通塩小路下ル西油小路町1',
+    lat: 34.9880,
+    lng: 135.7535,
+    phone: '075-341-6111',
+    urlKey: 'kansai/kyoto/kyoto-horikawa',
+    tags: ['頂樓大浴場', '露天風呂', '京都站烏丸口步行7分'],
+    notes: 'JR 京都站烏丸中央口步行 7 分鐘，頂樓配有人工溫泉露天風呂。'
+  },
+  {
+    code: 'kobe-sannomiya',
+    name: 'APA飯店〈神戶三宮〉',
+    nameJa: 'アパホテル〈神戸三宮〉',
+    region: '近畿',
+    prefecture: '兵庫縣',
+    address: '兵庫県神戸市中央区八幡通4-2-18',
+    lat: 34.6945,
+    lng: 135.1955,
+    phone: '078-272-2111',
+    urlKey: 'kansai/hyogo/kobe-sannomiya',
+    tags: ['神戶三宮樞紐', '神戶牛美食街', '車站步行5分內'],
+    notes: 'JR 三之宮站東口步行 5 分鐘，神戶市區交通核心樞紐。'
+  },
+
+  // --- 中部與北陸擴充 (名古屋/金澤/富山) ---
+  {
+    code: 'nagoya-shinkansen-minami',
+    name: 'APA飯店〈名古屋站新幹線口南〉',
+    nameJa: 'アパホテル〈名古屋駅新幹線口南〉',
+    region: '東海・甲信越・北陸',
+    prefecture: '愛知縣',
+    address: '愛知県名古屋市中村区椿町13-1',
+    lat: 35.1685,
+    lng: 136.8810,
+    phone: '052-459-5111',
+    urlKey: 'tokai/aichi/nagoya-shinkansen-minami',
+    tags: ['大浴場', '新幹線口步行4分', '露天風呂'],
+    notes: 'JR 名古屋站新幹線太閤通口步行 4 分鐘，頂樓附設人工溫泉大浴場。'
+  },
+  {
+    code: 'kanazawa-chuo',
+    name: 'APA飯店〈金澤中央〉',
+    nameJa: 'アパホテル〈金沢中央〉',
+    region: '東海・甲信越・北陸',
+    prefecture: '石川縣',
+    address: '石川県金沢市片町1-5-24',
+    lat: 36.5615,
+    lng: 136.6535,
+    phone: '076-235-2111',
+    urlKey: 'hokuriku/ishikawa/kanazawa-chuo',
+    tags: ['片町美食街', '頂樓天然溫泉', '露天風呂'],
+    notes: '金澤最繁華之香林坊・片町商圈，頂樓設有 100% 天然溫泉大浴場。'
+  },
+  {
+    code: 'toyama-ekimae',
+    name: 'APA飯店〈富山站前〉',
+    nameJa: 'アパホテル〈富山駅前〉',
+    region: '東海・甲信越・北陸',
+    prefecture: '富山縣',
+    address: '富山県富山市明輪町1-231',
+    lat: 36.7005,
+    lng: 137.2135,
+    phone: '076-444-5111',
+    urlKey: 'hokuriku/toyama/toyama-ekimae',
+    tags: ['北陸新幹線富山站', '立山黑部阿爾卑斯門戶'],
+    notes: 'JR 富山站南口步行 1 分鐘，立山黑部阿爾卑斯路線出發首選飯店。'
+  },
+
+  // --- 九州擴充 (博多/鹿兒島) ---
+  {
+    code: 'hakata-ekimae-2chome',
+    name: 'APA飯店〈博多站前2丁目〉',
+    nameJa: 'アパホテル〈博多駅前2丁目〉',
+    region: '九州・沖繩',
+    prefecture: '福岡縣',
+    address: '福岡県福岡市博多区博多駅前2-11-12',
+    lat: 33.5910,
+    lng: 130.4165,
+    phone: '092-432-8211',
+    urlKey: 'kyushu/fukuoka/hakata-ekimae-2chome',
+    tags: ['大浴場', '博多口步行4分', '博多祇園山笠'],
+    notes: 'JR 博多站博多口步行 4 分鐘，設有露天風呂大浴場。'
+  },
+  {
+    code: 'kagoshima-chuo',
+    name: 'APA飯店〈鹿兒島中央站前〉',
+    nameJa: 'アパホテル〈鹿児島中央駅前〉',
+    region: '九州・沖繩',
+    prefecture: '鹿兒島縣',
+    address: '鹿児島県鹿児島市中央町21-25',
+    lat: 31.5835,
+    lng: 130.5435,
+    phone: '099-253-1111',
+    urlKey: 'kyushu/kagoshima/kagoshima-chuo',
+    tags: ['九州新幹線終點', '櫻島火山觀光門戶'],
+    notes: '九州新幹線鹿兒島中央站東口步行 2 分鐘，直通櫻島渡輪接駁。'
+  },
+
+  // --- 東北與中國地區擴充 (仙台/岡山/高松) ---
+  {
+    code: 'sendai-ekimae',
+    name: 'APA飯店〈仙台站前〉',
+    nameJa: 'アパホテル〈仙台駅前〉',
+    region: '東北',
+    prefecture: '宮城縣',
+    address: '宮城県仙台市青葉区中央3-8-27',
+    lat: 38.2615,
+    lng: 140.8805,
+    phone: '022-224-8111',
+    urlKey: 'tohoku/miyagi/sendai-ekimae',
+    tags: ['大浴場', '露天風呂', 'JR仙台站西口步行3分', '牛舌街'],
+    notes: 'JR 仙台站西口步行 3 分鐘，頂樓附設人造溫泉露天風呂「玄要之湯」。'
+  },
+  {
+    code: 'okayama-ekimae',
+    name: 'APA飯店〈岡山站前〉',
+    nameJa: 'アパホテル〈岡山駅前〉',
+    region: '中國・四國',
+    prefecture: '岡山縣',
+    address: '岡山県岡山市北区下石井1-3-12',
+    lat: 34.6645,
+    lng: 133.9195,
+    phone: '086-235-1111',
+    urlKey: 'chushikoku/okayama/okayama-ekimae',
+    tags: ['JR岡山站步行6分', 'Aeon Mall正對面', '山陽新幹線'],
+    notes: '山陽新幹線岡山站東口步行 6 分鐘，正對面為西日本最大永旺夢樂城。'
+  },
+  {
+    code: 'takamatsu-kawaramachi',
+    name: 'APA飯店〈高松瓦町〉',
+    nameJa: 'アパホテル〈高松瓦町〉',
+    region: '中國・四國',
+    prefecture: '香川縣',
+    address: '香川県高松市福田町13-16',
+    lat: 34.3395,
+    lng: 134.0535,
+    phone: '087-823-2323',
+    urlKey: 'chushikoku/kagawa/takamatsu-kawaramachi',
+    tags: ['大浴場', '露天風呂', '讚岐烏龍麵名店街', '琴電瓦町站旁'],
+    notes: '琴電瓦町站步行 3 分鐘，高松市中心商圈，附設露天人造溫泉風呂。'
   }
 ];
+
+export function saveApaSeed(stationsList = [], outDir = 'src/data') {
+  const spots = buildApaHotels(APA_HOTELS_SEED, stationsList);
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+  const targetPath = path.join(outDir, 'apa_seed.json');
+  fs.writeFileSync(targetPath, JSON.stringify(spots, null, 2), 'utf8');
+  console.log(`[APA] 成功儲存 ${spots.length} 筆 APA 飯店至 ${targetPath}`);
+  return spots;
+}
 
 /**
  * 產生標準化的 APA 飯店資料集（自動配對最近車站、步行時間與設施標籤）
