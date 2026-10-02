@@ -109,11 +109,12 @@ function doPost(e) {
 
       for (let r = 1; r < existingData.length; r++) {
         const id = String(existingData[r][0]);
-        if (id) idMap.set(id, r + 1); // 1-indexed row number
+        if (id) idMap.set(id, { rowNum: r + 1, data: existingData[r] }); // 1-indexed row number
       }
 
       let inserted = 0;
       let updated = 0;
+      const newRowsToAppend = [];
 
       rows.forEach(item => {
         const rowValues = [
@@ -139,15 +140,24 @@ function doPost(e) {
 
         const id = String(rowValues[0]);
         if (id && idMap.has(id)) {
-          const rowNum = idMap.get(id);
-          sheet.getRange(rowNum, 1, 1, HEADERS.length).setValues([rowValues]);
+          const existing = idMap.get(id);
+          // Preserve existing user custom notes if new item has empty notes
+          if (!rowValues[17] && existing.data[17]) {
+            rowValues[17] = existing.data[17];
+          }
+          sheet.getRange(existing.rowNum, 1, 1, HEADERS.length).setValues([rowValues]);
           updated++;
         } else {
-          sheet.appendRow(rowValues);
+          newRowsToAppend.push(rowValues);
           inserted++;
-          if (id) idMap.set(id, sheet.getLastRow());
         }
       });
+
+      // Atomic 2D batch write for all newly inserted rows (prevents 6-minute GAS timeout)
+      if (newRowsToAppend.length > 0) {
+        const startRow = sheet.getLastRow() + 1;
+        sheet.getRange(startRow, 1, newRowsToAppend.length, HEADERS.length).setValues(newRowsToAppend);
+      }
 
       return jsonResponse({
         success: true,
