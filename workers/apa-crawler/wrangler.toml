@@ -12,3 +12,5 @@ CRAWL_TARGET_URL = "https://www.apahotel.com/hotel/"
 DEFAULT_CATEGORY = "飯店"
 DEFAULT_BRAND = "APA飯店"
 BATCH_SIZE = "50"
+GAS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyhYIoTgwWrV32qYipfKavQ8cmNDXhtZsO8G94VZAWodAOMcbUsXoeZ3_dvESUC-UtCyA/exec"
+
