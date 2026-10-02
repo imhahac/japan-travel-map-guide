@@ -6,15 +6,12 @@ export default function Navbar({ totalSpots, currentCategory, theme, onToggleThe
     <header className="navbar">
       <div className="brand-section">
         <div className="brand-badge">
-          <BedDouble size={16} />
-          <span>INN</span>
+          <MapPin size={16} />
+          <span>MAP</span>
         </div>
         <div>
           <h1 className="brand-title">
             日本在地導覽地圖
-            <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--accent-pink)', background: '#fdf2f8', padding: '0.1rem 0.4rem', borderRadius: '4px', border: '1px solid #fbcfe8' }}>
-              東橫 INN 旗艦版
-            </span>
           </h1>
           <p className="brand-subtitle">
             依車站距離快速查找飯店、在地美食與便利生活圈

@@ -63,11 +63,10 @@ export default function App() {
     return counts;
   }, [spots]);
 
-  // Compute Brand Counts (especially for hotels)
+  // Compute Brand Counts for all brands across all categories
   const brandCounts = useMemo(() => {
-    const hotelSpots = spots.filter(s => s.category === '飯店');
-    const counts = { all: hotelSpots.length };
-    hotelSpots.forEach(s => {
+    const counts = {};
+    spots.forEach(s => {
       if (s.brand) {
         counts[s.brand] = (counts[s.brand] || 0) + 1;
       }

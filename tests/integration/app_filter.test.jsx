@@ -99,6 +99,38 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
       fireEvent.click(screen.getByText(/唐吉訶德/));
       expect(onSelectBrand).toHaveBeenCalledWith('唐吉訶德');
     });
+
+    it('購物品牌「全部購物」徽章數字應精確顯示為該大類數量（30）而非 372', () => {
+      render(
+        <CategoryFilter
+          currentCategory="購物藥妝"
+          onSelectCategory={vi.fn()}
+          categoryCounts={{ all: 439, 飯店: 372, 購物藥妝: 30, 美食餐廳: 14, 便利商店: 23 }}
+          currentBrand="all"
+          onSelectBrand={vi.fn()}
+          brandCounts={{ '唐吉訶德': 17, '松本清': 13 }}
+        />
+      );
+
+      const allShoppingBtn = screen.getByText('全部購物').closest('button');
+      expect(allShoppingBtn).toHaveTextContent('30');
+      expect(allShoppingBtn).not.toHaveTextContent('372');
+    });
+
+    it('Navbar 標題應已移除「東橫 INN 旗艦版」專屬字眼', async () => {
+      const { default: Navbar } = await import('../../src/components/Navbar.jsx');
+      render(
+        <Navbar
+          totalSpots={439}
+          currentCategory="all"
+          theme="light"
+          onToggleTheme={vi.fn()}
+          onOpenSyncModal={vi.fn()}
+        />
+      );
+      expect(screen.queryByText(/東橫 INN 旗艦版/)).toBeNull();
+      expect(screen.getByText('日本在地導覽地圖')).toBeInTheDocument();
+    });
   });
 
   describe('RegionHierarchyFilter & Walk Distance Quick Slider', () => {

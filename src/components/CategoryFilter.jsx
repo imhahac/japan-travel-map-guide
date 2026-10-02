@@ -152,7 +152,9 @@ export default function CategoryFilter({
           </span>
 
           {displayBrands.map(brand => {
-            const count = brandCounts[brand.id] || (brand.id === 'all' ? (categoryCounts[currentCategory] || categoryCounts['all']) : 0);
+            const count = brand.id === 'all'
+              ? (categoryCounts[currentCategory] !== undefined ? categoryCounts[currentCategory] : (categoryCounts['all'] || 0))
+              : (brandCounts[brand.id] || 0);
             const isBrandActive = currentBrand === brand.id;
 
             return (
