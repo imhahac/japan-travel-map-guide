@@ -55,6 +55,12 @@ function createCustomPin(spot) {
   if (spot.brand === 'APA飯店') {
     bgColor = '#d97706'; // Amber / Gold for APA Hotel
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg>`;
+  } else if (spot.brand === '唐吉訶德') {
+    bgColor = '#ca8a04'; // Donki Yellow / Gold
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`;
+  } else if (spot.brand === '松本清') {
+    bgColor = '#2563eb'; // Matsukiyo Blue
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>`;
   } else if (spot.category === '美食餐廳') {
     bgColor = '#ea580c';
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
@@ -257,10 +263,33 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
 
       // Build rich popup content
       const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}&travelmode=walking`;
-      const isApa = spot.brand === 'APA飯店';
-      const brandColor = isApa ? '#d97706' : '#00489d';
-      const brandBg = isApa ? '#fef3c7' : '#e0e7ff';
-      const brandTextColor = isApa ? '#92400e' : '#1e40af';
+
+      let brandColor = '#00489d';
+      let brandBg = '#e0e7ff';
+      let brandTextColor = '#1e40af';
+      let actionLabel = '🏨 官方預約';
+
+      if (spot.brand === 'APA飯店') {
+        brandColor = '#d97706';
+        brandBg = '#fef3c7';
+        brandTextColor = '#92400e';
+        actionLabel = '🏨 官方預約';
+      } else if (spot.brand === '唐吉訶德') {
+        brandColor = '#ca8a04';
+        brandBg = '#fef9c3';
+        brandTextColor = '#854d0e';
+        actionLabel = '🛍️ 門市資訊';
+      } else if (spot.brand === '松本清') {
+        brandColor = '#2563eb';
+        brandBg = '#eff6ff';
+        brandTextColor = '#1d4ed8';
+        actionLabel = '💊 官方門市';
+      } else if (spot.category === '購物藥妝') {
+        brandColor = '#9333ea';
+        brandBg = '#f3e8ff';
+        brandTextColor = '#7e22ce';
+        actionLabel = '🛍️ 查看詳情';
+      }
 
       const tagsList = spot.tags
         ? (Array.isArray(spot.tags) ? spot.tags : spot.tags.split(/[,，]/)).slice(0, 3)
@@ -302,7 +331,7 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
             </a>
             ${spot.bookingUrl ? `
               <a href="${spot.bookingUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: ${brandColor}; color: #ffffff; font-size: 11px; font-weight: 700; padding: 7px 4px; border-radius: 6px; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
-                🏨 官方預約
+                ${actionLabel}
               </a>
             ` : ''}
           </div>

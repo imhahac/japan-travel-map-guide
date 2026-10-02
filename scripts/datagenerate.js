@@ -18,7 +18,8 @@ if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 async function fetchSheetCsv(sheetId, gid) {
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
   const res = await fetch(url, {
-    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
+    signal: AbortSignal.timeout(4000)
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} fetching gid ${gid}`);
   return await res.text();
@@ -113,6 +114,14 @@ async function generate() {
       const apaHotels = JSON.parse(fs.readFileSync(apaPath, 'utf8'));
       apaHotels.forEach(h => allSpots.push(normalizeSpot(h, '飯店')));
       console.log(`Loaded ${apaHotels.length} APA hotels from seed data.`);
+    }
+
+    // Also load Shopping & Drugstore seed if present
+    const shoppingPath = path.join(outputDir, 'shopping_seed.json');
+    if (fs.existsSync(shoppingPath)) {
+      const shoppingSpots = JSON.parse(fs.readFileSync(shoppingPath, 'utf8'));
+      shoppingSpots.forEach(s => allSpots.push(normalizeSpot(s, '購物藥妝')));
+      console.log(`Loaded ${shoppingSpots.length} shopping & drugstore spots from seed data.`);
     }
 
     // Also load any custom spots if present

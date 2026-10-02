@@ -33,4 +33,15 @@ describe('Seed Datasets Integrity Tests', () => {
       expect(validation.isValid, `APA seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
     }
   });
+
+  it('shopping_seed.json 中的每一筆資料皆為唐吉訶德或松本清且符合 Schema 驗證', async () => {
+    const { default: shoppingSeed } = await import('../../src/data/shopping_seed.json');
+    expect(shoppingSeed.length).toBeGreaterThanOrEqual(25);
+    for (const spot of shoppingSeed) {
+      expect(['唐吉訶德', '松本清']).toContain(spot.brand);
+      expect(spot.category).toBe('購物藥妝');
+      const validation = validateSpot(spot);
+      expect(validation.isValid, `Shopping seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
+    }
+  });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutGrid, BedDouble, Utensils, Store, ShoppingBag, Sparkles, Building2 } from 'lucide-react';
+import { LayoutGrid, BedDouble, Utensils, Store, ShoppingBag, Building2, ShoppingCart } from 'lucide-react';
 
 const CATEGORIES = [
   { id: 'all', label: '全部', icon: LayoutGrid },
@@ -11,8 +11,14 @@ const CATEGORIES = [
 
 const HOTEL_BRANDS = [
   { id: 'all', label: '全部飯店', color: '#64748b' },
-  { id: '東橫INN', label: '東橫 INN', color: '#00489d', dotBg: '#00489d' },
-  { id: 'APA飯店', label: 'APA 飯店', color: '#d97706', dotBg: '#d97706' }
+  { id: '東橫INN', label: '東橫 INN', color: '#00489d', dotBg: '#00489d', activeBg: '#eff6ff', activeText: '#1e40af' },
+  { id: 'APA飯店', label: 'APA 飯店', color: '#d97706', dotBg: '#d97706', activeBg: '#fef3c7', activeText: '#92400e' }
+];
+
+const SHOPPING_BRANDS = [
+  { id: 'all', label: '全部購物', color: '#64748b' },
+  { id: '唐吉訶德', label: '唐吉訶德 (Donki)', color: '#ca8a04', dotBg: '#eab308', activeBg: '#fef9c3', activeText: '#854d0e' },
+  { id: '松本清', label: '松本清 (Matsukiyo)', color: '#2563eb', dotBg: '#3b82f6', activeBg: '#eff6ff', activeText: '#1d4ed8' }
 ];
 
 export default function CategoryFilter({
@@ -23,7 +29,29 @@ export default function CategoryFilter({
   onSelectBrand,
   brandCounts = {}
 }) {
-  const showHotelBrands = currentCategory === 'all' || currentCategory === '飯店';
+  let displayBrands = [];
+  let brandSectionTitle = '品牌:';
+  let BrandIcon = Building2;
+
+  if (currentCategory === '飯店') {
+    displayBrands = HOTEL_BRANDS;
+    brandSectionTitle = '連鎖商旅:';
+    BrandIcon = Building2;
+  } else if (currentCategory === '購物藥妝') {
+    displayBrands = SHOPPING_BRANDS;
+    brandSectionTitle = '購物品牌:';
+    BrandIcon = ShoppingCart;
+  } else if (currentCategory === 'all') {
+    displayBrands = [
+      { id: 'all', label: '全部品牌', color: '#64748b' },
+      HOTEL_BRANDS[1],
+      HOTEL_BRANDS[2],
+      SHOPPING_BRANDS[1],
+      SHOPPING_BRANDS[2]
+    ];
+    brandSectionTitle = '熱門品牌:';
+    BrandIcon = Building2;
+  }
 
   return (
     <div className="filter-system-container" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -40,8 +68,7 @@ export default function CategoryFilter({
               className={`pill-btn ${isActive ? 'active' : ''}`}
               onClick={() => {
                 onSelectCategory(cat.id);
-                // 當切換到非飯店時，自動重設品牌篩選
-                if (cat.id !== '飯店' && cat.id !== 'all' && onSelectBrand) {
+                if (onSelectBrand) {
                   onSelectBrand('all');
                 }
               }}
@@ -66,7 +93,7 @@ export default function CategoryFilter({
       </div>
 
       {/* 第二層：品牌篩選晶片 (Level 2 Brand Chips) */}
-      {showHotelBrands && onSelectBrand && (
+      {displayBrands.length > 0 && onSelectBrand && (
         <div className="brand-chips-row" style={{
           display: 'flex',
           alignItems: 'center',
@@ -86,14 +113,15 @@ export default function CategoryFilter({
             display: 'flex',
             alignItems: 'center',
             gap: '0.2rem',
-            marginRight: '0.2rem'
+            marginRight: '0.2rem',
+            flexShrink: 0
           }}>
-            <Building2 size={12} />
-            品牌:
+            <BrandIcon size={12} />
+            {brandSectionTitle}
           </span>
 
-          {HOTEL_BRANDS.map(brand => {
-            const count = brandCounts[brand.id] || 0;
+          {displayBrands.map(brand => {
+            const count = brandCounts[brand.id] || (brand.id === 'all' ? (categoryCounts[currentCategory] || categoryCounts['all']) : 0);
             const isBrandActive = currentBrand === brand.id;
 
             return (
@@ -107,12 +135,13 @@ export default function CategoryFilter({
                   padding: '0.25rem 0.55rem',
                   borderRadius: '6px',
                   border: isBrandActive ? `1.5px solid ${brand.color}` : '1px solid var(--border-color)',
-                  background: isBrandActive ? (brand.id === 'APA飯店' ? '#fef3c7' : (brand.id === '東橫INN' ? '#eff6ff' : 'var(--bg-hover)')) : 'transparent',
-                  color: isBrandActive ? (brand.id === 'APA飯店' ? '#92400e' : (brand.id === '東橫INN' ? '#1e40af' : 'var(--text-main)')) : 'var(--text-muted)',
+                  background: isBrandActive ? (brand.activeBg || 'var(--bg-hover)') : 'transparent',
+                  color: isBrandActive ? (brand.activeText || 'var(--text-main)') : 'var(--text-muted)',
                   fontSize: '0.76rem',
                   fontWeight: isBrandActive ? 700 : 500,
                   cursor: 'pointer',
-                  transition: 'all 0.15s ease'
+                  transition: 'all 0.15s ease',
+                  flexShrink: 0
                 }}
               >
                 {brand.dotBg && (
