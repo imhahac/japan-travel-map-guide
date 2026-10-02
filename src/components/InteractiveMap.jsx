@@ -165,6 +165,11 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
   const [activeTileKey, setActiveTileKey] = useState(theme === 'dark' ? 'dark' : 'gsi_pale');
   const [showLayerMenu, setShowLayerMenu] = useState(false);
 
+  const onSelectSpotRef = useRef(onSelectSpot);
+  useEffect(() => {
+    onSelectSpotRef.current = onSelectSpot;
+  }, [onSelectSpot]);
+
   // Sync active tile with theme
   useEffect(() => {
     setActiveTileKey(theme === 'dark' ? 'dark' : 'gsi_pale');
@@ -193,8 +198,8 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
 
     // Cluster group with high-visibility modern badge design
     const cluster = L.markerClusterGroup({
-      maxClusterRadius: 40,
-      spiderfyOnMaxZoom: true,
+      maxClusterRadius: 36,
+      spiderfyOnMaxZoom: false, // 禁用破壞視覺的蜘蛛腳放射同心圓模式
       showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
       iconCreateFunction: function (c) {
@@ -234,6 +239,64 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
           className: 'custom-cluster-icon',
           iconSize: L.point(size, size)
         });
+      }
+    });
+
+    // 當聚合點達到最大縮放或點位座標相同無法再拉近時，跳出清爽優雅的地標清單 Popup，徹底解決蜘蛛網腳放射問題
+    cluster.on('clusterclick', function (a) {
+      const map = mapInstanceRef.current;
+      if (!map) return;
+
+      const currentZoom = map.getZoom();
+      const maxZoom = map.getMaxZoom();
+      const bounds = a.layer.getBounds();
+      const isIdenticalLocation = bounds.getNorthEast().equals(bounds.getSouthWest());
+
+      if (currentZoom >= maxZoom || isIdenticalLocation) {
+        const childMarkers = a.layer.getAllChildMarkers();
+        const spotsInCluster = childMarkers.map(m => m.__spotData).filter(Boolean);
+
+        if (spotsInCluster.length > 0) {
+          const container = document.createElement('div');
+          container.className = 'cluster-popup-container';
+          container.style.cssText = 'max-height: 270px; overflow-y: auto; padding: 4px; font-family: inherit; width: 250px;';
+
+          const header = document.createElement('div');
+          header.style.cssText = 'font-weight: 700; font-size: 13px; color: #00489d; padding-bottom: 6px; margin-bottom: 8px; border-bottom: 1.5px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;';
+          header.innerHTML = `<span>📍 此處共有 ${spotsInCluster.length} 處地標</span>`;
+          container.appendChild(header);
+
+          spotsInCluster.forEach(s => {
+            const item = document.createElement('div');
+            item.style.cssText = 'padding: 8px 10px; margin-bottom: 6px; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.15s ease;';
+            item.onmouseenter = () => { item.style.background = '#e2e8f0'; };
+            item.onmouseleave = () => { item.style.background = '#f8fafc'; };
+            item.innerHTML = `
+              <div style="font-weight: 700; font-size: 12px; color: #1e293b; margin-bottom: 2px;">${s.name}</div>
+              <div style="font-size: 11px; color: #64748b; display: flex; align-items: center; justify-content: space-between;">
+                <span>${s.brand || s.category} · 步行約 ${s.walkMinutes || 3} 分</span>
+                <span style="color: #2563eb; font-weight: 600;">查看 ›</span>
+              </div>
+            `;
+            item.onclick = (e) => {
+              e.stopPropagation();
+              map.closePopup();
+              if (onSelectSpotRef.current) {
+                onSelectSpotRef.current(s);
+              }
+            };
+            container.appendChild(item);
+          });
+
+          L.popup({
+            offset: [0, -10],
+            closeButton: true,
+            className: 'cluster-custom-popup'
+          })
+            .setLatLng(a.latlng)
+            .setContent(container)
+            .openOn(map);
+        }
       }
     });
 
@@ -284,6 +347,7 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
         icon: createCustomPin(spot),
         title: spot.name
       });
+      marker.__spotData = spot;
 
       // Build rich popup content
       const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}&travelmode=walking`;

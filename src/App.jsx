@@ -45,6 +45,7 @@ export default function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('japan_guide_theme') || 'light');
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
   const [isMobileDrawerCollapsed, setIsMobileDrawerCollapsed] = useState(false);
+  const [visibleLimit, setVisibleLimit] = useState(100);
 
   const cardListRef = useRef(null);
 
@@ -128,16 +129,31 @@ export default function App() {
       });
   }, [spots, selectedCategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
 
+  // Reset visible limit back to 100 whenever filters change
+  useEffect(() => {
+    setVisibleLimit(100);
+  }, [selectedCategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
+
   // Handle Spot Selection
   const handleSelectSpot = (spot) => {
     setSelectedSpot(spot);
-    // Find spot's element and scroll into view in desktop sidebar
-    if (cardListRef.current) {
-      const el = document.getElementById(`spot-card-${spot.id}`);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+    if (!spot) return;
+
+    // If spot is beyond currently loaded cards, expand visibleLimit to reveal it
+    const index = filteredSpots.findIndex(s => s.id === spot.id);
+    if (index >= 0 && index >= visibleLimit) {
+      setVisibleLimit(Math.ceil((index + 1) / 100) * 100);
     }
+
+    // Find spot's element and scroll into view in desktop sidebar
+    setTimeout(() => {
+      if (cardListRef.current) {
+        const el = document.getElementById(`spot-card-${spot.id}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }, 60);
   };
 
   // Reset all filters
@@ -149,7 +165,13 @@ export default function App() {
     setWalkFilter('all');
     setSelectedStation(null);
     setSelectedSpot(null);
+    setVisibleLimit(100);
   };
+
+  // Visible spots capped at 100 per load to optimize DOM & memory resources
+  const visibleSpots = useMemo(() => {
+    return filteredSpots.slice(0, visibleLimit);
+  }, [filteredSpots, visibleLimit]);
 
   return (
     <div className="app-container">
@@ -228,7 +250,11 @@ export default function App() {
             {/* Stats Bar */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
               <span>
-                顯示 <strong>{filteredSpots.length}</strong> 處地標
+                {filteredSpots.length > visibleSpots.length ? (
+                  <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{filteredSpots.length}</strong> 處地標</>
+                ) : (
+                  <>顯示 <strong>{filteredSpots.length}</strong> 處地標</>
+                )}
                 {selectedStation && ` (依距離排序)`}
               </span>
               {(selectedCategory !== 'all' || selectedRegion !== '全部地區' || walkFilter !== 'all' || selectedStation) && (
@@ -243,7 +269,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Cards List */}
+          {/* Cards List (Only renders up to 100 cards initially to save resources) */}
           <div className="cards-scroll-container" ref={cardListRef}>
             {filteredSpots.length === 0 ? (
               <div style={{ padding: '3rem 1.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
@@ -263,16 +289,55 @@ export default function App() {
                 </button>
               </div>
             ) : (
-              filteredSpots.map(spot => (
-                <div key={spot.id} id={`spot-card-${spot.id}`}>
-                  <SpotCard
-                    spot={spot}
-                    isSelected={selectedSpot?.id === spot.id}
-                    selectedStation={selectedStation}
-                    onSelect={handleSelectSpot}
-                  />
-                </div>
-              ))
+              <>
+                {visibleSpots.map(spot => (
+                  <div key={spot.id} id={`spot-card-${spot.id}`}>
+                    <SpotCard
+                      spot={spot}
+                      isSelected={selectedSpot?.id === spot.id}
+                      selectedStation={selectedStation}
+                      onSelect={handleSelectSpot}
+                    />
+                  </div>
+                ))}
+
+                {/* 載入更多 100 筆按鈕 */}
+                {filteredSpots.length > visibleSpots.length && (
+                  <div style={{ padding: '1rem 0.5rem 1.5rem 0.5rem', textAlign: 'center' }}>
+                    <button
+                      type="button"
+                      onClick={() => setVisibleLimit(prev => Math.min(prev + 100, filteredSpots.length))}
+                      style={{
+                        width: '100%',
+                        padding: '0.75rem 1rem',
+                        background: 'var(--bg-card, #ffffff)',
+                        border: '1.5px solid var(--primary, #00489d)',
+                        color: 'var(--primary, #00489d)',
+                        borderRadius: '10px',
+                        fontWeight: 700,
+                        fontSize: '0.85rem',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 8px rgba(0, 72, 157, 0.08)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.2rem',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0, 72, 157, 0.06)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'var(--bg-card, #ffffff)'; }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span>⬇️ 載入更多 100 筆地標</span>
+                      </span>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, #64748b)', fontWeight: 500 }}>
+                        已顯示 {visibleSpots.length} / 共 {filteredSpots.length} 處（尚有 {filteredSpots.length - visibleSpots.length} 處未載入）
+                      </span>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </aside>
