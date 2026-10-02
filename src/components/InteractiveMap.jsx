@@ -120,8 +120,8 @@ function createCustomPin(spot) {
     className: 'custom-leaflet-pin',
     html: html,
     iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
+    iconAnchor: [16, 38],
+    popupAnchor: [0, -38]
   });
 }
 

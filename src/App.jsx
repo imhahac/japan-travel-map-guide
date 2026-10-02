@@ -7,7 +7,7 @@ import SpotCard from './components/SpotCard';
 import InteractiveMap from './components/InteractiveMap';
 import WelcomeExplorer from './components/WelcomeExplorer';
 import SyncModal from './components/SyncModal';
-import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble, ChevronLeft } from 'lucide-react';
+import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble, ChevronLeft, ExternalLink, Navigation } from 'lucide-react';
 
 // Attempt to load generated spots and stations data
 let initialSpots = [];
@@ -140,6 +140,10 @@ export default function App() {
   const handleSelectSpot = (spot) => {
     setSelectedSpot(spot);
     if (!spot) return;
+
+    // 關鍵：選取商家時，確保使用者進入互動態並展開抽屜，讓左側清晰呈現商家資訊
+    setHasUserInteracted(true);
+    setIsMobileDrawerCollapsed(false);
 
     // If spot is beyond currently loaded cards, expand visibleLimit to reveal it
     const index = filteredSpots.findIndex(s => s.id === spot.id);
@@ -375,6 +379,150 @@ export default function App() {
                   </button>
                 </div>
               </div>
+
+              {/* 5. Selected Spot Information Inspector (地圖點擊/選取商家詳細資訊 - 避免誤會) */}
+              {selectedSpot && (
+                <div className="selected-spot-inspector" style={{
+                  padding: '0.75rem 1rem',
+                  background: 'var(--bg-page, #f8fafc)',
+                  borderBottom: '1px solid var(--border, #e2e8f0)',
+                  boxShadow: '0 2px 8px rgba(0, 72, 157, 0.08)'
+                }}>
+                  <div style={{
+                    background: 'var(--bg-card, #ffffff)',
+                    border: '1.5px solid var(--primary, #00489d)',
+                    borderRadius: '12px',
+                    padding: '0.85rem 1rem',
+                    boxShadow: '0 4px 14px rgba(0, 72, 157, 0.1)'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+                      <span style={{
+                        background: 'var(--primary, #00489d)',
+                        color: '#ffffff',
+                        fontSize: '0.72rem',
+                        fontWeight: 800,
+                        padding: '2px 8px',
+                        borderRadius: '4px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem'
+                      }}>
+                        <span>📍 地圖選取商家</span>
+                        <span style={{ opacity: 0.85 }}>•</span>
+                        <span>{selectedSpot.brand || selectedSpot.category}</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedSpot(null)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--text-muted, #64748b)',
+                          cursor: 'pointer',
+                          padding: '2px 4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.2rem',
+                          fontSize: '0.75rem',
+                          fontWeight: 600
+                        }}
+                        title="解除聚焦"
+                      >
+                        <X size={14} />
+                        <span>關閉</span>
+                      </button>
+                    </div>
+
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.2rem 0 0.4rem 0', lineHeight: 1.3 }}>
+                      {selectedSpot.name}
+                    </h3>
+
+                    {/* 地址 */}
+                    <div style={{
+                      fontSize: '0.78rem',
+                      color: 'var(--text-main)',
+                      marginBottom: '0.35rem',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '0.35rem',
+                      lineHeight: 1.35
+                    }}>
+                      <MapPin size={13} style={{ flexShrink: 0, marginTop: '2px', color: 'var(--primary)' }} />
+                      <span style={{ fontWeight: 600 }}>{selectedSpot.address || `${selectedSpot.prefecture} (無詳細地址)`}</span>
+                    </div>
+
+                    {/* 車站與步行距離 */}
+                    {selectedSpot.nearestStation && (
+                      <div style={{
+                        fontSize: '0.75rem',
+                        color: '#92400e',
+                        background: '#fef3c7',
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        marginBottom: '0.6rem',
+                        fontWeight: 600
+                      }}>
+                        <Train size={13} />
+                        <span>鄰近 <strong>{selectedSpot.nearestStation}</strong> (步行約 {selectedSpot.walkMinutes || 3} 分鐘)</span>
+                      </div>
+                    )}
+
+                    {/* 行動按鈕 */}
+                    <div style={{ display: 'flex', gap: '0.45rem' }}>
+                      <a
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${selectedSpot.lat},${selectedSpot.lng}&travelmode=walking`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-action btn-primary"
+                        style={{
+                          flex: 1,
+                          padding: '0.45rem 0.6rem',
+                          fontSize: '0.78rem',
+                          textAlign: 'center',
+                          textDecoration: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.3rem',
+                          borderRadius: '8px'
+                        }}
+                      >
+                        <Navigation size={13} />
+                        <span>步行導航</span>
+                      </a>
+                      {selectedSpot.bookingUrl && (
+                        <a
+                          href={selectedSpot.bookingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-action"
+                          style={{
+                            flex: 1,
+                            padding: '0.45rem 0.6rem',
+                            fontSize: '0.78rem',
+                            textAlign: 'center',
+                            textDecoration: 'none',
+                            background: 'var(--bg-page, #f8fafc)',
+                            color: 'var(--text-main)',
+                            border: '1px solid var(--border)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.3rem',
+                            borderRadius: '8px'
+                          }}
+                        >
+                          <ExternalLink size={13} />
+                          <span>前往官網</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Cards List (Only renders up to 100 cards initially to save resources) */}
               <div className="cards-scroll-container" ref={cardListRef}>

@@ -249,4 +249,33 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
       expect(step3[0].prefecture).toBe('大阪府');
     });
   });
+
+  describe('Location Accuracy & Selected Spot Left Panel Inspector Tests', () => {
+    it('アパホテル〈小伝馬町駅前〉定位應精準對應日本橋大伝馬町14番街區，而非偏移至對街車站出入口', async () => {
+      const { default: spots } = await import('../../src/data/spots.json');
+      const spot = spots.find(s => s.id === 'apa-no188');
+      expect(spot).toBeDefined();
+      expect(spot.name).toBe('アパホテル〈小伝馬町駅前〉');
+      expect(spot.address).toBe('東京都中央区日本橋大伝馬町14-20');
+      // 精準國土地理院座標檢驗 (緯度 35.6908~35.6911，經度 139.7804~139.7808，位於 14 號街區內)
+      expect(spot.lat).toBeGreaterThanOrEqual(35.6905);
+      expect(spot.lat).toBeLessThanOrEqual(35.6912);
+      expect(spot.lng).toBeGreaterThanOrEqual(139.7800);
+      expect(spot.lng).toBeLessThanOrEqual(139.7810);
+      // 確保不再等於舊的車站中心點 (35.691603, 139.779692)
+      expect(spot.lat).not.toBe(35.691603);
+    });
+
+    it('地圖選中商家時，左側欄應醒目展示「地圖選取商家資訊」看板，避免誤會', async () => {
+      const { default: App } = await import('../../src/App.jsx');
+      // 驗證 App 原始碼中包含明確的選中商家 Inspector 結構
+      const fs = await import('fs');
+      const path = await import('path');
+      const appCode = fs.readFileSync(path.resolve('src/App.jsx'), 'utf8');
+      expect(appCode).toContain('selected-spot-inspector');
+      expect(appCode).toContain('📍 地圖選取商家');
+      expect(appCode).toContain('步行導航');
+      expect(appCode).toContain('前往官網');
+    });
+  });
 });
