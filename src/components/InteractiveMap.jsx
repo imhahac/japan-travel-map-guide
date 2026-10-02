@@ -61,6 +61,21 @@ function createCustomPin(spot) {
   } else if (spot.brand === '松本清') {
     bgColor = '#2563eb'; // Matsukiyo Blue
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>`;
+  } else if (spot.brand === '吉野家') {
+    bgColor = '#ea580c'; // Yoshinoya Orange
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
+  } else if (spot.brand === '松屋') {
+    bgColor = '#0284c7'; // Matsuya Blue
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8v12h16V10a8 8 0 0 0-8-8z"/><path d="M6 14h12"/></svg>`;
+  } else if (spot.brand === 'すき家') {
+    bgColor = '#dc2626'; // Sukiya Red
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
+  } else if (spot.brand === '一蘭拉麵') {
+    bgColor = '#16a34a'; // Ichiran Green
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/></svg>`;
+  } else if (spot.brand === '客美多咖啡') {
+    bgColor = '#78350f'; // Coffee Brown
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>`;
   } else if (spot.category === '美食餐廳') {
     bgColor = '#ea580c';
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
@@ -284,11 +299,41 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
         brandBg = '#eff6ff';
         brandTextColor = '#1d4ed8';
         actionLabel = '💊 官方門市';
+      } else if (spot.brand === '吉野家') {
+        brandColor = '#ea580c';
+        brandBg = '#ffedd5';
+        brandTextColor = '#9a3412';
+        actionLabel = '🍜 官方菜單';
+      } else if (spot.brand === '松屋') {
+        brandColor = '#0284c7';
+        brandBg = '#e0f2fe';
+        brandTextColor = '#0369a1';
+        actionLabel = '🍚 官方菜單';
+      } else if (spot.brand === 'すき家') {
+        brandColor = '#dc2626';
+        brandBg = '#fee2e2';
+        brandTextColor = '#991b1b';
+        actionLabel = '🍲 官方菜單';
+      } else if (spot.brand === '一蘭拉麵') {
+        brandColor = '#16a34a';
+        brandBg = '#dcfce7';
+        brandTextColor = '#166534';
+        actionLabel = '🍜 官方菜單';
+      } else if (spot.brand === '客美多咖啡') {
+        brandColor = '#78350f';
+        brandBg = '#fef3c7';
+        brandTextColor = '#78350f';
+        actionLabel = '☕ 官方朝食資訊';
       } else if (spot.category === '購物藥妝') {
         brandColor = '#9333ea';
         brandBg = '#f3e8ff';
         brandTextColor = '#7e22ce';
         actionLabel = '🛍️ 查看詳情';
+      } else if (spot.category === '美食餐廳') {
+        brandColor = '#ea580c';
+        brandBg = '#ffedd5';
+        brandTextColor = '#c2410c';
+        actionLabel = '🍜 查看菜單';
       }
 
       const tagsList = spot.tags

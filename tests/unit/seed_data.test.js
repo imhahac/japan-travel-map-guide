@@ -44,4 +44,15 @@ describe('Seed Datasets Integrity Tests', () => {
       expect(validation.isValid, `Shopping seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
     }
   });
+
+  it('dining_seed.json 中的每一筆資料皆為平價美食且符合 Schema 驗證', async () => {
+    const { default: diningSeed } = await import('../../src/data/dining_seed.json');
+    expect(diningSeed.length).toBeGreaterThanOrEqual(10);
+    for (const spot of diningSeed) {
+      expect(['吉野家', '松屋', 'すき家', '客美多咖啡', '一蘭拉麵']).toContain(spot.brand);
+      expect(spot.category).toBe('美食餐廳');
+      const validation = validateSpot(spot);
+      expect(validation.isValid, `Dining seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
+    }
+  });
 });

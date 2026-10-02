@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutGrid, BedDouble, Utensils, Store, ShoppingBag, Building2, ShoppingCart } from 'lucide-react';
+import { LayoutGrid, BedDouble, Utensils, Store, ShoppingBag, Building2, ShoppingCart, UtensilsCrossed } from 'lucide-react';
 
 const CATEGORIES = [
   { id: 'all', label: '全部', icon: LayoutGrid },
@@ -19,6 +19,15 @@ const SHOPPING_BRANDS = [
   { id: 'all', label: '全部購物', color: '#64748b' },
   { id: '唐吉訶德', label: '唐吉訶德 (Donki)', color: '#ca8a04', dotBg: '#eab308', activeBg: '#fef9c3', activeText: '#854d0e' },
   { id: '松本清', label: '松本清 (Matsukiyo)', color: '#2563eb', dotBg: '#3b82f6', activeBg: '#eff6ff', activeText: '#1d4ed8' }
+];
+
+const DINING_BRANDS = [
+  { id: 'all', label: '全部美食', color: '#64748b' },
+  { id: '吉野家', label: '吉野家', color: '#ea580c', dotBg: '#ea580c', activeBg: '#ffedd5', activeText: '#c2410c' },
+  { id: '松屋', label: '松屋', color: '#0284c7', dotBg: '#0284c7', activeBg: '#e0f2fe', activeText: '#0369a1' },
+  { id: 'すき家', label: 'すき家 (Sukiya)', color: '#dc2626', dotBg: '#dc2626', activeBg: '#fee2e2', activeText: '#b91c1c' },
+  { id: '一蘭拉麵', label: '一蘭拉麵', color: '#16a34a', dotBg: '#dc2626', activeBg: '#f0fdf4', activeText: '#15803d' },
+  { id: '客美多咖啡', label: '客美多咖啡', color: '#78350f', dotBg: '#92400e', activeBg: '#fef3c7', activeText: '#78350f' }
 ];
 
 export default function CategoryFilter({
@@ -41,13 +50,21 @@ export default function CategoryFilter({
     displayBrands = SHOPPING_BRANDS;
     brandSectionTitle = '購物品牌:';
     BrandIcon = ShoppingCart;
+  } else if (currentCategory === '美食餐廳') {
+    displayBrands = DINING_BRANDS;
+    brandSectionTitle = '平價美食:';
+    BrandIcon = UtensilsCrossed;
   } else if (currentCategory === 'all') {
     displayBrands = [
       { id: 'all', label: '全部品牌', color: '#64748b' },
       HOTEL_BRANDS[1],
       HOTEL_BRANDS[2],
       SHOPPING_BRANDS[1],
-      SHOPPING_BRANDS[2]
+      SHOPPING_BRANDS[2],
+      DINING_BRANDS[1],
+      DINING_BRANDS[2],
+      DINING_BRANDS[4],
+      DINING_BRANDS[5]
     ];
     brandSectionTitle = '熱門品牌:';
     BrandIcon = Building2;
