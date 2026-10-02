@@ -18,7 +18,11 @@ const HOTEL_BRANDS = [
 const SHOPPING_BRANDS = [
   { id: 'all', label: '全部購物', color: '#64748b' },
   { id: '唐吉訶德', label: '唐吉訶德 (Donki)', color: '#ca8a04', dotBg: '#eab308', activeBg: '#fef9c3', activeText: '#854d0e' },
-  { id: '松本清', label: '松本清 (Matsukiyo)', color: '#2563eb', dotBg: '#3b82f6', activeBg: '#eff6ff', activeText: '#1d4ed8' }
+  { id: '松本清', label: '松本清 (Matsukiyo)', color: '#2563eb', dotBg: '#3b82f6', activeBg: '#eff6ff', activeText: '#1d4ed8' },
+  { id: 'Bic Camera', label: 'Bic Camera', color: '#dc2626', dotBg: '#ef4444', activeBg: '#fee2e2', activeText: '#b91c1c' },
+  { id: '友都八喜', label: '友都八喜 (Yodobashi)', color: '#0284c7', dotBg: '#0284c7', activeBg: '#e0f2fe', activeText: '#0369a1' },
+  { id: 'Kojima', label: 'Kojima × Bic', color: '#ea580c', dotBg: '#ea580c', activeBg: '#ffedd5', activeText: '#c2410c' },
+  { id: 'Sofmap', label: 'Sofmap (索芙瑪)', color: '#2563eb', dotBg: '#2563eb', activeBg: '#eff6ff', activeText: '#1d4ed8' }
 ];
 
 const DINING_BRANDS = [
@@ -27,6 +31,11 @@ const DINING_BRANDS = [
   { id: '松屋', label: '松屋', color: '#0284c7', dotBg: '#0284c7', activeBg: '#e0f2fe', activeText: '#0369a1' },
   { id: 'すき家', label: 'すき家 (Sukiya)', color: '#dc2626', dotBg: '#dc2626', activeBg: '#fee2e2', activeText: '#b91c1c' },
   { id: '一蘭拉麵', label: '一蘭拉麵', color: '#16a34a', dotBg: '#dc2626', activeBg: '#f0fdf4', activeText: '#15803d' },
+  { id: '一風堂', label: '一風堂 (IPPUDO)', color: '#b91c1c', dotBg: '#dc2626', activeBg: '#fef2f2', activeText: '#991b1b' },
+  { id: '壽司郎', label: '壽司郎 (Sushiro)', color: '#dc2626', dotBg: '#ef4444', activeBg: '#fee2e2', activeText: '#b91c1c' },
+  { id: '藏壽司', label: '藏壽司 (Kura)', color: '#0284c7', dotBg: '#0284c7', activeBg: '#e0f2fe', activeText: '#0369a1' },
+  { id: 'やよい軒', label: 'やよい軒 (彌生軒)', color: '#d97706', dotBg: '#d97706', activeBg: '#fef3c7', activeText: '#92400e' },
+  { id: '大戶屋', label: '大戶屋 (Ootoya)', color: '#1e3a8a', dotBg: '#1e3a8a', activeBg: '#eff6ff', activeText: '#1e40af' },
   { id: '客美多咖啡', label: '客美多咖啡', color: '#78350f', dotBg: '#92400e', activeBg: '#fef3c7', activeText: '#78350f' }
 ];
 

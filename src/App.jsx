@@ -5,6 +5,7 @@ import CategoryFilter from './components/CategoryFilter';
 import RegionHierarchyFilter from './components/RegionHierarchyFilter';
 import SpotCard from './components/SpotCard';
 import InteractiveMap from './components/InteractiveMap';
+import WelcomeExplorer from './components/WelcomeExplorer';
 import SyncModal from './components/SyncModal';
 import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble } from 'lucide-react';
 
@@ -46,6 +47,7 @@ export default function App() {
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
   const [isMobileDrawerCollapsed, setIsMobileDrawerCollapsed] = useState(false);
   const [visibleLimit, setVisibleLimit] = useState(100);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
 
   const cardListRef = useRef(null);
 
@@ -156,6 +158,21 @@ export default function App() {
     }, 60);
   };
 
+  // 判斷當前是否已有任何主動篩選條件或使用者主動展開
+  const hasActiveFilter = useMemo(() => {
+    return Boolean(
+      (selectedCategory && selectedCategory !== 'all') ||
+      selectedBrand !== 'all' ||
+      selectedRegion !== '全部地區' ||
+      selectedPrefecture !== '全部都道府縣' ||
+      walkFilter !== 'all' ||
+      selectedStation ||
+      selectedSpot
+    );
+  }, [selectedCategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation, selectedSpot]);
+
+  const isExploreMode = !hasActiveFilter && !hasUserInteracted;
+
   // Reset all filters
   const handleResetAllFilters = () => {
     setSelectedCategory('all');
@@ -166,6 +183,7 @@ export default function App() {
     setSelectedStation(null);
     setSelectedSpot(null);
     setVisibleLimit(100);
+    setHasUserInteracted(false);
   };
 
   // Visible spots capped at 100 per load to optimize DOM & memory resources
@@ -204,6 +222,7 @@ export default function App() {
                 // Also auto set region if station has it
                 if (st.region) setSelectedRegion(st.region);
                 if (st.prefecture) setSelectedPrefecture(st.prefecture);
+                setHasUserInteracted(true);
               }}
               onClearStation={() => setSelectedStation(null)}
             />
@@ -214,10 +233,14 @@ export default function App() {
               onSelectCategory={(cat) => {
                 setSelectedCategory(cat);
                 setSelectedBrand('all');
+                setHasUserInteracted(true);
               }}
               categoryCounts={categoryCounts}
               currentBrand={selectedBrand}
-              onSelectBrand={setSelectedBrand}
+              onSelectBrand={(b) => {
+                setSelectedBrand(b);
+                setHasUserInteracted(true);
+              }}
               brandCounts={brandCounts}
             />
 
@@ -226,9 +249,18 @@ export default function App() {
               selectedRegion={selectedRegion}
               selectedPrefecture={selectedPrefecture}
               walkFilter={walkFilter}
-              onSelectRegion={setSelectedRegion}
-              onSelectPrefecture={setSelectedPrefecture}
-              onSelectWalkFilter={setWalkFilter}
+              onSelectRegion={(reg) => {
+                setSelectedRegion(reg);
+                if (reg !== '全部地區') setHasUserInteracted(true);
+              }}
+              onSelectPrefecture={(pref) => {
+                setSelectedPrefecture(pref);
+                if (pref !== '全部都道府縣') setHasUserInteracted(true);
+              }}
+              onSelectWalkFilter={(w) => {
+                setWalkFilter(w);
+                if (w !== 'all') setHasUserInteracted(true);
+              }}
             />
 
             {/* 4. Active Station Focus Banner (When a station is active) */}
@@ -249,107 +281,166 @@ export default function App() {
 
             {/* Stats Bar */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              <span>
-                {filteredSpots.length > visibleSpots.length ? (
-                  <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{filteredSpots.length}</strong> 處地標</>
-                ) : (
-                  <>顯示 <strong>{filteredSpots.length}</strong> 處地標</>
-                )}
-                {selectedStation && ` (依距離排序)`}
-              </span>
-              {(selectedCategory !== 'all' || selectedRegion !== '全部地區' || walkFilter !== 'all' || selectedStation) && (
+              {isExploreMode ? (
+                <span>📍 請選擇上方分類或搜尋車站，開始導覽</span>
+              ) : (
+                <span>
+                  {filteredSpots.length > visibleSpots.length ? (
+                    <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{filteredSpots.length}</strong> 處地標</>
+                  ) : (
+                    <>顯示 <strong>{filteredSpots.length}</strong> 處地標</>
+                  )}
+                  {selectedStation && ` (依距離排序)`}
+                </span>
+              )}
+              {!isExploreMode && (
                 <button
                   onClick={handleResetAllFilters}
                   style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
                 >
                   <RefreshCw size={12} />
-                  重設全部條件
+                  返回探索首頁
                 </button>
               )}
             </div>
           </div>
 
-          {/* Cards List (Only renders up to 100 cards initially to save resources) */}
-          <div className="cards-scroll-container" ref={cardListRef}>
-            {filteredSpots.length === 0 ? (
-              <div style={{ padding: '3rem 1.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                <BedDouble size={36} style={{ margin: '0 auto 0.75rem auto', opacity: 0.4 }} />
-                <h4 style={{ fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.3rem' }}>
-                  找不到符合條件的地標
-                </h4>
-                <p style={{ fontSize: '0.82rem', marginBottom: '1rem' }}>
-                  請嘗試放寬步行距離、切換都道府縣或搜尋其他車站
-                </p>
-                <button
-                  onClick={handleResetAllFilters}
-                  className="btn-action btn-primary"
-                  style={{ margin: '0 auto', padding: '0.45rem 1rem' }}
-                >
-                  重設篩選條件
-                </button>
-              </div>
-            ) : (
-              <>
-                {visibleSpots.map(spot => (
-                  <div key={spot.id} id={`spot-card-${spot.id}`}>
-                    <SpotCard
-                      spot={spot}
-                      isSelected={selectedSpot?.id === spot.id}
-                      selectedStation={selectedStation}
-                      onSelect={handleSelectSpot}
-                    />
-                  </div>
-                ))}
+          {/* Main List Area: Explore Mode vs Filtered Cards List */}
+          {isExploreMode ? (
+            <div className="cards-scroll-container">
+              <WelcomeExplorer
+                totalSpots={spots.length}
+                stations={stations}
+                onSelectCategory={(cat) => {
+                  setSelectedCategory(cat);
+                  setSelectedBrand('all');
+                  setHasUserInteracted(true);
+                }}
+                onSelectStation={(st) => {
+                  setSelectedStation(st);
+                  if (st.region) setSelectedRegion(st.region);
+                  if (st.prefecture) setSelectedPrefecture(st.prefecture);
+                  setHasUserInteracted(true);
+                }}
+                onSelectPrefecture={(pref, reg) => {
+                  setSelectedPrefecture(pref);
+                  if (reg) setSelectedRegion(reg);
+                  setHasUserInteracted(true);
+                }}
+                onBrowseAll={() => {
+                  setHasUserInteracted(true);
+                }}
+              />
+            </div>
+          ) : (
+            <div className="cards-scroll-container" ref={cardListRef}>
+              {filteredSpots.length === 0 ? (
+                <div style={{ padding: '3rem 1.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                  <BedDouble size={36} style={{ margin: '0 auto 0.75rem auto', opacity: 0.4 }} />
+                  <h4 style={{ fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.3rem' }}>
+                    找不到符合條件的地標
+                  </h4>
+                  <p style={{ fontSize: '0.82rem', marginBottom: '1rem' }}>
+                    請嘗試放寬步行距離、切換都道府縣或搜尋其他車站
+                  </p>
+                  <button
+                    onClick={handleResetAllFilters}
+                    className="btn-action btn-primary"
+                    style={{ margin: '0 auto', padding: '0.45rem 1rem' }}
+                  >
+                    重設篩選條件
+                  </button>
+                </div>
+              ) : (
+                <>
+                  {visibleSpots.map(spot => (
+                    <div key={spot.id} id={`spot-card-${spot.id}`}>
+                      <SpotCard
+                        spot={spot}
+                        isSelected={selectedSpot?.id === spot.id}
+                        selectedStation={selectedStation}
+                        onSelect={handleSelectSpot}
+                      />
+                    </div>
+                  ))}
 
-                {/* 載入更多 100 筆按鈕 */}
-                {filteredSpots.length > visibleSpots.length && (
-                  <div style={{ padding: '1rem 0.5rem 1.5rem 0.5rem', textAlign: 'center' }}>
-                    <button
-                      type="button"
-                      onClick={() => setVisibleLimit(prev => Math.min(prev + 100, filteredSpots.length))}
-                      style={{
-                        width: '100%',
-                        padding: '0.75rem 1rem',
-                        background: 'var(--bg-card, #ffffff)',
-                        border: '1.5px solid var(--primary, #00489d)',
-                        color: 'var(--primary, #00489d)',
-                        borderRadius: '10px',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                        cursor: 'pointer',
-                        boxShadow: '0 2px 8px rgba(0, 72, 157, 0.08)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.2rem',
-                        transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0, 72, 157, 0.06)'; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = 'var(--bg-card, #ffffff)'; }}
-                    >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                        <span>⬇️ 載入更多 100 筆地標</span>
-                      </span>
-                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, #64748b)', fontWeight: 500 }}>
-                        已顯示 {visibleSpots.length} / 共 {filteredSpots.length} 處（尚有 {filteredSpots.length - visibleSpots.length} 處未載入）
-                      </span>
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+                  {/* 載入更多 100 筆按鈕 */}
+                  {filteredSpots.length > visibleSpots.length && (
+                    <div style={{ padding: '1rem 0.5rem 1.5rem 0.5rem', textAlign: 'center' }}>
+                      <button
+                        type="button"
+                        onClick={() => setVisibleLimit(prev => Math.min(prev + 100, filteredSpots.length))}
+                        style={{
+                          width: '100%',
+                          padding: '0.75rem 1rem',
+                          background: 'var(--bg-card, #ffffff)',
+                          border: '1.5px solid var(--primary, #00489d)',
+                          color: 'var(--primary, #00489d)',
+                          borderRadius: '10px',
+                          fontWeight: 700,
+                          fontSize: '0.85rem',
+                          cursor: 'pointer',
+                          boxShadow: '0 2px 8px rgba(0, 72, 157, 0.08)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.2rem',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0, 72, 157, 0.06)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = 'var(--bg-card, #ffffff)'; }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                          <span>⬇️ 載入更多 100 筆地標</span>
+                        </span>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, #64748b)', fontWeight: 500 }}>
+                          已顯示 {visibleSpots.length} / 共 {filteredSpots.length} 處（尚有 {filteredSpots.length - visibleSpots.length} 處未載入）
+                        </span>
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
         </aside>
 
         {/* Right Map View */}
-        <InteractiveMap
-          spots={filteredSpots}
-          selectedSpot={selectedSpot}
-          selectedStation={selectedStation}
-          onSelectSpot={handleSelectSpot}
-          theme={theme}
-        />
+        <div style={{ flex: 1, position: 'relative', height: '100%' }}>
+          <InteractiveMap
+            spots={isExploreMode ? [] : filteredSpots}
+            selectedSpot={selectedSpot}
+            selectedStation={selectedStation}
+            onSelectSpot={handleSelectSpot}
+            theme={theme}
+          />
+          {isExploreMode && (
+            <div style={{
+              position: 'absolute',
+              top: '1.2rem',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 999,
+              background: 'rgba(255, 255, 255, 0.94)',
+              backdropFilter: 'blur(8px)',
+              border: '1.5px solid var(--border-color, #e2e8f0)',
+              borderRadius: '30px',
+              padding: '0.55rem 1.25rem',
+              boxShadow: '0 4px 16px rgba(0, 72, 157, 0.12)',
+              color: 'var(--text-main, #1e293b)',
+              fontSize: '0.84rem',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              pointerEvents: 'none'
+            }}>
+              <span>🔍</span>
+              <span>請在左側搜尋車站、都道府縣或點選分類標籤，立即顯示在地生活圈店家</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Google Sheet Sync Modal */}

@@ -133,6 +133,45 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
     });
   });
 
+  describe('WelcomeExplorer Initial Google Maps Style Discovery Tests', () => {
+    it('初次載入頁面時應呈現四大熱門分類卡片、熱門車站與都道府縣捷徑', async () => {
+      const { default: WelcomeExplorer } = await import('../../src/components/WelcomeExplorer.jsx');
+      const onSelectCategory = vi.fn();
+      const onSelectStation = vi.fn();
+      const onSelectPrefecture = vi.fn();
+      const onBrowseAll = vi.fn();
+
+      render(
+        <WelcomeExplorer
+          totalSpots={1948}
+          stations={[{ name: '新宿站', region: '關東', prefecture: '東京都' }]}
+          onSelectCategory={onSelectCategory}
+          onSelectStation={onSelectStation}
+          onSelectPrefecture={onSelectPrefecture}
+          onBrowseAll={onBrowseAll}
+        />
+      );
+
+      // 四大核心入口
+      expect(screen.getByText('飯店旅館')).toBeInTheDocument();
+      expect(screen.getByText('在地美食')).toBeInTheDocument();
+      expect(screen.getByText('購物藥妝')).toBeInTheDocument();
+      expect(screen.getByText('便利商店')).toBeInTheDocument();
+
+      // 樞紐車站捷徑
+      expect(screen.getByText('新宿站')).toBeInTheDocument();
+      expect(screen.getByText('東京站')).toBeInTheDocument();
+
+      // 點擊美食分類觸發
+      fireEvent.click(screen.getByText('在地美食'));
+      expect(onSelectCategory).toHaveBeenCalledWith('美食餐廳');
+
+      // 點擊瀏覽全部觸發
+      fireEvent.click(screen.getByText(/直接瀏覽全日本所有地標/));
+      expect(onBrowseAll).toHaveBeenCalled();
+    });
+  });
+
   describe('RegionHierarchyFilter & Walk Distance Quick Slider', () => {
     it('步行時間快速拉桿應正確呈現快捷選項並觸發回呼', () => {
       const onSelectWalk = vi.fn();
