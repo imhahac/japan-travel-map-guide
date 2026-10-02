@@ -1,0 +1,11 @@
+{
+  "name": "japan-travel-apa-crawler",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for crawling APA Hotel official directory and syncing to Google Sheets",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  }
+}

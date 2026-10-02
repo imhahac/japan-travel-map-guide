@@ -1,0 +1,14 @@
+name = "japan-travel-apa-crawler"
+main = "src/index.js"
+compatibility_date = "2024-04-01"
+account_id = "02671fd27d5ae23ed6316cc9f43cf113"
+
+# 定時排程：每天日本時間 04:00 (UTC 19:00) 自動爬取更新
+[triggers]
+crons = ["0 19 * * *"]
+
+[vars]
+CRAWL_TARGET_URL = "https://www.apahotel.com/hotel/"
+DEFAULT_CATEGORY = "飯店"
+DEFAULT_BRAND = "APA飯店"
+BATCH_SIZE = "50"
