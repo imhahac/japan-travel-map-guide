@@ -67,6 +67,7 @@ const POPULAR_PREFECTURES = [
 export default function WelcomeExplorer({
   totalSpots = 0,
   stations = [],
+  categoryCounts = {},
   onSelectCategory,
   onSelectStation,
   onSelectPrefecture,
@@ -112,6 +113,7 @@ export default function WelcomeExplorer({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.6rem' }}>
           {QUICK_CATEGORIES.map(cat => {
             const Icon = cat.icon;
+            const count = categoryCounts[cat.id];
             return (
               <button
                 key={cat.id}
@@ -141,7 +143,7 @@ export default function WelcomeExplorer({
                   e.currentTarget.style.borderColor = cat.border;
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', width: '100%' }}>
                   <div style={{
                     width: '26px',
                     height: '26px',
@@ -150,13 +152,21 @@ export default function WelcomeExplorer({
                     color: cat.color,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    flexShrink: 0
                   }}>
                     <Icon size={15} />
                   </div>
-                  <span style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-main)' }}>
-                    {cat.name}
-                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', minWidth: 0 }}>
+                    <span style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {cat.name}
+                    </span>
+                    {count !== undefined && count > 0 && (
+                      <span style={{ fontSize: '0.68rem', color: cat.color, fontWeight: 700, background: cat.bg, padding: '1px 5px', borderRadius: '10px', flexShrink: 0 }}>
+                        {count}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', lineHeight: 1.3 }}>
                   {cat.desc}

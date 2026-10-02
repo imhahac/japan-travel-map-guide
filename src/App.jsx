@@ -7,7 +7,7 @@ import SpotCard from './components/SpotCard';
 import InteractiveMap from './components/InteractiveMap';
 import WelcomeExplorer from './components/WelcomeExplorer';
 import SyncModal from './components/SyncModal';
-import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble } from 'lucide-react';
+import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble, ChevronLeft } from 'lucide-react';
 
 // Attempt to load generated spots and stations data
 let initialSpots = [];
@@ -212,105 +212,27 @@ export default function App() {
             onClick={() => setIsMobileDrawerCollapsed(prev => !prev)}
           />
 
-          <div className="sidebar-header">
-            {/* 1. Station Smart Search Autocomplete */}
-            <StationSearchBar
-              stations={stations}
-              selectedStation={selectedStation}
-              onSelectStation={(st) => {
-                setSelectedStation(st);
-                // Also auto set region if station has it
-                if (st.region) setSelectedRegion(st.region);
-                if (st.prefecture) setSelectedPrefecture(st.prefecture);
-                setHasUserInteracted(true);
-              }}
-              onClearStation={() => setSelectedStation(null)}
-            />
-
-            {/* 2. Two-tier Category & Brand Filter */}
-            <CategoryFilter
-              currentCategory={selectedCategory}
-              onSelectCategory={(cat) => {
-                setSelectedCategory(cat);
-                setSelectedBrand('all');
-                setHasUserInteracted(true);
-              }}
-              categoryCounts={categoryCounts}
-              currentBrand={selectedBrand}
-              onSelectBrand={(b) => {
-                setSelectedBrand(b);
-                setHasUserInteracted(true);
-              }}
-              brandCounts={brandCounts}
-            />
-
-            {/* 3. Region, Prefecture & Walk Radius Filter */}
-            <RegionHierarchyFilter
-              selectedRegion={selectedRegion}
-              selectedPrefecture={selectedPrefecture}
-              walkFilter={walkFilter}
-              onSelectRegion={(reg) => {
-                setSelectedRegion(reg);
-                if (reg !== '全部地區') setHasUserInteracted(true);
-              }}
-              onSelectPrefecture={(pref) => {
-                setSelectedPrefecture(pref);
-                if (pref !== '全部都道府縣') setHasUserInteracted(true);
-              }}
-              onSelectWalkFilter={(w) => {
-                setWalkFilter(w);
-                if (w !== 'all') setHasUserInteracted(true);
-              }}
-            />
-
-            {/* 4. Active Station Focus Banner (When a station is active) */}
-            {selectedStation && (
-              <div className="active-station-banner">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <Train size={15} />
-                  <span>已聚焦 <strong>{selectedStation.name}</strong> 步行生活圈（半徑 1km 內）</span>
-                </div>
-                <button
-                  className="banner-reset-btn"
-                  onClick={() => setSelectedStation(null)}
-                >
-                  解除聚焦
-                </button>
-              </div>
-            )}
-
-            {/* Stats Bar */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              {isExploreMode ? (
-                <span>📍 請選擇上方分類或搜尋車站，開始導覽</span>
-              ) : (
-                <span>
-                  {filteredSpots.length > visibleSpots.length ? (
-                    <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{filteredSpots.length}</strong> 處地標</>
-                  ) : (
-                    <>顯示 <strong>{filteredSpots.length}</strong> 處地標</>
-                  )}
-                  {selectedStation && ` (依距離排序)`}
-                </span>
-              )}
-              {!isExploreMode && (
-                <button
-                  onClick={handleResetAllFilters}
-                  style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
-                >
-                  <RefreshCw size={12} />
-                  返回探索首頁
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Main List Area: Explore Mode vs Filtered Cards List */}
           {isExploreMode ? (
-            <div className="cards-scroll-container">
+            /* Mode 1: 探索首頁模式 (Google Maps / Airbnb 風格：上方搜尋，下方探索主頁，零冗餘！) */
+            <div className="explore-mode-layout" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflowY: 'auto' }}>
+              <div style={{ padding: '0.85rem 1rem 0.65rem 1rem', borderBottom: '1px solid var(--border-color, #e2e8f0)', background: 'var(--bg-card, #ffffff)' }}>
+                <StationSearchBar
+                  stations={stations}
+                  selectedStation={selectedStation}
+                  onSelectStation={(st) => {
+                    setSelectedStation(st);
+                    if (st.region) setSelectedRegion(st.region);
+                    if (st.prefecture) setSelectedPrefecture(st.prefecture);
+                    setHasUserInteracted(true);
+                  }}
+                  onClearStation={() => setSelectedStation(null)}
+                />
+              </div>
+
               <WelcomeExplorer
                 totalSpots={spots.length}
                 stations={stations}
+                categoryCounts={categoryCounts}
                 onSelectCategory={(cat) => {
                   setSelectedCategory(cat);
                   setSelectedBrand('all');
@@ -333,76 +255,199 @@ export default function App() {
               />
             </div>
           ) : (
-            <div className="cards-scroll-container" ref={cardListRef}>
-              {filteredSpots.length === 0 ? (
-                <div style={{ padding: '3rem 1.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                  <BedDouble size={36} style={{ margin: '0 auto 0.75rem auto', opacity: 0.4 }} />
-                  <h4 style={{ fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.3rem' }}>
-                    找不到符合條件的地標
-                  </h4>
-                  <p style={{ fontSize: '0.82rem', marginBottom: '1rem' }}>
-                    請嘗試放寬步行距離、切換都道府縣或搜尋其他車站
-                  </p>
+            /* Mode 2: 結果瀏覽模式 (當使用者點擊分類、搜尋車站或都道府縣時，展示篩選控制列與店家卡片清單) */
+            <>
+              <div className="sidebar-header">
+                {/* 0. Results Mode Navigation Bar (Google Maps style Back Header) */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingBottom: '0.45rem',
+                  borderBottom: '1px solid var(--border)',
+                  marginBottom: '0.1rem'
+                }}>
+                  <button
+                    type="button"
+                    onClick={handleResetAllFilters}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--primary, #00489d)',
+                      fontWeight: 700,
+                      fontSize: '0.84rem',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      padding: '0.2rem 0'
+                    }}
+                  >
+                    <ChevronLeft size={16} />
+                    <span>返回探索首頁</span>
+                  </button>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                    共 <strong>{filteredSpots.length}</strong> 處地標
+                  </span>
+                </div>
+
+                {/* 1. Station Smart Search Autocomplete */}
+                <StationSearchBar
+                  stations={stations}
+                  selectedStation={selectedStation}
+                  onSelectStation={(st) => {
+                    setSelectedStation(st);
+                    if (st.region) setSelectedRegion(st.region);
+                    if (st.prefecture) setSelectedPrefecture(st.prefecture);
+                    setHasUserInteracted(true);
+                  }}
+                  onClearStation={() => setSelectedStation(null)}
+                />
+
+                {/* 2. Two-tier Category & Brand Filter */}
+                <CategoryFilter
+                  currentCategory={selectedCategory}
+                  onSelectCategory={(cat) => {
+                    setSelectedCategory(cat);
+                    setSelectedBrand('all');
+                    setHasUserInteracted(true);
+                  }}
+                  categoryCounts={categoryCounts}
+                  currentBrand={selectedBrand}
+                  onSelectBrand={(b) => {
+                    setSelectedBrand(b);
+                    setHasUserInteracted(true);
+                  }}
+                  brandCounts={brandCounts}
+                />
+
+                {/* 3. Region, Prefecture & Walk Radius Filter */}
+                <RegionHierarchyFilter
+                  selectedRegion={selectedRegion}
+                  selectedPrefecture={selectedPrefecture}
+                  walkFilter={walkFilter}
+                  onSelectRegion={(reg) => {
+                    setSelectedRegion(reg);
+                    if (reg !== '全部地區') setHasUserInteracted(true);
+                  }}
+                  onSelectPrefecture={(pref) => {
+                    setSelectedPrefecture(pref);
+                    if (pref !== '全部都道府縣') setHasUserInteracted(true);
+                  }}
+                  onSelectWalkFilter={(w) => {
+                    setWalkFilter(w);
+                    if (w !== 'all') setHasUserInteracted(true);
+                  }}
+                />
+
+                {/* 4. Active Station Focus Banner (When a station is active) */}
+                {selectedStation && (
+                  <div className="active-station-banner">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <Train size={15} />
+                      <span>已聚焦 <strong>{selectedStation.name}</strong> 步行生活圈（半徑 1km 內）</span>
+                    </div>
+                    <button
+                      className="banner-reset-btn"
+                      onClick={() => setSelectedStation(null)}
+                    >
+                      解除聚焦
+                    </button>
+                  </div>
+                )}
+
+                {/* Stats Bar */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  <span>
+                    {filteredSpots.length > visibleSpots.length ? (
+                      <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{filteredSpots.length}</strong> 處地標</>
+                    ) : (
+                      <>顯示 <strong>{filteredSpots.length}</strong> 處地標</>
+                    )}
+                    {selectedStation && ` (依距離排序)`}
+                  </span>
                   <button
                     onClick={handleResetAllFilters}
-                    className="btn-action btn-primary"
-                    style={{ margin: '0 auto', padding: '0.45rem 1rem' }}
+                    style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
                   >
-                    重設篩選條件
+                    <RefreshCw size={12} />
+                    重設篩選
                   </button>
                 </div>
-              ) : (
-                <>
-                  {visibleSpots.map(spot => (
-                    <div key={spot.id} id={`spot-card-${spot.id}`}>
-                      <SpotCard
-                        spot={spot}
-                        isSelected={selectedSpot?.id === spot.id}
-                        selectedStation={selectedStation}
-                        onSelect={handleSelectSpot}
-                      />
-                    </div>
-                  ))}
+              </div>
 
-                  {/* 載入更多 100 筆按鈕 */}
-                  {filteredSpots.length > visibleSpots.length && (
-                    <div style={{ padding: '1rem 0.5rem 1.5rem 0.5rem', textAlign: 'center' }}>
-                      <button
-                        type="button"
-                        onClick={() => setVisibleLimit(prev => Math.min(prev + 100, filteredSpots.length))}
-                        style={{
-                          width: '100%',
-                          padding: '0.75rem 1rem',
-                          background: 'var(--bg-card, #ffffff)',
-                          border: '1.5px solid var(--primary, #00489d)',
-                          color: 'var(--primary, #00489d)',
-                          borderRadius: '10px',
-                          fontWeight: 700,
-                          fontSize: '0.85rem',
-                          cursor: 'pointer',
-                          boxShadow: '0 2px 8px rgba(0, 72, 157, 0.08)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '0.2rem',
-                          transition: 'all 0.2s ease'
-                        }}
-                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0, 72, 157, 0.06)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = 'var(--bg-card, #ffffff)'; }}
-                      >
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <span>⬇️ 載入更多 100 筆地標</span>
-                        </span>
-                        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, #64748b)', fontWeight: 500 }}>
-                          已顯示 {visibleSpots.length} / 共 {filteredSpots.length} 處（尚有 {filteredSpots.length - visibleSpots.length} 處未載入）
-                        </span>
-                      </button>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
+              {/* Cards List (Only renders up to 100 cards initially to save resources) */}
+              <div className="cards-scroll-container" ref={cardListRef}>
+                {filteredSpots.length === 0 ? (
+                  <div style={{ padding: '3rem 1.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                    <BedDouble size={36} style={{ margin: '0 auto 0.75rem auto', opacity: 0.4 }} />
+                    <h4 style={{ fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.3rem' }}>
+                      找不到符合條件的地標
+                    </h4>
+                    <p style={{ fontSize: '0.82rem', marginBottom: '1rem' }}>
+                      請嘗試放寬步行距離、切換都道府縣或搜尋其他車站
+                    </p>
+                    <button
+                      onClick={handleResetAllFilters}
+                      className="btn-action btn-primary"
+                      style={{ margin: '0 auto', padding: '0.45rem 1rem' }}
+                    >
+                      重設篩選條件
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    {visibleSpots.map(spot => (
+                      <div key={spot.id} id={`spot-card-${spot.id}`}>
+                        <SpotCard
+                          spot={spot}
+                          isSelected={selectedSpot?.id === spot.id}
+                          selectedStation={selectedStation}
+                          onSelect={handleSelectSpot}
+                        />
+                      </div>
+                    ))}
+
+                    {/* 載入更多 100 筆按鈕 */}
+                    {filteredSpots.length > visibleSpots.length && (
+                      <div style={{ padding: '1rem 0.5rem 1.5rem 0.5rem', textAlign: 'center' }}>
+                        <button
+                          type="button"
+                          onClick={() => setVisibleLimit(prev => Math.min(prev + 100, filteredSpots.length))}
+                          style={{
+                            width: '100%',
+                            padding: '0.75rem 1rem',
+                            background: 'var(--bg-card, #ffffff)',
+                            border: '1.5px solid var(--primary, #00489d)',
+                            color: 'var(--primary, #00489d)',
+                            borderRadius: '10px',
+                            fontWeight: 700,
+                            fontSize: '0.85rem',
+                            cursor: 'pointer',
+                            boxShadow: '0 2px 8px rgba(0, 72, 157, 0.08)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.2rem',
+                            transition: 'all 0.2s ease'
+                          }}
+                          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0, 72, 157, 0.06)'; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = 'var(--bg-card, #ffffff)'; }}
+                        >
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                            <span>⬇️ 載入更多 100 筆地標</span>
+                          </span>
+                          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, #64748b)', fontWeight: 500 }}>
+                            已顯示 {visibleSpots.length} / 共 {filteredSpots.length} 處（尚有 {filteredSpots.length - visibleSpots.length} 處未載入）
+                          </span>
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </>
           )}
         </aside>
 
