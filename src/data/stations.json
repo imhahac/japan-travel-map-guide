@@ -1,20 +1,649 @@
 [
   {
+    "name": "東京站",
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Line",
+    "lat": 35.672696,
+    "lng": 139.764925,
+    "count": 115,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00269",
+      "apa-ginza-kyobashi",
+      "donki-671",
+      "donki-672",
+      "donki-660",
+      "donki-721",
+      "donki-731",
+      "donki-98",
+      "donki-aifyj",
+      "donki-632",
+      "donki-92",
+      "donki-31",
+      "donki-iyzwa",
+      "donki-289",
+      "donki-368",
+      "donki-639",
+      "donki-326",
+      "donki-747",
+      "donki-zk8y7",
+      "donki-343",
+      "donki-107",
+      "donki-662",
+      "donki-h6ydy",
+      "donki-z24jl",
+      "donki-060qp",
+      "donki-fmh3p",
+      "donki-628",
+      "donki-431",
+      "donki-rb8ld",
+      "donki-94",
+      "donki-468",
+      "donki-zj476",
+      "donki-9rgmw",
+      "donki-65yw6",
+      "donki-35",
+      "donki-54vfw",
+      "donki-n0i0k",
+      "donki-cmluo",
+      "donki-53",
+      "donki-635",
+      "donki-zl032",
+      "donki-69uft",
+      "donki-203",
+      "donki-sb50i",
+      "donki-96",
+      "donki-1w97j",
+      "donki-7io0m",
+      "donki-8bzha",
+      "donki-327",
+      "donki-365s3",
+      "donki-9",
+      "donki-405",
+      "donki-e5jk9",
+      "donki-pvvyx",
+      "donki-vqats",
+      "donki-655",
+      "donki-i5hx7",
+      "donki-606",
+      "donki-60",
+      "donki-407",
+      "donki-423",
+      "donki-216",
+      "donki-dyrei",
+      "donki-7fc3x",
+      "donki-zu2qv",
+      "donki-208",
+      "donki-508",
+      "donki-624",
+      "donki-10",
+      "donki-q4mn8",
+      "donki-61",
+      "donki-aksre",
+      "donki-idcrb",
+      "donki-262",
+      "donki-25",
+      "donki-loxwz",
+      "donki-314",
+      "donki-504",
+      "donki-v7uvh",
+      "donki-lu7x5",
+      "donki-394",
+      "donki-ak4yg",
+      "donki-297",
+      "donki-75bsb",
+      "donki-73",
+      "donki-692",
+      "donki-694",
+      "donki-744",
+      "donki-321",
+      "donki-659",
+      "donki-16",
+      "donki-1",
+      "donki-c1q6t",
+      "donki-315",
+      "donki-7zyjl",
+      "donki-37",
+      "donki-heizm",
+      "donki-30",
+      "donki-z0iko",
+      "donki-rcwpi",
+      "donki-388",
+      "donki-518",
+      "donki-354",
+      "donki-9ng0v",
+      "donki-220",
+      "donki-14",
+      "donki-22",
+      "donki-58",
+      "donki-pyw00",
+      "donki-638",
+      "donki-5ph9x",
+      "donki-325",
+      "matsukiyo-ginza-5chome",
+      "matsukiyo-shinbashi-ginzaguchi",
+      "matsukiyo-yurakucho-itocia"
+    ]
+  },
+  {
+    "name": "日本各地主要車站",
+    "prefecture": "日本各地",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 88,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-0yhc5",
+      "donki-hzglm",
+      "donki-vg141",
+      "donki-3g9rz",
+      "donki-har5u",
+      "donki-u1644",
+      "donki-x7ulg",
+      "donki-s9ptm",
+      "donki-pmnwe",
+      "donki-5m3p3",
+      "donki-cd06m",
+      "donki-7jp2s",
+      "donki-9nk89",
+      "donki-6mehj",
+      "donki-vf98q",
+      "donki-cwaj0",
+      "donki-dgaw3",
+      "donki-ahewq",
+      "donki-zi71y",
+      "donki-8xy8p",
+      "donki-gu7p2",
+      "donki-3kh39",
+      "donki-8zboh",
+      "donki-pqndt",
+      "donki-5joh7",
+      "donki-kkv35",
+      "donki-2vjoh",
+      "donki-okaj8",
+      "donki-f4pcr",
+      "donki-6u3mb",
+      "donki-etm61",
+      "donki-8ksyo",
+      "donki-c9am1",
+      "donki-odmre",
+      "donki-kld5k",
+      "donki-h6ay8",
+      "donki-wa545",
+      "donki-i1pex",
+      "donki-twspx",
+      "donki-lt14g",
+      "donki-1c7qj",
+      "donki-hr4be",
+      "donki-200011",
+      "donki-200005",
+      "donki-200001",
+      "donki-200009",
+      "donki-200018",
+      "donki-200002",
+      "donki-200000",
+      "donki-200004",
+      "donki-200017",
+      "donki-200012",
+      "donki-200008",
+      "donki-vflsm",
+      "donki-200015",
+      "donki-200019",
+      "donki-200014",
+      "donki-200016",
+      "donki-200013",
+      "donki-210011",
+      "donki-210005",
+      "donki-210006",
+      "donki-210007",
+      "donki-210008",
+      "donki-210001",
+      "donki-210003",
+      "donki-210004",
+      "donki-220001",
+      "donki-220002",
+      "donki-220003",
+      "donki-220004",
+      "donki-220005",
+      "donki-220007",
+      "donki-220009",
+      "donki-220010",
+      "donki-220011",
+      "donki-220012",
+      "donki-230001",
+      "donki-230002",
+      "donki-230003",
+      "donki-230004",
+      "donki-230005",
+      "donki-230008",
+      "donki-240001",
+      "donki-240006",
+      "donki-250001",
+      "donki-250002",
+      "donki-260001"
+    ]
+  },
+  {
+    "name": "愛知縣主要車站",
+    "prefecture": "愛知縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 70,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-541",
+      "donki-451",
+      "donki-476",
+      "donki-460",
+      "donki-542",
+      "donki-330",
+      "donki-565",
+      "donki-97",
+      "donki-558",
+      "donki-183",
+      "donki-181",
+      "donki-534",
+      "donki-498",
+      "donki-475",
+      "donki-283",
+      "donki-124",
+      "donki-494",
+      "donki-526",
+      "donki-564",
+      "donki-549",
+      "donki-524",
+      "donki-522",
+      "donki-352",
+      "donki-484",
+      "donki-556",
+      "donki-481",
+      "donki-182",
+      "donki-99999148",
+      "donki-490",
+      "donki-99999109",
+      "donki-99999118",
+      "donki-9999967",
+      "donki-99999234",
+      "donki-99999156",
+      "donki-9999931",
+      "donki-9999935",
+      "donki-999995",
+      "donki-99999164",
+      "donki-99999111",
+      "donki-9999956",
+      "donki-9999940",
+      "donki-9999932",
+      "donki-9999968",
+      "donki-9999918",
+      "donki-99999101",
+      "donki-9999965",
+      "donki-9999914",
+      "donki-9999977",
+      "donki-9999925",
+      "donki-99999147",
+      "donki-99999143",
+      "donki-99999138",
+      "donki-9999942",
+      "donki-99999158",
+      "donki-99999150",
+      "donki-9999957",
+      "donki-99999116",
+      "donki-999992",
+      "donki-99999163",
+      "donki-9999966",
+      "donki-9999936",
+      "donki-9999961",
+      "donki-9999924",
+      "donki-999993",
+      "donki-99999110",
+      "donki-99999136",
+      "donki-99999420",
+      "donki-9999981",
+      "donki-999999",
+      "donki-999991"
+    ]
+  },
+  {
+    "name": "名古屋站",
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Line",
+    "lat": 35.170979,
+    "lng": 136.882348,
+    "count": 46,
+    "hotelCount": 5,
+    "foodCount": 1,
+    "spotIds": [
+      "toyoko-00094",
+      "toyoko-00022",
+      "toyoko-00092",
+      "apa-nagoya-ekimae-shinkansenguchi",
+      "apa-nagoya-shinkansen-minami",
+      "donki-76",
+      "donki-472",
+      "donki-538",
+      "donki-408",
+      "donki-180",
+      "donki-348",
+      "donki-532",
+      "donki-623",
+      "donki-615",
+      "donki-163",
+      "donki-99999103",
+      "donki-560",
+      "donki-397",
+      "donki-335",
+      "donki-88",
+      "donki-9999928",
+      "donki-99999231",
+      "donki-99999129",
+      "donki-99999230",
+      "donki-99999237",
+      "donki-99999135",
+      "donki-99999123",
+      "donki-99999161",
+      "donki-99999242",
+      "donki-9999975",
+      "donki-9999921",
+      "donki-99999142",
+      "donki-99999238",
+      "donki-9999930",
+      "donki-99999115",
+      "donki-99999232",
+      "donki-9999912",
+      "donki-9999916",
+      "donki-9999911",
+      "donki-99999167",
+      "donki-9999917",
+      "matsukiyo-nagoya-meieki-taiko",
+      "dining-komeda-nagoya-eki-west",
+      "convenience-7eleven-nagoya-taiko",
+      "convenience-familymart-nagoya-sakuradori",
+      "convenience-lawson-nagoya-meieki"
+    ]
+  },
+  {
+    "name": "大阪站",
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "JR Line",
+    "lat": 34.729437,
+    "lng": 135.501019,
+    "count": 46,
+    "hotelCount": 3,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00016",
+      "toyoko-00091",
+      "apa-shin-osaka-minami",
+      "donki-673",
+      "donki-676",
+      "donki-683",
+      "donki-685",
+      "donki-704",
+      "donki-714",
+      "donki-717",
+      "donki-722",
+      "donki-728",
+      "donki-745",
+      "donki-629",
+      "donki-609",
+      "donki-599",
+      "donki-651",
+      "donki-115",
+      "donki-350",
+      "donki-367",
+      "donki-110",
+      "donki-373",
+      "donki-86",
+      "donki-438",
+      "donki-175",
+      "donki-356",
+      "donki-75",
+      "donki-366",
+      "donki-372",
+      "donki-463",
+      "donki-341",
+      "donki-271",
+      "donki-303",
+      "donki-506",
+      "donki-614",
+      "donki-87",
+      "donki-360",
+      "donki-95",
+      "donki-77",
+      "donki-324",
+      "donki-413",
+      "donki-127",
+      "donki-535",
+      "donki-91",
+      "donki-273",
+      "donki-164"
+    ]
+  },
+  {
+    "name": "中央站",
+    "prefecture": "鹿兒島縣",
+    "region": "kyushu",
+    "line": "JR Line",
+    "lat": 31.583616,
+    "lng": 130.5429,
+    "count": 40,
+    "hotelCount": 3,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00202",
+      "toyoko-00220",
+      "apa-kagoshima-chuo",
+      "donki-687",
+      "donki-440",
+      "donki-148",
+      "donki-730",
+      "donki-20",
+      "donki-661",
+      "donki-vu7e8",
+      "donki-741",
+      "donki-156",
+      "donki-734",
+      "donki-2dj0e",
+      "donki-488",
+      "donki-j39uv",
+      "donki-b1ypa",
+      "donki-374",
+      "donki-gzeuo",
+      "donki-724",
+      "donki-79",
+      "donki-550",
+      "donki-736",
+      "donki-699",
+      "donki-483",
+      "donki-358",
+      "donki-186",
+      "donki-492",
+      "donki-9999983",
+      "donki-99999134",
+      "donki-664",
+      "donki-64",
+      "donki-270",
+      "donki-603",
+      "donki-737",
+      "donki-461",
+      "donki-517",
+      "donki-411",
+      "donki-686",
+      "donki-678"
+    ]
+  },
+  {
+    "name": "千葉站",
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR Sobu line",
+    "lat": 35.61219,
+    "lng": 140.118184,
+    "count": 37,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00021",
+      "toyoko-00235",
+      "donki-698",
+      "donki-716",
+      "donki-706",
+      "donki-715",
+      "donki-739",
+      "donki-5",
+      "donki-633",
+      "donki-4gcsg",
+      "donki-lbmbx",
+      "donki-209",
+      "donki-pi463",
+      "donki-121",
+      "donki-392",
+      "donki-p01nx",
+      "donki-239",
+      "donki-18",
+      "donki-509",
+      "donki-428",
+      "donki-168",
+      "donki-70",
+      "donki-ygvf0",
+      "donki-637",
+      "donki-626",
+      "donki-170",
+      "donki-e8m54",
+      "donki-371",
+      "donki-212",
+      "donki-339",
+      "donki-646",
+      "donki-4",
+      "donki-337",
+      "donki-528",
+      "donki-108",
+      "donki-99999213",
+      "donki-99999194"
+    ]
+  },
+  {
+    "name": "神奈川縣主要車站",
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 32,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-679",
+      "donki-122",
+      "donki-471",
+      "donki-344",
+      "donki-trpea",
+      "donki-643",
+      "donki-391",
+      "donki-347",
+      "donki-513",
+      "donki-464",
+      "donki-rgil5",
+      "donki-319",
+      "donki-214",
+      "donki-56",
+      "donki-duolb",
+      "donki-166",
+      "donki-169",
+      "donki-ow1lk",
+      "donki-501",
+      "donki-ra75y",
+      "donki-412",
+      "donki-473",
+      "donki-338",
+      "donki-292",
+      "donki-150",
+      "donki-385",
+      "donki-68",
+      "donki-gy8w0",
+      "donki-559",
+      "donki-99999259",
+      "donki-99999185",
+      "donki-99999191"
+    ]
+  },
+  {
+    "name": "埼玉縣主要車站",
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 29,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-669",
+      "donki-227",
+      "donki-34",
+      "donki-cyfpx",
+      "donki-x4qx6",
+      "donki-625",
+      "donki-172",
+      "donki-365",
+      "donki-106",
+      "donki-495",
+      "donki-215",
+      "donki-143",
+      "donki-636",
+      "donki-617",
+      "donki-99fsz",
+      "donki-2j9zr",
+      "donki-bauwi",
+      "donki-62",
+      "donki-151",
+      "donki-126",
+      "donki-157",
+      "donki-zdk6c",
+      "donki-67x4e",
+      "donki-602",
+      "donki-99999251",
+      "donki-173",
+      "donki-ptgla",
+      "donki-536",
+      "donki-qc1as"
+    ]
+  },
+  {
     "name": "新宿站",
     "prefecture": "東京都",
     "region": "關東",
     "line": "Toei Ōedo Line",
-    "lat": 35.693029,
-    "lng": 139.702862,
-    "count": 12,
+    "lat": 35.693122,
+    "lng": 139.702925,
+    "count": 21,
     "hotelCount": 3,
     "foodCount": 4,
     "spotIds": [
       "toyoko-00078",
       "apa-shinjuku-kabukicho-tower",
       "apa-shinjuku-gyoenmae",
-      "donki-shinjuku-kabukicho",
-      "donki-shinjuku-southeast",
+      "donki-709",
+      "donki-29",
+      "donki-449",
+      "donki-m2jmk",
+      "donki-8ce8p",
+      "donki-378",
+      "donki-8",
+      "donki-502",
+      "donki-276",
+      "donki-lx70a",
+      "donki-u83eo",
       "matsukiyo-shinjuku-east",
       "dining-yoshinoya-shinjuku-east",
       "dining-matsuya-shinjuku-kabukicho",
@@ -25,50 +654,354 @@
     ]
   },
   {
-    "name": "名古屋站",
-    "prefecture": "愛知縣",
-    "region": "東海・甲信越・北陸",
-    "line": "JR Line",
-    "lat": 35.170969,
-    "lng": 136.88233,
-    "count": 11,
-    "hotelCount": 5,
-    "foodCount": 1,
+    "name": "岐阜縣主要車站",
+    "prefecture": "岐阜縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 19,
+    "hotelCount": 0,
+    "foodCount": 0,
     "spotIds": [
-      "toyoko-00094",
-      "toyoko-00022",
-      "toyoko-00092",
-      "apa-nagoya-ekimae-shinkansenguchi",
-      "apa-nagoya-shinkansen-minami",
-      "donki-nagoya-eki-nishi",
-      "matsukiyo-nagoya-meieki-taiko",
-      "dining-komeda-nagoya-eki-west",
-      "convenience-7eleven-nagoya-taiko",
-      "convenience-familymart-nagoya-sakuradori",
-      "convenience-lawson-nagoya-meieki"
+      "donki-720",
+      "donki-525",
+      "donki-299",
+      "donki-457",
+      "donki-505",
+      "donki-521",
+      "donki-184",
+      "donki-478",
+      "donki-533",
+      "donki-99999137",
+      "donki-9999971",
+      "donki-9999984",
+      "donki-99999165",
+      "donki-9999980",
+      "donki-99999166",
+      "donki-99999132",
+      "donki-99999149",
+      "donki-9999964",
+      "donki-99999131"
     ]
   },
   {
-    "name": "五條大宮站",
-    "prefecture": "京都府",
-    "region": "近畿",
-    "line": "San-in Main Line",
-    "lat": 34.987576,
-    "lng": 135.757262,
-    "count": 10,
+    "name": "静岡縣主要車站",
+    "prefecture": "静岡縣",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 19,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-684",
+      "donki-445",
+      "donki-531",
+      "donki-480",
+      "donki-109",
+      "donki-387",
+      "donki-74",
+      "donki-515",
+      "donki-400",
+      "donki-300",
+      "donki-390",
+      "donki-99999177",
+      "donki-99999173",
+      "donki-99999171",
+      "donki-99999176",
+      "donki-9999922",
+      "donki-9999949",
+      "donki-9999933",
+      "donki-99999199"
+    ]
+  },
+  {
+    "name": "長野站",
+    "prefecture": "長野縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Line",
+    "lat": 36.641857,
+    "lng": 138.18834,
+    "count": 16,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00212",
+      "toyoko-00350",
+      "donki-577",
+      "donki-691",
+      "donki-453",
+      "donki-198",
+      "donki-120",
+      "donki-622",
+      "donki-280",
+      "donki-129",
+      "donki-448",
+      "donki-545",
+      "donki-688",
+      "donki-99999122",
+      "donki-99999133",
+      "donki-9999946"
+    ]
+  },
+  {
+    "name": "津站",
+    "prefecture": "三重縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Kintetsu Nagoya Railway",
+    "lat": 34.732258,
+    "lng": 136.508724,
+    "count": 16,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00273",
+      "donki-26",
+      "donki-99999215",
+      "donki-117",
+      "donki-570",
+      "donki-9999923",
+      "donki-529",
+      "donki-441",
+      "donki-403",
+      "donki-165",
+      "donki-9999962",
+      "donki-630",
+      "donki-313",
+      "donki-641",
+      "donki-332",
+      "donki-329"
+    ]
+  },
+  {
+    "name": "札幌站",
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR line",
+    "lat": 43.068231,
+    "lng": 141.351634,
+    "count": 15,
+    "hotelCount": 3,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00018",
+      "toyoko-00059",
+      "toyoko-00066",
+      "donki-670",
+      "donki-328",
+      "donki-547",
+      "donki-665",
+      "donki-45",
+      "donki-42",
+      "donki-145",
+      "donki-555",
+      "donki-657",
+      "convenience-7eleven-sapporo-north",
+      "convenience-familymart-sapporo-south",
+      "convenience-lawson-sapporo-ekimaedori"
+    ]
+  },
+  {
+    "name": "福岡縣主要車站",
+    "prefecture": "福岡縣",
+    "region": "九州・沖繩",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 14,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-702",
+      "donki-611",
+      "donki-100",
+      "donki-38",
+      "donki-41",
+      "donki-426",
+      "donki-437",
+      "donki-644",
+      "donki-393",
+      "donki-573",
+      "donki-309",
+      "donki-369",
+      "donki-456",
+      "donki-50"
+    ]
+  },
+  {
+    "name": "仙台站",
+    "prefecture": "宮城縣",
+    "region": "東北",
+    "line": "JR",
+    "lat": 38.260886,
+    "lng": 140.882224,
+    "count": 13,
+    "hotelCount": 5,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00011",
+      "toyoko-00024",
+      "toyoko-00036",
+      "toyoko-00058",
+      "apa-sendai-ekimae",
+      "donki-719",
+      "donki-503",
+      "donki-160",
+      "donki-125",
+      "donki-113",
+      "donki-167",
+      "donki-386",
+      "matsukiyo-sendai-chuo"
+    ]
+  },
+  {
+    "name": "三重縣主要車站",
+    "prefecture": "三重縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 13,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-580",
+      "donki-723",
+      "donki-563",
+      "donki-161",
+      "donki-298",
+      "donki-486",
+      "donki-99999162",
+      "donki-99999153",
+      "donki-999998",
+      "donki-9999969",
+      "donki-9999934",
+      "donki-99999152",
+      "donki-99999141"
+    ]
+  },
+  {
+    "name": "京站",
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Toei Shinjuku Line",
+    "lat": 35.68723,
+    "lng": 139.790612,
+    "count": 12,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00176",
+      "donki-707",
+      "donki-726",
+      "donki-653",
+      "donki-418",
+      "donki-57",
+      "donki-612",
+      "donki-454",
+      "donki-410",
+      "donki-266",
+      "donki-548",
+      "donki-425"
+    ]
+  },
+  {
+    "name": "富山站",
+    "prefecture": "富山縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Line",
+    "lat": 36.700083,
+    "lng": 137.212152,
+    "count": 12,
+    "hotelCount": 3,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00201",
+      "toyoko-00004",
+      "apa-toyama-ekimae",
+      "donki-668",
+      "donki-310",
+      "donki-530",
+      "donki-539",
+      "donki-149",
+      "donki-9999952",
+      "donki-9999994",
+      "donki-9999987",
+      "donki-9999990"
+    ]
+  },
+  {
+    "name": "池袋站",
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Line",
+    "lat": 35.731164,
+    "lng": 139.711834,
+    "count": 11,
     "hotelCount": 3,
     "foodCount": 1,
     "spotIds": [
-      "toyoko-00233",
-      "apa-kyoto-ekimae",
-      "apa-kyoto-horikawa",
-      "donki-kyoto-karasuma-shichijo",
-      "donki-kyoto-avanti",
-      "matsukiyo-kyoto-porta",
-      "dining-yoshinoya-kyoto-ekimae",
-      "convenience-7eleven-kyoto-karasuma",
-      "convenience-familymart-kyoto-chuo",
-      "convenience-lawson-kyoto-ekimae"
+      "toyoko-00096",
+      "toyoko-00007",
+      "apa-ikebukuro-ekikitaguchi",
+      "donki-63",
+      "donki-500",
+      "donki-255",
+      "matsukiyo-ikebukuro-part2",
+      "dining-yoshinoya-ikebukuro-east",
+      "convenience-7eleven-ikebukuro-east",
+      "convenience-familymart-ikebukuro-west",
+      "convenience-lawson-ikebukuro-south"
+    ]
+  },
+  {
+    "name": "川崎站",
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Keikyu Line",
+    "lat": 35.531166,
+    "lng": 139.700809,
+    "count": 11,
+    "hotelCount": 4,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00902",
+      "toyoko-00010",
+      "toyoko-00111",
+      "apa-kawasaki-ekimae",
+      "donki-510",
+      "donki-48",
+      "donki-8er49",
+      "donki-171",
+      "donki-444",
+      "donki-455",
+      "matsukiyo-kawasaki-ekimae"
+    ]
+  },
+  {
+    "name": "新潟站",
+    "prefecture": "新潟縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Line",
+    "lat": 37.917667,
+    "lng": 139.054977,
+    "count": 11,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00060",
+      "toyoko-00186",
+      "donki-680",
+      "donki-740",
+      "donki-627",
+      "donki-569",
+      "donki-282",
+      "donki-306",
+      "donki-616",
+      "donki-99999218",
+      "donki-99999214"
     ]
   },
   {
@@ -78,13 +1011,14 @@
     "line": "Osaka Metro Midosuji Line",
     "lat": 34.665439,
     "lng": 135.501593,
-    "count": 10,
+    "count": 11,
     "hotelCount": 3,
     "foodCount": 2,
     "spotIds": [
       "toyoko-00351",
       "toyoko-00054",
       "toyoko-00254",
+      "donki-419",
       "matsukiyo-osaka-ebisubashi",
       "matsukiyo-namba-sennichimae",
       "dining-yoshinoya-osaka-namba",
@@ -95,25 +1029,93 @@
     ]
   },
   {
-    "name": "池袋站",
-    "prefecture": "東京都",
+    "name": "茨城縣主要車站",
+    "prefecture": "茨城縣",
     "region": "關東",
-    "line": "JR Line",
-    "lat": 35.730975,
-    "lng": 139.711898,
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 10,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-712",
+      "donki-497",
+      "donki-293",
+      "donki-362",
+      "donki-424",
+      "donki-439",
+      "donki-192",
+      "donki-174",
+      "donki-269",
+      "donki-380"
+    ]
+  },
+  {
+    "name": "兵庫縣主要車站",
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 10,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-307",
+      "donki-446",
+      "donki-80",
+      "donki-40",
+      "donki-415",
+      "donki-333",
+      "donki-159",
+      "donki-466",
+      "donki-294",
+      "donki-99"
+    ]
+  },
+  {
+    "name": "福島站",
+    "prefecture": "福島縣",
+    "region": "東北",
+    "line": "JR line",
+    "lat": 37.757025,
+    "lng": 140.459493,
     "count": 9,
     "hotelCount": 3,
-    "foodCount": 1,
+    "foodCount": 0,
     "spotIds": [
-      "toyoko-00096",
-      "toyoko-00007",
-      "apa-ikebukuro-ekikitaguchi",
-      "donki-ikebukuro-higashiguchi",
-      "matsukiyo-ikebukuro-part2",
-      "dining-yoshinoya-ikebukuro-east",
-      "convenience-7eleven-ikebukuro-east",
-      "convenience-familymart-ikebukuro-west",
-      "convenience-lawson-ikebukuro-south"
+      "toyoko-00030",
+      "toyoko-00070",
+      "toyoko-00048",
+      "donki-735",
+      "donki-607",
+      "donki-516",
+      "donki-135",
+      "donki-546",
+      "donki-193"
+    ]
+  },
+  {
+    "name": "名站",
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR line",
+    "lat": 35.164857,
+    "lng": 136.890825,
+    "count": 9,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00028",
+      "donki-28",
+      "donki-9999947",
+      "donki-99999178",
+      "donki-417",
+      "donki-99999157",
+      "donki-474",
+      "donki-493",
+      "donki-450"
     ]
   },
   {
@@ -121,9 +1123,9 @@
     "prefecture": "大阪府",
     "region": "近畿",
     "line": "Osaka Metro Midosuji line",
-    "lat": 34.70443,
-    "lng": 135.500685,
-    "count": 8,
+    "lat": 34.704825,
+    "lng": 135.500615,
+    "count": 9,
     "hotelCount": 4,
     "foodCount": 0,
     "spotIds": [
@@ -131,49 +1133,196 @@
       "toyoko-00223",
       "toyoko-00129",
       "apa-osaka-umeda-eki-tower",
-      "donki-osaka-umeda-honten",
-      "donki-umeda-honten",
+      "donki-eh5vc",
+      "donki-381",
+      "donki-275",
       "matsukiyo-umeda-hankyu-sanbangai",
       "convenience-familymart-osaka-umeda"
     ]
   },
   {
-    "name": "仙台站",
-    "prefecture": "宮城縣",
-    "region": "東北",
-    "line": "JR",
-    "lat": 38.260859,
-    "lng": 140.88203,
-    "count": 7,
-    "hotelCount": 5,
+    "name": "岡山站",
+    "prefecture": "岡山縣",
+    "region": "cyugoku",
+    "line": "JR Line",
+    "lat": 34.666713,
+    "lng": 133.918912,
+    "count": 9,
+    "hotelCount": 4,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00011",
-      "toyoko-00024",
-      "toyoko-00036",
-      "toyoko-00058",
-      "apa-sendai-ekimae",
-      "donki-sendai-ekimae",
-      "matsukiyo-sendai-chuo"
+      "toyoko-00143",
+      "toyoko-00167",
+      "toyoko-00232",
+      "apa-okayama-ekimae",
+      "donki-748",
+      "donki-389",
+      "donki-139",
+      "donki-133",
+      "matsukiyo-okayama-ichibangai"
     ]
   },
   {
-    "name": "札幌站",
-    "prefecture": "北海道",
-    "region": "北海道",
-    "line": "JR line",
-    "lat": 43.068231,
-    "lng": 141.351634,
-    "count": 6,
-    "hotelCount": 3,
+    "name": "石川縣主要車站",
+    "prefecture": "石川縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 9,
+    "hotelCount": 0,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00018",
-      "toyoko-00059",
-      "toyoko-00066",
-      "convenience-7eleven-sapporo-north",
-      "convenience-familymart-sapporo-south",
-      "convenience-lawson-sapporo-ekimaedori"
+      "donki-430",
+      "donki-406",
+      "donki-200",
+      "donki-288",
+      "donki-631",
+      "donki-99999100",
+      "donki-9999985",
+      "donki-9999992",
+      "donki-99999253"
+    ]
+  },
+  {
+    "name": "沖縄縣主要車站",
+    "prefecture": "沖縄縣",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 9,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-713",
+      "donki-742",
+      "donki-323",
+      "donki-598",
+      "donki-621",
+      "donki-302",
+      "donki-322",
+      "donki-420",
+      "donki-507"
+    ]
+  },
+  {
+    "name": "五條大宮站",
+    "prefecture": "京都府",
+    "region": "近畿",
+    "line": "San-in Main Line",
+    "lat": 34.987882,
+    "lng": 135.756578,
+    "count": 8,
+    "hotelCount": 3,
+    "foodCount": 1,
+    "spotIds": [
+      "toyoko-00233",
+      "apa-kyoto-ekimae",
+      "apa-kyoto-horikawa",
+      "matsukiyo-kyoto-porta",
+      "dining-yoshinoya-kyoto-ekimae",
+      "convenience-7eleven-kyoto-karasuma",
+      "convenience-familymart-kyoto-chuo",
+      "convenience-lawson-kyoto-ekimae"
+    ]
+  },
+  {
+    "name": "大和站",
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Odakyu line",
+    "lat": 35.469749,
+    "lng": 139.459897,
+    "count": 7,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00128",
+      "donki-409",
+      "donki-312",
+      "donki-9999997",
+      "donki-485",
+      "donki-9999978",
+      "donki-496"
+    ]
+  },
+  {
+    "name": "小倉站",
+    "prefecture": "福岡縣",
+    "region": "kyushu",
+    "line": "JR Line",
+    "lat": 33.873577,
+    "lng": 130.92245,
+    "count": 7,
+    "hotelCount": 4,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00219",
+      "toyoko-00360",
+      "toyoko-00152",
+      "toyoko-00179",
+      "donki-663",
+      "donki-645",
+      "donki-153"
+    ]
+  },
+  {
+    "name": "宮崎站",
+    "prefecture": "宮崎縣",
+    "region": "kyushu",
+    "line": "JR Line",
+    "lat": 31.915796,
+    "lng": 131.426317,
+    "count": 7,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00101",
+      "toyoko-00125",
+      "donki-427",
+      "donki-217",
+      "donki-619",
+      "donki-462",
+      "donki-359"
+    ]
+  },
+  {
+    "name": "青森站",
+    "prefecture": "青森縣",
+    "region": "東北",
+    "line": "JR line",
+    "lat": 40.828824,
+    "lng": 140.736073,
+    "count": 6,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00158",
+      "donki-675",
+      "donki-154",
+      "donki-264",
+      "donki-318",
+      "donki-618"
+    ]
+  },
+  {
+    "name": "宇都宮站",
+    "prefecture": "栃木縣",
+    "region": "關東",
+    "line": "JR Line",
+    "lat": 36.56173,
+    "lng": 139.897342,
+    "count": 6,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00056",
+      "toyoko-00318",
+      "donki-710",
+      "donki-235",
+      "donki-540",
+      "donki-65"
     ]
   },
   {
@@ -181,75 +1330,37 @@
     "prefecture": "東京都",
     "region": "關東",
     "line": "JR Line",
-    "lat": 35.713193,
-    "lng": 139.777178,
+    "lat": 35.713925,
+    "lng": 139.777791,
     "count": 6,
     "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
       "toyoko-00135",
       "apa-ueno-ekimae",
-      "donki-ueno",
+      "donki-677",
       "matsukiyo-ueno-ameyoko",
       "convenience-7eleven-ueno-ekimae",
       "convenience-lawson-ueno-iriya"
     ]
   },
   {
-    "name": "東京站",
+    "name": "大手町站",
     "prefecture": "東京都",
     "region": "關東",
-    "line": "JR Line",
-    "lat": 35.672645,
-    "lng": 139.764893,
+    "line": "Tokyo Metro",
+    "lat": 35.697268,
+    "lng": 139.770978,
     "count": 6,
-    "hotelCount": 2,
+    "hotelCount": 3,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00269",
-      "apa-ginza-kyobashi",
-      "donki-ginza-honkan",
-      "matsukiyo-ginza-5chome",
-      "matsukiyo-shinbashi-ginzaguchi",
-      "matsukiyo-yurakucho-itocia"
-    ]
-  },
-  {
-    "name": "川崎站",
-    "prefecture": "神奈川縣",
-    "region": "關東",
-    "line": "Keikyu Line",
-    "lat": 35.531027,
-    "lng": 139.700533,
-    "count": 6,
-    "hotelCount": 4,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00902",
-      "toyoko-00010",
-      "toyoko-00111",
-      "apa-kawasaki-ekimae",
-      "donki-kawasaki-ginzaga",
-      "matsukiyo-kawasaki-ekimae"
-    ]
-  },
-  {
-    "name": "關內站",
-    "prefecture": "神奈川縣",
-    "region": "關東",
-    "line": "JR line",
-    "lat": 35.443166,
-    "lng": 139.640293,
-    "count": 6,
-    "hotelCount": 5,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00075",
-      "toyoko-00073",
-      "toyoko-00120",
-      "toyoko-00901",
-      "apa-yokohama-kannai",
-      "donki-mega-yokohama-yamashita"
+      "toyoko-00263",
+      "apa-akihabara-eki-denkigaiguchi",
+      "apa-akihabara-ekimae",
+      "donki-316",
+      "donki-512",
+      "matsukiyo-akihabara-ekimae"
     ]
   },
   {
@@ -272,57 +1383,134 @@
     ]
   },
   {
-    "name": "薄野站",
-    "prefecture": "北海道",
-    "region": "北海道",
-    "line": "Subway",
-    "lat": 43.056959,
-    "lng": 141.35303,
-    "count": 5,
+    "name": "高松站",
+    "prefecture": "香川縣",
+    "region": "cyugoku",
+    "line": "JR Line",
+    "lat": 34.344997,
+    "lng": 134.04916,
+    "count": 6,
     "hotelCount": 3,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00100",
-      "apa-sapporo-susukino-ekimae",
-      "apa-sapporo-odori-eki-nishi",
-      "donki-mega-sapporo-tanukikoji",
-      "matsukiyo-sapporo-tanukikoji-3chome"
+      "toyoko-00130",
+      "toyoko-00365",
+      "apa-takamatsu-kawaramachi",
+      "donki-654",
+      "donki-727",
+      "donki-104"
     ]
   },
   {
-    "name": "大手町站",
-    "prefecture": "東京都",
-    "region": "關東",
-    "line": "Tokyo Metro",
-    "lat": 35.697916,
-    "lng": 139.771053,
-    "count": 5,
+    "name": "松山站",
+    "prefecture": "愛媛縣",
+    "region": "cyugoku",
+    "line": "JR Yosan Line",
+    "lat": 33.841415,
+    "lng": 132.77396,
+    "count": 6,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00064",
+      "donki-370",
+      "donki-511",
+      "donki-99999219",
+      "donki-620",
+      "donki-188"
+    ]
+  },
+  {
+    "name": "博多站",
+    "prefecture": "福岡縣",
+    "region": "kyushu",
+    "line": "Subway Kuko line",
+    "lat": 33.587499,
+    "lng": 130.418081,
+    "count": 6,
     "hotelCount": 3,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00263",
-      "apa-akihabara-eki-denkigaiguchi",
-      "apa-akihabara-ekimae",
-      "donki-akihabara",
-      "matsukiyo-akihabara-ekimae"
+      "toyoko-00032",
+      "toyoko-00017",
+      "apa-hakata-ekimae-3chome",
+      "donki-278",
+      "donki-690",
+      "donki-656"
     ]
   },
   {
-    "name": "新宿御苑前站",
-    "prefecture": "東京都",
+    "name": "群馬縣主要車站",
+    "prefecture": "群馬縣",
     "region": "關東",
-    "line": "Tokyo Metro Marunouchi Line",
-    "lat": 35.667665,
-    "lng": 139.70132,
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 6,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-681",
+      "donki-597",
+      "donki-81",
+      "donki-rz4ln",
+      "donki-491",
+      "donki-487"
+    ]
+  },
+  {
+    "name": "滋賀縣主要車站",
+    "prefecture": "滋賀縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 6,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-674",
+      "donki-479",
+      "donki-296",
+      "donki-482",
+      "donki-568",
+      "donki-436"
+    ]
+  },
+  {
+    "name": "高崎站",
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "JR line",
+    "lat": 36.320003,
+    "lng": 139.010766,
     "count": 5,
     "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00281",
-      "apa-shibuya-dogenzaka",
-      "donki-mega-shibuya-honten",
-      "matsukiyo-shibuya-part1",
-      "matsukiyo-harajuku-takeshita"
+      "toyoko-00133",
+      "toyoko-00134",
+      "donki-708",
+      "donki-78",
+      "donki-99999201"
+    ]
+  },
+  {
+    "name": "關內站",
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR line",
+    "lat": 35.443099,
+    "lng": 139.637851,
+    "count": 5,
+    "hotelCount": 5,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00075",
+      "toyoko-00073",
+      "toyoko-00120",
+      "toyoko-00901",
+      "apa-yokohama-kannai"
     ]
   },
   {
@@ -344,42 +1532,6 @@
     ]
   },
   {
-    "name": "神户三宫站",
-    "prefecture": "兵庫縣",
-    "region": "近畿",
-    "line": "JR Kobe Line",
-    "lat": 34.693756,
-    "lng": 135.192691,
-    "count": 5,
-    "hotelCount": 3,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00364",
-      "apa-kobe-sannomiya-ekimae",
-      "apa-kobe-sannomiya",
-      "donki-kobe-sannomiya",
-      "matsukiyo-kobe-sannomiya-chuo"
-    ]
-  },
-  {
-    "name": "岡山站",
-    "prefecture": "岡山縣",
-    "region": "cyugoku",
-    "line": "JR Line",
-    "lat": 34.666713,
-    "lng": 133.918912,
-    "count": 5,
-    "hotelCount": 4,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00143",
-      "toyoko-00167",
-      "toyoko-00232",
-      "apa-okayama-ekimae",
-      "matsukiyo-okayama-ichibangai"
-    ]
-  },
-  {
     "name": "博多口站",
     "prefecture": "福岡縣",
     "region": "kyushu",
@@ -398,107 +1550,209 @@
     ]
   },
   {
-    "name": "中洲川端站",
-    "prefecture": "福岡縣",
+    "name": "長崎站",
+    "prefecture": "長崎縣",
     "region": "kyushu",
-    "line": "Kuko line",
-    "lat": 33.589739,
-    "lng": 130.400339,
+    "line": "Streetcar",
+    "lat": 32.748636,
+    "lng": 129.872751,
     "count": 5,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00044",
-      "apa-fukuoka-tenjin-nishi",
-      "donki-fukuoka-nakasu",
-      "donki-fukuoka-tenjin-honten",
-      "matsukiyo-fukuoka-tenjin-nishi"
+      "toyoko-00079",
+      "donki-696",
+      "donki-295",
+      "donki-396",
+      "donki-178"
     ]
   },
   {
-    "name": "沖繩那霸國際通美榮橋站",
-    "prefecture": "沖繩縣",
-    "region": "kyushu",
-    "line": "Yui Rail",
-    "lat": 26.216585,
-    "lng": 127.685289,
+    "name": "北海道主要車站",
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
     "count": 5,
-    "hotelCount": 2,
-    "foodCount": 1,
+    "hotelCount": 0,
+    "foodCount": 0,
     "spotIds": [
-      "toyoko-00055",
-      "apa-naha-matsuyama",
-      "donki-naha-kokusaidori",
-      "matsukiyo-naha-kokusaidori-chuo",
-      "dining-sukiya-naha-kokusai"
+      "donki-268",
+      "donki-199",
+      "donki-574",
+      "donki-705",
+      "donki-195"
     ]
   },
   {
-    "name": "上野田原町站",
-    "prefecture": "東京都",
-    "region": "關東",
-    "line": "Metro Ginza Line",
-    "lat": 35.711197,
-    "lng": 139.794581,
+    "name": "薄野站",
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "Subway",
+    "lat": 43.056998,
+    "lng": 141.352988,
+    "count": 4,
+    "hotelCount": 3,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00100",
+      "apa-sapporo-susukino-ekimae",
+      "apa-sapporo-odori-eki-nishi",
+      "matsukiyo-sapporo-tanukikoji-3chome"
+    ]
+  },
+  {
+    "name": "函館站",
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR Line",
+    "lat": 41.771287,
+    "lng": 140.727464,
     "count": 4,
     "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00226",
-      "apa-asakusa-ekimae",
-      "donki-asakusa",
-      "matsukiyo-asakusa-nitenmon"
+      "toyoko-00057",
+      "toyoko-00063",
+      "donki-229",
+      "donki-152"
     ]
   },
   {
-    "name": "溜池山王站",
-    "prefecture": "東京都",
-    "region": "關東",
-    "line": "Metro Ginza line",
-    "lat": 35.665162,
-    "lng": 139.735264,
+    "name": "北上站",
+    "prefecture": "岩手縣",
+    "region": "東北",
+    "line": "JR",
+    "lat": 39.283141,
+    "lng": 141.121846,
     "count": 4,
     "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00103",
-      "apa-roppongi-ekimae",
-      "donki-roppongi",
-      "matsukiyo-roppongi"
+      "toyoko-00197",
+      "toyoko-00370",
+      "donki-700",
+      "donki-334"
     ]
   },
   {
-    "name": "久屋大通站",
-    "prefecture": "愛知縣",
-    "region": "東海・甲信越・北陸",
-    "line": "Sakura-dori Line",
-    "lat": 35.170251,
-    "lng": 136.9063,
+    "name": "秋田站",
+    "prefecture": "秋田縣",
+    "region": "東北",
+    "line": "JR Line",
+    "lat": 39.715622,
+    "lng": 140.131141,
     "count": 4,
     "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00013",
-      "donki-nagoya-sakae-honten",
-      "donki-nagoya-sakae",
-      "matsukiyo-nagoya-sakae"
+      "toyoko-00087",
+      "donki-197",
+      "donki-477",
+      "donki-601"
     ]
   },
   {
-    "name": "四條站",
-    "prefecture": "京都府",
-    "region": "近畿",
-    "line": "Subway Karasuma Line",
-    "lat": 35.00419,
-    "lng": 135.769316,
+    "name": "山形站",
+    "prefecture": "山形縣",
+    "region": "東北",
+    "line": "JR Line",
+    "lat": 38.250367,
+    "lng": 140.323806,
+    "count": 4,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00097",
+      "donki-652",
+      "donki-304",
+      "donki-353"
+    ]
+  },
+  {
+    "name": "大宮站",
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR",
+    "lat": 35.908863,
+    "lng": 139.626634,
+    "count": 4,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00334",
+      "donki-648",
+      "donki-340",
+      "donki-7"
+    ]
+  },
+  {
+    "name": "川口站",
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR Keihintohoku line",
+    "lat": 35.799219,
+    "lng": 139.717534,
+    "count": 4,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00292",
+      "donki-277",
+      "donki-71g4e",
+      "donki-33"
+    ]
+  },
+  {
+    "name": "柏站",
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR Joban Line",
+    "lat": 35.86159,
+    "lng": 139.972049,
     "count": 4,
     "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00053",
-      "apa-kyoto-gion-kenninji",
-      "donki-kyoto-shijo-kawaramachi",
-      "matsukiyo-kyoto-shijo-kawaramachi"
+      "toyoko-00253",
+      "toyoko-00333",
+      "donki-176",
+      "donki-102"
+    ]
+  },
+  {
+    "name": "新宿御苑前站",
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Tokyo Metro Marunouchi Line",
+    "lat": 35.669382,
+    "lng": 139.7023,
+    "count": 4,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00281",
+      "apa-shibuya-dogenzaka",
+      "matsukiyo-shibuya-part1",
+      "matsukiyo-harajuku-takeshita"
+    ]
+  },
+  {
+    "name": "福井站",
+    "prefecture": "福井縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR",
+    "lat": 36.062964,
+    "lng": 136.223393,
+    "count": 4,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00147",
+      "donki-514",
+      "donki-523",
+      "donki-9999986"
     ]
   },
   {
@@ -519,70 +1773,186 @@
     ]
   },
   {
-    "name": "動物園前站",
-    "prefecture": "大阪府",
+    "name": "神户三宫站",
+    "prefecture": "兵庫縣",
     "region": "近畿",
-    "line": "Osaka Metro Midosuji, Sakaisuji Line",
-    "lat": 34.649413,
-    "lng": 135.508636,
+    "line": "JR Kobe Line",
+    "lat": 34.693745,
+    "lng": 135.193164,
+    "count": 4,
+    "hotelCount": 3,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00364",
+      "apa-kobe-sannomiya-ekimae",
+      "apa-kobe-sannomiya",
+      "matsukiyo-kobe-sannomiya-chuo"
+    ]
+  },
+  {
+    "name": "鳥取站",
+    "prefecture": "鳥取縣",
+    "region": "cyugoku",
+    "line": "JR San-in line",
+    "lat": 35.493631,
+    "lng": 134.22777,
     "count": 4,
     "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00252",
-      "toyoko-00247",
-      "donki-shinsekai",
-      "matsukiyo-tennoji-abeno"
+      "toyoko-00046",
+      "toyoko-00362",
+      "donki-682",
+      "donki-429"
     ]
   },
   {
-    "name": "日本橋站",
-    "prefecture": "大阪府",
-    "region": "近畿",
-    "line": "Sennichimae  Subway Line",
-    "lat": 34.668156,
-    "lng": 135.505108,
+    "name": "熊本站",
+    "prefecture": "熊本縣",
+    "region": "kyushu",
+    "line": "JR line",
+    "lat": 32.788352,
+    "lng": 130.689092,
     "count": 4,
     "hotelCount": 1,
-    "foodCount": 2,
+    "foodCount": 0,
     "spotIds": [
-      "toyoko-00287",
-      "donki-osaka-dotonbori",
-      "dining-sukiya-osaka-dotonbori",
-      "dining-ichiran-dotonbori-main"
+      "toyoko-00168",
+      "donki-634",
+      "donki-649",
+      "donki-519"
     ]
   },
   {
-    "name": "小倉站",
-    "prefecture": "福岡縣",
+    "name": "沖繩那霸國際通美榮橋站",
+    "prefecture": "沖繩縣",
     "region": "kyushu",
-    "line": "JR Line",
-    "lat": 33.873577,
-    "lng": 130.92245,
+    "line": "Yui Rail",
+    "lat": 26.216857,
+    "lng": 127.684311,
     "count": 4,
-    "hotelCount": 4,
-    "foodCount": 0,
+    "hotelCount": 2,
+    "foodCount": 1,
     "spotIds": [
-      "toyoko-00219",
-      "toyoko-00360",
-      "toyoko-00152",
-      "toyoko-00179"
+      "toyoko-00055",
+      "apa-naha-matsuyama",
+      "matsukiyo-naha-kokusaidori-chuo",
+      "dining-sukiya-naha-kokusai"
     ]
   },
   {
-    "name": "福島站",
-    "prefecture": "福島縣",
-    "region": "東北",
-    "line": "JR line",
-    "lat": 37.757025,
-    "lng": 140.459493,
-    "count": 3,
-    "hotelCount": 3,
+    "name": "栃木縣主要車站",
+    "prefecture": "栃木縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 4,
+    "hotelCount": 0,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00030",
-      "toyoko-00070",
-      "toyoko-00048"
+      "donki-600",
+      "donki-196",
+      "donki-579",
+      "donki-99999192"
+    ]
+  },
+  {
+    "name": "広島縣主要車站",
+    "prefecture": "広島縣",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 4,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-718",
+      "donki-301",
+      "donki-105",
+      "donki-281"
+    ]
+  },
+  {
+    "name": "鹿児島縣主要車站",
+    "prefecture": "鹿児島縣",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 4,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-290",
+      "donki-355",
+      "donki-608",
+      "donki-470"
+    ]
+  },
+  {
+    "name": "旭川站",
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR Line",
+    "lat": 43.764072,
+    "lng": 142.362307,
+    "count": 3,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00069",
+      "toyoko-00173",
+      "donki-177"
+    ]
+  },
+  {
+    "name": "前橋站",
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "JR Line",
+    "lat": 36.382766,
+    "lng": 139.073261,
+    "count": 3,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00124",
+      "donki-291",
+      "donki-99999217"
+    ]
+  },
+  {
+    "name": "上野田原町站",
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Ginza Line",
+    "lat": 35.71043,
+    "lng": 139.795175,
+    "count": 3,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00226",
+      "apa-asakusa-ekimae",
+      "matsukiyo-asakusa-nitenmon"
+    ]
+  },
+  {
+    "name": "溜池山王站",
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Ginza line",
+    "lat": 35.666049,
+    "lng": 139.735519,
+    "count": 3,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00103",
+      "apa-roppongi-ekimae",
+      "matsukiyo-roppongi"
     ]
   },
   {
@@ -602,67 +1972,115 @@
     ]
   },
   {
-    "name": "富山站",
-    "prefecture": "富山縣",
+    "name": "甲府站",
+    "prefecture": "山梨縣",
     "region": "東海・甲信越・北陸",
-    "line": "JR Line",
-    "lat": 36.700083,
-    "lng": 137.212152,
+    "line": "ＪＲ Line",
+    "lat": 35.664391,
+    "lng": 138.56967,
     "count": 3,
-    "hotelCount": 3,
+    "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00201",
-      "toyoko-00004",
-      "apa-toyama-ekimae"
+      "toyoko-00072",
+      "toyoko-00132",
+      "donki-520"
     ]
   },
   {
-    "name": "大阪站",
+    "name": "三河安城站",
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Sinkansen",
+    "lat": 34.966465,
+    "lng": 137.059668,
+    "count": 3,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00127",
+      "toyoko-00294",
+      "donki-99999235"
+    ]
+  },
+  {
+    "name": "伊勢市站",
+    "prefecture": "三重縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Sangu Line",
+    "lat": 34.496308,
+    "lng": 136.70325,
+    "count": 3,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00347",
+      "donki-499",
+      "donki-395"
+    ]
+  },
+  {
+    "name": "四條站",
+    "prefecture": "京都府",
+    "region": "近畿",
+    "line": "Subway Karasuma Line",
+    "lat": 35.003754,
+    "lng": 135.769154,
+    "count": 3,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00053",
+      "apa-kyoto-gion-kenninji",
+      "matsukiyo-kyoto-shijo-kawaramachi"
+    ]
+  },
+  {
+    "name": "天神站",
     "prefecture": "大阪府",
     "region": "近畿",
-    "line": "JR Line",
-    "lat": 34.729437,
-    "lng": 135.501019,
+    "line": "Osaka Metro Sakaisuji Line",
+    "lat": 34.148669,
+    "lng": 132.955742,
     "count": 3,
-    "hotelCount": 3,
+    "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00016",
-      "toyoko-00091",
-      "apa-shin-osaka-minami"
+      "toyoko-00309",
+      "toyoko-00218",
+      "donki-701"
     ]
   },
   {
-    "name": "高松站",
-    "prefecture": "香川縣",
-    "region": "cyugoku",
-    "line": "JR Line",
-    "lat": 34.344997,
-    "lng": 134.04916,
+    "name": "動物園前站",
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Midosuji, Sakaisuji Line",
+    "lat": 34.648717,
+    "lng": 135.509348,
     "count": 3,
-    "hotelCount": 3,
+    "hotelCount": 2,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00130",
-      "toyoko-00365",
-      "apa-takamatsu-kawaramachi"
+      "toyoko-00252",
+      "toyoko-00247",
+      "matsukiyo-tennoji-abeno"
     ]
   },
   {
-    "name": "博多站",
-    "prefecture": "福岡縣",
-    "region": "kyushu",
-    "line": "Subway Kuko line",
-    "lat": 33.587499,
-    "lng": 130.418081,
+    "name": "日本橋站",
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Sennichimae  Subway Line",
+    "lat": 34.667941,
+    "lng": 135.505877,
     "count": 3,
-    "hotelCount": 3,
-    "foodCount": 0,
+    "hotelCount": 1,
+    "foodCount": 2,
     "spotIds": [
-      "toyoko-00032",
-      "toyoko-00017",
-      "apa-hakata-ekimae-3chome"
+      "toyoko-00287",
+      "dining-sukiya-osaka-dotonbori",
+      "dining-ichiran-dotonbori-main"
     ]
   },
   {
@@ -682,95 +2100,187 @@
     ]
   },
   {
-    "name": "辛島町站",
-    "prefecture": "熊本縣",
+    "name": "中洲川端站",
+    "prefecture": "福岡縣",
     "region": "kyushu",
-    "line": "Kumamoto-shi streetcar",
-    "lat": 32.799903,
-    "lng": 130.707528,
+    "line": "Kuko line",
+    "lat": 33.589232,
+    "lng": 130.398664,
+    "count": 3,
+    "hotelCount": 2,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00044",
+      "apa-fukuoka-tenjin-nishi",
+      "matsukiyo-fukuoka-tenjin-nishi"
+    ]
+  },
+  {
+    "name": "大分站",
+    "prefecture": "大分縣",
+    "region": "kyushu",
+    "line": "JR Line",
+    "lat": 33.234736,
+    "lng": 131.608886,
     "count": 3,
     "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00107",
-      "donki-kumamoto-shimotori",
-      "matsukiyo-kumamoto-shimotori"
+      "toyoko-00141",
+      "donki-90",
+      "donki-650"
     ]
   },
   {
-    "name": "中央站",
-    "prefecture": "鹿兒島縣",
-    "region": "kyushu",
-    "line": "JR Line",
-    "lat": 31.583616,
-    "lng": 130.5429,
+    "name": "和歌山縣主要車站",
+    "prefecture": "和歌山縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
     "count": 3,
-    "hotelCount": 3,
+    "hotelCount": 0,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00202",
-      "toyoko-00220",
-      "apa-kagoshima-chuo"
+      "donki-119",
+      "donki-375",
+      "donki-308"
     ]
   },
   {
-    "name": "旭川站",
+    "name": "山口縣主要車站",
+    "prefecture": "山口縣",
+    "region": "中國・四國",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 3,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-738",
+      "donki-305",
+      "donki-158"
+    ]
+  },
+  {
+    "name": "釧路站",
     "prefecture": "北海道",
     "region": "北海道",
     "line": "JR Line",
-    "lat": 43.764072,
-    "lng": 142.362307,
+    "lat": 42.985465,
+    "lng": 144.383697,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00069",
-      "toyoko-00173"
+      "toyoko-00084",
+      "donki-357"
     ]
   },
   {
-    "name": "函館站",
+    "name": "北見站",
     "prefecture": "北海道",
     "region": "北海道",
     "line": "JR Line",
-    "lat": 41.771287,
-    "lng": 140.727464,
+    "lat": 43.804501,
+    "lng": 143.895273,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00057",
-      "toyoko-00063"
+      "toyoko-00088",
+      "donki-732"
     ]
   },
   {
-    "name": "北上站",
+    "name": "苫小牧站",
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR",
+    "lat": 42.638276,
+    "lng": 141.596731,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00108",
+      "donki-236"
+    ]
+  },
+  {
+    "name": "盛岡站",
     "prefecture": "岩手縣",
     "region": "東北",
-    "line": "JR",
-    "lat": 39.283141,
-    "lng": 141.121846,
+    "line": "JR line",
+    "lat": 39.702768,
+    "lng": 141.137209,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00197",
-      "toyoko-00370"
+      "toyoko-00038",
+      "donki-286"
     ]
   },
   {
-    "name": "宇都宮站",
-    "prefecture": "栃木縣",
-    "region": "關東",
-    "line": "JR Line",
-    "lat": 36.56173,
-    "lng": 139.897342,
+    "name": "郡山站",
+    "prefecture": "福島縣",
+    "region": "東北",
+    "line": "JR Tohoku Line",
+    "lat": 37.393916,
+    "lng": 140.385023,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00056",
-      "toyoko-00318"
+      "toyoko-00009",
+      "donki-99999159"
+    ]
+  },
+  {
+    "name": "日立站",
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "JR Jouban Line",
+    "lat": 36.591694,
+    "lng": 140.660163,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00082",
+      "donki-416"
+    ]
+  },
+  {
+    "name": "土浦站",
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "JR Joban Line",
+    "lat": 36.078028,
+    "lng": 140.207484,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00175",
+      "donki-83"
+    ]
+  },
+  {
+    "name": "守谷站",
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "Tsukuba Express Line",
+    "lat": 35.951038,
+    "lng": 139.993111,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00189",
+      "donki-703"
     ]
   },
   {
@@ -789,48 +2299,78 @@
     ]
   },
   {
-    "name": "高崎站",
+    "name": "桐生站",
     "prefecture": "群馬縣",
     "region": "關東",
-    "line": "JR line",
-    "lat": 36.320003,
-    "lng": 139.010766,
+    "line": "JR",
+    "lat": 36.41009,
+    "lng": 139.333446,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00133",
-      "toyoko-00134"
+      "toyoko-00180",
+      "donki-237"
     ]
   },
   {
-    "name": "千葉站",
-    "prefecture": "千葉縣",
+    "name": "熊谷站",
+    "prefecture": "埼玉縣",
     "region": "關東",
-    "line": "JR Sobu line",
-    "lat": 35.61219,
-    "lng": 140.118184,
+    "line": "Joetsu Shinkansen",
+    "lat": 36.141284,
+    "lng": 139.390776,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00021",
-      "toyoko-00235"
+      "toyoko-00295",
+      "donki-725"
     ]
   },
   {
-    "name": "柏站",
-    "prefecture": "千葉縣",
+    "name": "春日部站",
+    "prefecture": "埼玉縣",
     "region": "關東",
-    "line": "JR Joban Line",
-    "lat": 35.86159,
-    "lng": 139.972049,
+    "line": "Tobu Skytree Line",
+    "lat": 35.976573,
+    "lng": 139.753164,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00253",
-      "toyoko-00333"
+      "toyoko-00348",
+      "donki-155"
+    ]
+  },
+  {
+    "name": "西川口站",
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR",
+    "lat": 35.816647,
+    "lng": 139.701783,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00151",
+      "donki-226"
+    ]
+  },
+  {
+    "name": "草加站",
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Toubu Isezaki line",
+    "lat": 35.828307,
+    "lng": 139.801675,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00118",
+      "donki-261"
     ]
   },
   {
@@ -909,6 +2449,21 @@
     ]
   },
   {
+    "name": "大塚站",
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Yamanote line",
+    "lat": 35.733169,
+    "lng": 139.727498,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00026",
+      "donki-4ukbl"
+    ]
+  },
+  {
     "name": "赤羽站",
     "prefecture": "東京都",
     "region": "關東",
@@ -951,6 +2506,21 @@
     "spotIds": [
       "toyoko-00001",
       "toyoko-00020"
+    ]
+  },
+  {
+    "name": "鶴見站",
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Keikyu Line",
+    "lat": 35.509018,
+    "lng": 139.679423,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00182",
+      "donki-695"
     ]
   },
   {
@@ -999,6 +2569,21 @@
     ]
   },
   {
+    "name": "小田原站",
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR",
+    "lat": 35.253738,
+    "lng": 139.155482,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00285",
+      "donki-225"
+    ]
+  },
+  {
     "name": "湘南平塚站",
     "prefecture": "神奈川縣",
     "region": "關東",
@@ -1014,33 +2599,18 @@
     ]
   },
   {
-    "name": "甲府站",
+    "name": "河口湖站",
     "prefecture": "山梨縣",
     "region": "東海・甲信越・北陸",
-    "line": "ＪＲ Line",
-    "lat": 35.664391,
-    "lng": 138.56967,
+    "line": "Fujikyuko Kawaguchiko Line",
+    "lat": 35.505222,
+    "lng": 138.760027,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00072",
-      "toyoko-00132"
-    ]
-  },
-  {
-    "name": "長野站",
-    "prefecture": "長野縣",
-    "region": "東海・甲信越・北陸",
-    "line": "JR Line",
-    "lat": 36.641857,
-    "lng": 138.18834,
-    "count": 2,
-    "hotelCount": 2,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00212",
-      "toyoko-00350"
+      "toyoko-00299",
+      "donki-141"
     ]
   },
   {
@@ -1056,21 +2626,6 @@
     "spotIds": [
       "toyoko-00102",
       "toyoko-00314"
-    ]
-  },
-  {
-    "name": "新潟站",
-    "prefecture": "新潟縣",
-    "region": "東海・甲信越・北陸",
-    "line": "JR Line",
-    "lat": 37.917667,
-    "lng": 139.054977,
-    "count": 2,
-    "hotelCount": 2,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00060",
-      "toyoko-00186"
     ]
   },
   {
@@ -1104,6 +2659,36 @@
     ]
   },
   {
+    "name": "掛川站",
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Tokaido Shinkansen",
+    "lat": 34.767864,
+    "lng": 138.013003,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00222",
+      "donki-537"
+    ]
+  },
+  {
+    "name": "久屋大通站",
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Sakura-dori Line",
+    "lat": 35.170352,
+    "lng": 136.9056,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00013",
+      "matsukiyo-nagoya-sakae"
+    ]
+  },
+  {
     "name": "中部國際機場站",
     "prefecture": "愛知縣",
     "region": "東海・甲信越・北陸",
@@ -1119,18 +2704,33 @@
     ]
   },
   {
-    "name": "三河安城站",
-    "prefecture": "愛知縣",
+    "name": "岐阜羽島站",
+    "prefecture": "岐阜縣",
     "region": "東海・甲信越・北陸",
-    "line": "JR Sinkansen",
-    "lat": 34.966465,
-    "lng": 137.059668,
+    "line": "Tokaido Shinkansen",
+    "lat": 35.313773,
+    "lng": 136.687399,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00127",
-      "toyoko-00294"
+      "toyoko-00209",
+      "donki-746"
+    ]
+  },
+  {
+    "name": "天理站",
+    "prefecture": "奈良縣",
+    "region": "近畿",
+    "line": "JR",
+    "lat": 34.60136,
+    "lng": 135.831744,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00359",
+      "donki-399"
     ]
   },
   {
@@ -1161,21 +2761,6 @@
     "spotIds": [
       "toyoko-00154",
       "toyoko-00300"
-    ]
-  },
-  {
-    "name": "天神站",
-    "prefecture": "大阪府",
-    "region": "近畿",
-    "line": "Osaka Metro Sakaisuji Line",
-    "lat": 34.148669,
-    "lng": 132.955742,
-    "count": 2,
-    "hotelCount": 2,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00309",
-      "toyoko-00218"
     ]
   },
   {
@@ -1269,18 +2854,48 @@
     ]
   },
   {
-    "name": "鳥取站",
-    "prefecture": "鳥取縣",
+    "name": "福山站",
+    "prefecture": "廣島縣",
     "region": "cyugoku",
-    "line": "JR San-in line",
-    "lat": 35.493631,
-    "lng": 134.22777,
+    "line": "San-yo and Kyushu Shinkansen",
+    "lat": 34.488597,
+    "lng": 133.358859,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00046",
-      "toyoko-00362"
+      "toyoko-00259",
+      "donki-189"
+    ]
+  },
+  {
+    "name": "出雲市站",
+    "prefecture": "島根縣",
+    "region": "cyugoku",
+    "line": "JR San-in Main Line",
+    "lat": 35.361841,
+    "lng": 132.75677,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00105",
+      "donki-384"
+    ]
+  },
+  {
+    "name": "濱田站",
+    "prefecture": "島根縣",
+    "region": "cyugoku",
+    "line": "JR San-in line",
+    "lat": 34.902217,
+    "lng": 132.08571,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00325",
+      "donki-562"
     ]
   },
   {
@@ -1314,6 +2929,21 @@
     ]
   },
   {
+    "name": "佐賀站",
+    "prefecture": "佐賀縣",
+    "region": "kyushu",
+    "line": "JR Nagasaki line",
+    "lat": 33.263715,
+    "lng": 130.296605,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00045",
+      "donki-207"
+    ]
+  },
+  {
     "name": "櫻町巴士總站",
     "prefecture": "熊本縣",
     "region": "kyushu",
@@ -1329,18 +2959,33 @@
     ]
   },
   {
-    "name": "宮崎站",
-    "prefecture": "宮崎縣",
+    "name": "辛島町站",
+    "prefecture": "熊本縣",
     "region": "kyushu",
-    "line": "JR Line",
-    "lat": 31.915796,
-    "lng": 131.426317,
+    "line": "Kumamoto-shi streetcar",
+    "lat": 32.800104,
+    "lng": 130.707042,
     "count": 2,
-    "hotelCount": 2,
+    "hotelCount": 1,
     "foodCount": 0,
     "spotIds": [
-      "toyoko-00101",
-      "toyoko-00125"
+      "toyoko-00107",
+      "matsukiyo-kumamoto-shimotori"
+    ]
+  },
+  {
+    "name": "薩摩川内站",
+    "prefecture": "鹿兒島縣",
+    "region": "kyushu",
+    "line": "JR Kyusyu Shinkansen",
+    "lat": 31.814711,
+    "lng": 130.31305,
+    "count": 2,
+    "hotelCount": 1,
+    "foodCount": 0,
+    "spotIds": [
+      "toyoko-00203",
+      "donki-658"
     ]
   },
   {
@@ -1389,6 +3034,66 @@
     ]
   },
   {
+    "name": "宮城縣主要車站",
+    "prefecture": "宮城縣",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 2,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-640",
+      "donki-349"
+    ]
+  },
+  {
+    "name": "山梨縣主要車站",
+    "prefecture": "山梨縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 2,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-557",
+      "donki-99999181"
+    ]
+  },
+  {
+    "name": "奈良縣主要車站",
+    "prefecture": "奈良縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 2,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-379",
+      "donki-364"
+    ]
+  },
+  {
+    "name": "徳島縣主要車站",
+    "prefecture": "徳島縣",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 2,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-693",
+      "donki-576"
+    ]
+  },
+  {
     "name": "鄂霍次克網走站",
     "prefecture": "北海道",
     "region": "北海道",
@@ -1400,20 +3105,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00003"
-    ]
-  },
-  {
-    "name": "釧路站",
-    "prefecture": "北海道",
-    "region": "北海道",
-    "line": "JR Line",
-    "lat": 42.985465,
-    "lng": 144.383697,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00084"
     ]
   },
   {
@@ -1431,34 +3122,6 @@
     ]
   },
   {
-    "name": "北見站",
-    "prefecture": "北海道",
-    "region": "北海道",
-    "line": "JR Line",
-    "lat": 43.804501,
-    "lng": 143.895273,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00088"
-    ]
-  },
-  {
-    "name": "苫小牧站",
-    "prefecture": "北海道",
-    "region": "北海道",
-    "line": "JR",
-    "lat": 42.638276,
-    "lng": 141.596731,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00108"
-    ]
-  },
-  {
     "name": "新函館北斗站",
     "prefecture": "北海道",
     "region": "北海道",
@@ -1470,20 +3133,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00323"
-    ]
-  },
-  {
-    "name": "青森站",
-    "prefecture": "青森縣",
-    "region": "東北",
-    "line": "JR line",
-    "lat": 40.828824,
-    "lng": 140.736073,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00158"
     ]
   },
   {
@@ -1529,20 +3178,6 @@
     ]
   },
   {
-    "name": "盛岡站",
-    "prefecture": "岩手縣",
-    "region": "東北",
-    "line": "JR line",
-    "lat": 39.702768,
-    "lng": 141.137209,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00038"
-    ]
-  },
-  {
     "name": "盛岡站南口站",
     "prefecture": "岩手縣",
     "region": "東北",
@@ -1571,34 +3206,6 @@
     ]
   },
   {
-    "name": "秋田站",
-    "prefecture": "秋田縣",
-    "region": "東北",
-    "line": "JR Line",
-    "lat": 39.715622,
-    "lng": 140.131141,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00087"
-    ]
-  },
-  {
-    "name": "山形站",
-    "prefecture": "山形縣",
-    "region": "東北",
-    "line": "JR Line",
-    "lat": 38.250367,
-    "lng": 140.323806,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00097"
-    ]
-  },
-  {
     "name": "米澤站",
     "prefecture": "山形縣",
     "region": "東北",
@@ -1624,20 +3231,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00177"
-    ]
-  },
-  {
-    "name": "郡山站",
-    "prefecture": "福島縣",
-    "region": "東北",
-    "line": "JR Tohoku Line",
-    "lat": 37.393916,
-    "lng": 140.385023,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00009"
     ]
   },
   {
@@ -1683,34 +3276,6 @@
     ]
   },
   {
-    "name": "日立站",
-    "prefecture": "茨城縣",
-    "region": "關東",
-    "line": "JR Jouban Line",
-    "lat": 36.591694,
-    "lng": 140.660163,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00082"
-    ]
-  },
-  {
-    "name": "土浦站",
-    "prefecture": "茨城縣",
-    "region": "關東",
-    "line": "JR Joban Line",
-    "lat": 36.078028,
-    "lng": 140.207484,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00175"
-    ]
-  },
-  {
     "name": "取手站",
     "prefecture": "茨城縣",
     "region": "關東",
@@ -1736,20 +3301,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00228"
-    ]
-  },
-  {
-    "name": "守谷站",
-    "prefecture": "茨城縣",
-    "region": "關東",
-    "line": "Tsukuba Express Line",
-    "lat": 35.951038,
-    "lng": 139.993111,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00189"
     ]
   },
   {
@@ -1809,34 +3360,6 @@
     ]
   },
   {
-    "name": "前橋站",
-    "prefecture": "群馬縣",
-    "region": "關東",
-    "line": "JR Line",
-    "lat": 36.382766,
-    "lng": 139.073261,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00124"
-    ]
-  },
-  {
-    "name": "桐生站",
-    "prefecture": "群馬縣",
-    "region": "關東",
-    "line": "JR",
-    "lat": 36.41009,
-    "lng": 139.333446,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00180"
-    ]
-  },
-  {
     "name": "群馬太田站",
     "prefecture": "群馬縣",
     "region": "關東",
@@ -1862,34 +3385,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00270"
-    ]
-  },
-  {
-    "name": "熊谷站",
-    "prefecture": "埼玉縣",
-    "region": "關東",
-    "line": "Joetsu Shinkansen",
-    "lat": 36.141284,
-    "lng": 139.390776,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00295"
-    ]
-  },
-  {
-    "name": "大宮站",
-    "prefecture": "埼玉縣",
-    "region": "關東",
-    "line": "JR",
-    "lat": 35.908863,
-    "lng": 139.626634,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00334"
     ]
   },
   {
@@ -1932,48 +3427,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00283"
-    ]
-  },
-  {
-    "name": "春日部站",
-    "prefecture": "埼玉縣",
-    "region": "關東",
-    "line": "Tobu Skytree Line",
-    "lat": 35.976573,
-    "lng": 139.753164,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00348"
-    ]
-  },
-  {
-    "name": "西川口站",
-    "prefecture": "埼玉縣",
-    "region": "關東",
-    "line": "JR",
-    "lat": 35.816647,
-    "lng": 139.701783,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00151"
-    ]
-  },
-  {
-    "name": "川口站",
-    "prefecture": "埼玉縣",
-    "region": "關東",
-    "line": "JR Keihintohoku line",
-    "lat": 35.799219,
-    "lng": 139.717534,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00292"
     ]
   },
   {
@@ -2044,20 +3497,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00229"
-    ]
-  },
-  {
-    "name": "草加站",
-    "prefecture": "埼玉縣",
-    "region": "關東",
-    "line": "Toubu Isezaki line",
-    "lat": 35.828307,
-    "lng": 139.801675,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00118"
     ]
   },
   {
@@ -2341,34 +3780,6 @@
     ]
   },
   {
-    "name": "京站",
-    "prefecture": "東京都",
-    "region": "關東",
-    "line": "Toei Shinjuku Line",
-    "lat": 35.68723,
-    "lng": 139.790612,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00176"
-    ]
-  },
-  {
-    "name": "大塚站",
-    "prefecture": "東京都",
-    "region": "關東",
-    "line": "JR Yamanote line",
-    "lat": 35.733169,
-    "lng": 139.727498,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00026"
-    ]
-  },
-  {
     "name": "山手線大塚站",
     "prefecture": "東京都",
     "region": "關東",
@@ -2649,20 +4060,6 @@
     ]
   },
   {
-    "name": "鶴見站",
-    "prefecture": "神奈川縣",
-    "region": "關東",
-    "line": "Keikyu Line",
-    "lat": 35.509018,
-    "lng": 139.679423,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00182"
-    ]
-  },
-  {
     "name": "新子安站",
     "prefecture": "神奈川縣",
     "region": "關東",
@@ -2733,20 +4130,6 @@
     ]
   },
   {
-    "name": "大和站",
-    "prefecture": "神奈川縣",
-    "region": "關東",
-    "line": "Odakyu line",
-    "lat": 35.469749,
-    "lng": 139.459897,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00128"
-    ]
-  },
-  {
     "name": "二俁川站",
     "prefecture": "神奈川縣",
     "region": "關東",
@@ -2803,20 +4186,6 @@
     ]
   },
   {
-    "name": "小田原站",
-    "prefecture": "神奈川縣",
-    "region": "關東",
-    "line": "JR",
-    "lat": 35.253738,
-    "lng": 139.155482,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00285"
-    ]
-  },
-  {
     "name": "湘南茅之崎站",
     "prefecture": "神奈川縣",
     "region": "關東",
@@ -2842,20 +4211,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00352"
-    ]
-  },
-  {
-    "name": "河口湖站",
-    "prefecture": "山梨縣",
-    "region": "東海・甲信越・北陸",
-    "line": "Fujikyuko Kawaguchiko Line",
-    "lat": 35.505222,
-    "lng": 138.760027,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00299"
     ]
   },
   {
@@ -2940,20 +4295,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00264"
-    ]
-  },
-  {
-    "name": "福井站",
-    "prefecture": "福井縣",
-    "region": "東海・甲信越・北陸",
-    "line": "JR",
-    "lat": 36.062964,
-    "lng": 136.223393,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00147"
     ]
   },
   {
@@ -3069,20 +4410,6 @@
     ]
   },
   {
-    "name": "掛川站",
-    "prefecture": "靜岡縣",
-    "region": "東海・甲信越・北陸",
-    "line": "JR Tokaido Shinkansen",
-    "lat": 34.767864,
-    "lng": 138.013003,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00222"
-    ]
-  },
-  {
     "name": "丸之內站",
     "prefecture": "愛知縣",
     "region": "東海・甲信越・北陸",
@@ -3094,20 +4421,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00025"
-    ]
-  },
-  {
-    "name": "名站",
-    "prefecture": "愛知縣",
-    "region": "東海・甲信越・北陸",
-    "line": "JR line",
-    "lat": 35.164857,
-    "lng": 136.890825,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00028"
     ]
   },
   {
@@ -3195,34 +4508,6 @@
     ]
   },
   {
-    "name": "岐阜羽島站",
-    "prefecture": "岐阜縣",
-    "region": "東海・甲信越・北陸",
-    "line": "Tokaido Shinkansen",
-    "lat": 35.313773,
-    "lng": 136.687399,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00209"
-    ]
-  },
-  {
-    "name": "津站",
-    "prefecture": "三重縣",
-    "region": "東海・甲信越・北陸",
-    "line": "Kintetsu Nagoya Railway",
-    "lat": 34.732258,
-    "lng": 136.508724,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00273"
-    ]
-  },
-  {
     "name": "近鐵四日市站",
     "prefecture": "三重縣",
     "region": "東海・甲信越・北陸",
@@ -3248,20 +4533,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00236"
-    ]
-  },
-  {
-    "name": "伊勢市站",
-    "prefecture": "三重縣",
-    "region": "東海・甲信越・北陸",
-    "line": "JR Sangu Line",
-    "lat": 34.496308,
-    "lng": 136.70325,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00347"
     ]
   },
   {
@@ -3388,20 +4659,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00249"
-    ]
-  },
-  {
-    "name": "天理站",
-    "prefecture": "奈良縣",
-    "region": "近畿",
-    "line": "JR",
-    "lat": 34.60136,
-    "lng": 135.831744,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00359"
     ]
   },
   {
@@ -3713,20 +4970,6 @@
     ]
   },
   {
-    "name": "福山站",
-    "prefecture": "廣島縣",
-    "region": "cyugoku",
-    "line": "San-yo and Kyushu Shinkansen",
-    "lat": 34.488597,
-    "lng": 133.358859,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00259"
-    ]
-  },
-  {
     "name": "米子站",
     "prefecture": "鳥取縣",
     "region": "cyugoku",
@@ -3752,34 +4995,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00098"
-    ]
-  },
-  {
-    "name": "出雲市站",
-    "prefecture": "島根縣",
-    "region": "cyugoku",
-    "line": "JR San-in Main Line",
-    "lat": 35.361841,
-    "lng": 132.75677,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00105"
-    ]
-  },
-  {
-    "name": "濱田站",
-    "prefecture": "島根縣",
-    "region": "cyugoku",
-    "line": "JR San-in line",
-    "lat": 34.902217,
-    "lng": 132.08571,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00325"
     ]
   },
   {
@@ -3839,20 +5054,6 @@
     ]
   },
   {
-    "name": "松山站",
-    "prefecture": "愛媛縣",
-    "region": "cyugoku",
-    "line": "JR Yosan Line",
-    "lat": 33.841415,
-    "lng": 132.77396,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00064"
-    ]
-  },
-  {
     "name": "新居濱站",
     "prefecture": "愛媛縣",
     "region": "cyugoku",
@@ -3892,34 +5093,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00153"
-    ]
-  },
-  {
-    "name": "佐賀站",
-    "prefecture": "佐賀縣",
-    "region": "kyushu",
-    "line": "JR Nagasaki line",
-    "lat": 33.263715,
-    "lng": 130.296605,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00045"
-    ]
-  },
-  {
-    "name": "長崎站",
-    "prefecture": "長崎縣",
-    "region": "kyushu",
-    "line": "Streetcar",
-    "lat": 32.748636,
-    "lng": 129.872751,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00079"
     ]
   },
   {
@@ -3965,20 +5138,6 @@
     ]
   },
   {
-    "name": "大分站",
-    "prefecture": "大分縣",
-    "region": "kyushu",
-    "line": "JR Line",
-    "lat": 33.234736,
-    "lng": 131.608886,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00141"
-    ]
-  },
-  {
     "name": "大分中津站",
     "prefecture": "大分縣",
     "region": "kyushu",
@@ -4004,20 +5163,6 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00126"
-    ]
-  },
-  {
-    "name": "熊本站",
-    "prefecture": "熊本縣",
-    "region": "kyushu",
-    "line": "JR line",
-    "lat": 32.788352,
-    "lng": 130.689092,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00168"
     ]
   },
   {
@@ -4049,20 +5194,6 @@
     ]
   },
   {
-    "name": "薩摩川内站",
-    "prefecture": "鹿兒島縣",
-    "region": "kyushu",
-    "line": "JR Kyusyu Shinkansen",
-    "lat": 31.814711,
-    "lng": 130.31305,
-    "count": 1,
-    "hotelCount": 1,
-    "foodCount": 0,
-    "spotIds": [
-      "toyoko-00203"
-    ]
-  },
-  {
     "name": "鹿兒島站",
     "prefecture": "鹿兒島縣",
     "region": "kyushu",
@@ -4088,6 +5219,48 @@
     "foodCount": 0,
     "spotIds": [
       "toyoko-00214"
+    ]
+  },
+  {
+    "name": "岩手縣主要車站",
+    "prefecture": "岩手縣",
+    "region": "東北",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 1,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-610"
+    ]
+  },
+  {
+    "name": "愛媛縣主要車站",
+    "prefecture": "愛媛縣",
+    "region": "中國・四國",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 1,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-527"
+    ]
+  },
+  {
+    "name": "高知縣主要車站",
+    "prefecture": "高知縣",
+    "region": "中國・四國",
+    "line": "JR / 私鐵",
+    "lat": 35.6812,
+    "lng": 139.7671,
+    "count": 1,
+    "hotelCount": 0,
+    "foodCount": 0,
+    "spotIds": [
+      "donki-697"
     ]
   }
 ]

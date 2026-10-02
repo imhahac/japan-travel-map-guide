@@ -54,6 +54,10 @@ export function deduplicateSpots(spots, proximityThresholdMeters = 50) {
     for (let i = 0; i < uniqueSpots.length; i++) {
       const existing = uniqueSpots[i];
       if (existing.brand === spot.brand) {
+        // 若兩者均有地址且地址明確不同，不視為空間重複
+        if (spot.address && existing.address && spot.address.trim() !== existing.address.trim()) {
+          continue;
+        }
         const dist = calculateDistance(existing.lat, existing.lng, spot.lat, spot.lng);
         if (dist <= proximityThresholdMeters) {
           isSpatialDuplicate = true;
