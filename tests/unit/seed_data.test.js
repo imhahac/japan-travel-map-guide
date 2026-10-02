@@ -23,4 +23,14 @@ describe('Seed Datasets Integrity Tests', () => {
       expect(validation.isValid, `Toyoko seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
     }
   });
+
+  it('apa_seed.json 中的每一筆資料皆為APA飯店且符合 Schema 驗證', async () => {
+    const { default: apaSeed } = await import('../../src/data/apa_seed.json');
+    expect(apaSeed.length).toBeGreaterThanOrEqual(20);
+    for (const spot of apaSeed) {
+      expect(spot.brand).toBe('APA飯店');
+      const validation = validateSpot(spot);
+      expect(validation.isValid, `APA seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
+    }
+  });
 });

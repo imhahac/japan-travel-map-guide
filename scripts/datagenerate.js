@@ -107,6 +107,14 @@ async function generate() {
       console.log(`Loaded ${seedHotels.length} hotels from seed data.`);
     }
 
+    // Also load APA Hotels seed if present
+    const apaPath = path.join(outputDir, 'apa_seed.json');
+    if (fs.existsSync(apaPath)) {
+      const apaHotels = JSON.parse(fs.readFileSync(apaPath, 'utf8'));
+      apaHotels.forEach(h => allSpots.push(normalizeSpot(h, '飯店')));
+      console.log(`Loaded ${apaHotels.length} APA hotels from seed data.`);
+    }
+
     // Also load any custom spots if present
     const customPath = path.join(outputDir, 'custom_spots.json');
     if (fs.existsSync(customPath)) {

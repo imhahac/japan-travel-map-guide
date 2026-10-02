@@ -36,6 +36,7 @@ export default function App() {
   const [spots, setSpots] = useState(initialSpots);
   const [stations, setStations] = useState(initialStations);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedBrand, setSelectedBrand] = useState('all');
   const [selectedRegion, setSelectedRegion] = useState('全部地區');
   const [selectedPrefecture, setSelectedPrefecture] = useState('全部都道府縣');
   const [walkFilter, setWalkFilter] = useState('all');
@@ -62,6 +63,18 @@ export default function App() {
     return counts;
   }, [spots]);
 
+  // Compute Brand Counts (especially for hotels)
+  const brandCounts = useMemo(() => {
+    const hotelSpots = spots.filter(s => s.category === '飯店');
+    const counts = { all: hotelSpots.length };
+    hotelSpots.forEach(s => {
+      if (s.brand) {
+        counts[s.brand] = (counts[s.brand] || 0) + 1;
+      }
+    });
+    return counts;
+  }, [spots]);
+
   // Filter and Sort Spots
   const filteredSpots = useMemo(() => {
     return spots
@@ -75,6 +88,11 @@ export default function App() {
       .filter(spot => {
         // Category Filter
         if (selectedCategory !== 'all' && spot.category !== selectedCategory) {
+          return false;
+        }
+
+        // Brand Filter (when specified)
+        if (selectedBrand !== 'all' && spot.brand !== selectedBrand) {
           return false;
         }
 
@@ -109,7 +127,7 @@ export default function App() {
         // Otherwise sort by walk minutes or region
         return (a.walkMinutes || 5) - (b.walkMinutes || 5);
       });
-  }, [spots, selectedCategory, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
+  }, [spots, selectedCategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
 
   // Handle Spot Selection
   const handleSelectSpot = (spot) => {
@@ -126,6 +144,7 @@ export default function App() {
   // Reset all filters
   const handleResetAllFilters = () => {
     setSelectedCategory('all');
+    setSelectedBrand('all');
     setSelectedRegion('全部地區');
     setSelectedPrefecture('全部都道府縣');
     setWalkFilter('all');
@@ -168,11 +187,17 @@ export default function App() {
               onClearStation={() => setSelectedStation(null)}
             />
 
-            {/* 2. Category Filter Pills */}
+            {/* 2. Two-tier Category & Brand Filter */}
             <CategoryFilter
               currentCategory={selectedCategory}
-              onSelectCategory={setSelectedCategory}
+              onSelectCategory={(cat) => {
+                setSelectedCategory(cat);
+                setSelectedBrand('all');
+              }}
               categoryCounts={categoryCounts}
+              currentBrand={selectedBrand}
+              onSelectBrand={setSelectedBrand}
+              brandCounts={brandCounts}
             />
 
             {/* 3. Region, Prefecture & Walk Radius Filter */}

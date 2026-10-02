@@ -52,7 +52,10 @@ function createCustomPin(spot) {
   let bgColor = '#00489d'; // Blue for Toyoko Inn
   let iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg>`;
 
-  if (spot.category === '美食餐廳') {
+  if (spot.brand === 'APA飯店') {
+    bgColor = '#d97706'; // Amber / Gold for APA Hotel
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg>`;
+  } else if (spot.category === '美食餐廳') {
     bgColor = '#ea580c';
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
   } else if (spot.category === '便利商店') {
@@ -254,30 +257,51 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
 
       // Build rich popup content
       const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}&travelmode=walking`;
+      const isApa = spot.brand === 'APA飯店';
+      const brandColor = isApa ? '#d97706' : '#00489d';
+      const brandBg = isApa ? '#fef3c7' : '#e0e7ff';
+      const brandTextColor = isApa ? '#92400e' : '#1e40af';
+
+      const tagsList = spot.tags
+        ? (Array.isArray(spot.tags) ? spot.tags : spot.tags.split(/[,，]/)).slice(0, 3)
+        : [];
+
       const popupHtml = `
         <div style="font-family: inherit; width: 250px; padding: 4px;">
           ${spot.imageUrl ? `
             <img src="${spot.imageUrl}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" onerror="this.style.display='none'" />
           ` : ''}
-          <div style="font-size: 11px; font-weight: 800; color: #00489d; letter-spacing: 0.5px; text-transform: uppercase;">
-            ${spot.brand || spot.category}
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <span style="background: ${brandBg}; color: ${brandTextColor}; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px;">
+              ${spot.brand || spot.category}
+            </span>
+            ${spot.walkMinutes ? `
+              <span style="font-size: 10px; color: #10b981; font-weight: 700;">
+                步行 ${spot.walkMinutes} 分
+              </span>
+            ` : ''}
           </div>
           <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 2px 0 6px 0; line-height: 1.3;">
             ${spot.name}
           </div>
-          <div style="font-size: 12px; color: #00489d; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+          <div style="font-size: 12px; color: ${brandColor}; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
             <span>🚉</span>
             <span>${spot.stationAccess || spot.nearestStation}</span>
           </div>
-          <div style="font-size: 11px; color: #64748b; margin-bottom: 12px;">
+          <div style="font-size: 11px; color: #64748b; margin-bottom: 8px;">
             📍 ${spot.address || spot.prefecture}
           </div>
+          ${tagsList.length > 0 ? `
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+              ${tagsList.map(t => `<span style="font-size: 9.5px; background: #f1f5f9; color: #475569; padding: 1px 5px; border-radius: 3px;">${t.trim()}</span>`).join('')}
+            </div>
+          ` : ''}
           <div style="display: flex; gap: 6px;">
             <a href="${navUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: #f1f5f9; color: #0f172a; font-size: 11px; font-weight: 700; padding: 7px 4px; border-radius: 6px; text-decoration: none; border: 1px solid #cbd5e1;">
               🚶 步行導航
             </a>
             ${spot.bookingUrl ? `
-              <a href="${spot.bookingUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: #00489d; color: #ffffff; font-size: 11px; font-weight: 700; padding: 7px 4px; border-radius: 6px; text-decoration: none; box-shadow: 0 2px 6px rgba(0,72,157,0.3);">
+              <a href="${spot.bookingUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: ${brandColor}; color: #ffffff; font-size: 11px; font-weight: 700; padding: 7px 4px; border-radius: 6px; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
                 🏨 官方預約
               </a>
             ` : ''}
