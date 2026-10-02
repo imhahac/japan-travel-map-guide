@@ -13,6 +13,7 @@ import { findNearestStation } from './core/geo.js';
 import { validateSpotsBatch } from './core/validator.js';
 import { deduplicateSpots } from './core/dedupe.js';
 import { MATSUKIYO_STORES_SEED, buildMatsukiyoStores } from './scrapers/matsumoto.js';
+import { getAllElectronicsSpots } from './scrapers/electronics.js';
 
 const DONKI_LIST_URL = 'https://www.donki.com/store/shop_list.php';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
@@ -21,18 +22,30 @@ const PREFECTURE_REGEX = /(北海道|東京都|大阪府|京都府|青森縣|岩
 
 export async function crawlDonkiStores(stationsList = []) {
   console.log(`[Donki Scraper] 開始從官網抓取全日本唐吉訶德清單 (${DONKI_LIST_URL})...`);
-  const res = await fetch(DONKI_LIST_URL, {
-    headers: {
-      'User-Agent': USER_AGENT,
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  let html = '';
+  try {
+    const res = await fetch(DONKI_LIST_URL, {
+      headers: {
+        'User-Agent': USER_AGENT,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      signal: AbortSignal.timeout(10000)
+    });
+    if (res.ok) {
+      html = await res.text();
+    } else {
+      throw new Error(`HTTP ${res.status}`);
     }
-  });
-
-  if (!res.ok) {
-    throw new Error(`唐吉訶德官網回應 HTTP ${res.status}`);
+  } catch (err) {
+    console.warn(`[Donki Scraper] 官網即時抓取略過 (${err.message})，自動採用本地權威完整資料庫...`);
+    const seedPath = path.resolve('src/data/donki_full_seed.json');
+    if (fs.existsSync(seedPath)) {
+      const cached = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+      console.log(`[Donki Scraper] 成功從本地種子庫載入 ${cached.length} 間完整唐吉訶德門市！`);
+      return cached;
+    }
+    throw err;
   }
-
-  const html = await res.text();
   const $ = cheerio.load(html);
 
   const rawStores = [];
@@ -123,12 +136,15 @@ async function run() {
   const stations = fs.existsSync(stationsPath) ? JSON.parse(fs.readFileSync(stationsPath, 'utf8')) : [];
 
   const donkiSpots = await crawlDonkiStores(stations);
-  const matsukiyoSpots = buildMatsukiyoStores(MATSUKIYO_STORES_SEED, stations);
+  fs.writeFileSync(path.resolve('src/data/donki_full_seed.json'), JSON.stringify(donkiSpots, null, 2), 'utf8');
 
-  const combinedShopping = [...donkiSpots, ...matsukiyoSpots];
+  const matsukiyoSpots = buildMatsukiyoStores(MATSUKIYO_STORES_SEED, stations);
+  const electronicsSpots = getAllElectronicsSpots(stations);
+
+  const combinedShopping = [...donkiSpots, ...matsukiyoSpots, ...electronicsSpots];
   const outPath = path.resolve('src/data/shopping_seed.json');
   fs.writeFileSync(outPath, JSON.stringify(combinedShopping, null, 2), 'utf8');
-  console.log(`💾 [Shopping] 已儲存全日本 ${combinedShopping.length} 筆門市至 ${outPath} (唐吉訶德: ${donkiSpots.length} 間, 松本清: ${matsukiyoSpots.length} 間)`);
+  console.log(`💾 [Shopping] 已儲存全日本 ${combinedShopping.length} 筆門市至 ${outPath} (唐吉訶德: ${donkiSpots.length} 間, 松本清: ${matsukiyoSpots.length} 間, 電器3C (Bic Camera/Kojima/Sofmap/友都八喜): ${electronicsSpots.length} 間)`);
 
   const syncArg = process.argv.includes('--sync');
   const gasUrl = process.env.GAS_WEBHOOK_URL || process.argv.find(a => a.startsWith('http'));

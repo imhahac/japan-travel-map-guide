@@ -60,14 +60,16 @@ describe('Shopping & Drugstore Scraper Tests', () => {
   });
 
   describe('Shopping Aggregator Integration', () => {
-    it('buildShoppingSpots 應合併唐吉訶德與松本清且無重複項', () => {
+    it('buildShoppingSpots 應合併唐吉訶德、松本清與電器3C且無重複項', () => {
       const allShopping = buildShoppingSpots(sampleStations);
       expect(allShopping.length).toBeGreaterThanOrEqual(25);
       const donkiCount = allShopping.filter(s => s.brand === '唐吉訶德').length;
       const matsukiyoCount = allShopping.filter(s => s.brand === '松本清').length;
+      const electronicsCount = allShopping.filter(s => ['Bic Camera', 'Kojima × Bic Camera', 'Sofmap (ソフマップ)', '友都八喜 (Yodobashi)'].includes(s.brand)).length;
       expect(donkiCount).toBeGreaterThan(0);
       expect(matsukiyoCount).toBeGreaterThan(0);
-      expect(donkiCount + matsukiyoCount).toBe(allShopping.length);
+      expect(electronicsCount).toBeGreaterThan(0);
+      expect(donkiCount + matsukiyoCount + electronicsCount).toBe(allShopping.length);
     });
   });
 });

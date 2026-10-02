@@ -34,22 +34,27 @@ describe('Seed Datasets Integrity Tests', () => {
     }
   });
 
-  it('shopping_seed.json 中的每一筆資料皆為唐吉訶德或松本清且符合 Schema 驗證', async () => {
+  it('shopping_seed.json 中的每一筆資料皆為購物藥妝連鎖且符合 Schema 驗證', async () => {
     const { default: shoppingSeed } = await import('../../src/data/shopping_seed.json');
     expect(shoppingSeed.length).toBeGreaterThanOrEqual(25);
+    const validBrands = ['唐吉訶德', '松本清', 'Bic Camera', 'Kojima × Bic Camera', 'Sofmap (ソフマップ)', '友都八喜 (Yodobashi)'];
     for (const spot of shoppingSeed) {
-      expect(['唐吉訶德', '松本清']).toContain(spot.brand);
+      expect(validBrands).toContain(spot.brand);
       expect(spot.category).toBe('購物藥妝');
       const validation = validateSpot(spot);
       expect(validation.isValid, `Shopping seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
     }
   });
 
-  it('dining_seed.json 中的每一筆資料皆為平價美食且符合 Schema 驗證', async () => {
+  it('dining_seed.json 中的每一筆資料皆為名店連鎖且符合 Schema 驗證', async () => {
     const { default: diningSeed } = await import('../../src/data/dining_seed.json');
     expect(diningSeed.length).toBeGreaterThanOrEqual(10);
+    const validDiningBrands = [
+      '吉野家', '松屋', 'すき家', '客美多咖啡', '一蘭拉麵',
+      '一風堂', '壽司郎', '藏壽司', 'やよい軒', '大戶屋'
+    ];
     for (const spot of diningSeed) {
-      expect(['吉野家', '松屋', 'すき家', '客美多咖啡', '一蘭拉麵']).toContain(spot.brand);
+      expect(validDiningBrands).toContain(spot.brand);
       expect(spot.category).toBe('美食餐廳');
       const validation = validateSpot(spot);
       expect(validation.isValid, `Dining seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
