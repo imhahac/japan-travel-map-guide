@@ -76,6 +76,15 @@ function createCustomPin(spot) {
   } else if (spot.brand === '客美多咖啡') {
     bgColor = '#78350f'; // Coffee Brown
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>`;
+  } else if (spot.brand === '7-Eleven') {
+    bgColor = '#16a34a'; // 7-Eleven Emerald Green
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+  } else if (spot.brand === 'FamilyMart') {
+    bgColor = '#0284c7'; // FamilyMart Sky Blue
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`;
+  } else if (spot.brand === 'Lawson') {
+    bgColor = '#2563eb'; // Lawson Cobalt Blue
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>`;
   } else if (spot.category === '美食餐廳') {
     bgColor = '#ea580c';
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
@@ -324,6 +333,21 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
         brandBg = '#fef3c7';
         brandTextColor = '#78350f';
         actionLabel = '☕ 官方朝食資訊';
+      } else if (spot.brand === '7-Eleven') {
+        brandColor = '#16a34a';
+        brandBg = '#dcfce7';
+        brandTextColor = '#15803d';
+        actionLabel = '🏪 官方門市';
+      } else if (spot.brand === 'FamilyMart') {
+        brandColor = '#0284c7';
+        brandBg = '#e0f2fe';
+        brandTextColor = '#0369a1';
+        actionLabel = '🏪 官方門市';
+      } else if (spot.brand === 'Lawson') {
+        brandColor = '#2563eb';
+        brandBg = '#eff6ff';
+        brandTextColor = '#1d4ed8';
+        actionLabel = '🏪 官方門市';
       } else if (spot.category === '購物藥妝') {
         brandColor = '#9333ea';
         brandBg = '#f3e8ff';
@@ -334,6 +358,11 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
         brandBg = '#ffedd5';
         brandTextColor = '#c2410c';
         actionLabel = '🍜 查看菜單';
+      } else if (spot.category === '便利商店') {
+        brandColor = '#16a34a';
+        brandBg = '#dcfce7';
+        brandTextColor = '#15803d';
+        actionLabel = '🏪 門市資訊';
       }
 
       const tagsList = spot.tags

@@ -132,6 +132,14 @@ async function generate() {
       console.log(`Loaded ${diningSpots.length} dining & restaurant spots from seed data.`);
     }
 
+    // Also load Convenience Store seed if present
+    const conveniencePath = path.join(outputDir, 'convenience_seed.json');
+    if (fs.existsSync(conveniencePath)) {
+      const convSpots = JSON.parse(fs.readFileSync(conveniencePath, 'utf8'));
+      convSpots.forEach(s => allSpots.push(normalizeSpot(s, '便利商店')));
+      console.log(`Loaded ${convSpots.length} convenience store spots from seed data.`);
+    }
+
     // Also load any custom spots if present
     const customPath = path.join(outputDir, 'custom_spots.json');
     if (fs.existsSync(customPath)) {

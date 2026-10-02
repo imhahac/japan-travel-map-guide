@@ -46,13 +46,28 @@ describe('Two-tier Filter Logic Tests', () => {
     { id: '2', category: '飯店', brand: '東橫INN', region: '關東', prefecture: '東京都', walkMinutes: 7 },
     { id: '3', category: '飯店', brand: 'APA飯店', region: '關東', prefecture: '東京都', walkMinutes: 4 },
     { id: '4', category: '飯店', brand: 'APA飯店', region: '近畿', prefecture: '大阪府', walkMinutes: 2 },
-    { id: '5', category: '購物藥妝', brand: '唐吉訶德', region: '關東', prefecture: '東京都', walkMinutes: 5 }
+    { id: '5', category: '購物藥妝', brand: '唐吉訶德', region: '關東', prefecture: '東京都', walkMinutes: 5 },
+    { id: '6', category: '便利商店', brand: '7-Eleven', region: '關東', prefecture: '東京都', walkMinutes: 2 },
+    { id: '7', category: '便利商店', brand: 'FamilyMart', region: '關東', prefecture: '東京都', walkMinutes: 3 },
+    { id: '8', category: '便利商店', brand: 'Lawson', region: '近畿', prefecture: '大阪府', walkMinutes: 5 }
   ];
 
-  it('篩選大類為「飯店」應過濾掉購物藥妝', () => {
+  it('篩選大類為「飯店」應過濾掉購物藥妝與便利商店', () => {
     const res = filterSpots(mockSpots, { category: '飯店' });
     expect(res).toHaveLength(4);
     expect(res.every(s => s.category === '飯店')).toBe(true);
+  });
+
+  it('篩選大類為「便利商店」應只保留超商門市', () => {
+    const res = filterSpots(mockSpots, { category: '便利商店' });
+    expect(res).toHaveLength(3);
+    expect(res.every(s => s.category === '便利商店')).toBe(true);
+  });
+
+  it('第二層品牌選擇「7-Eleven」時只保留 7-Eleven 門市', () => {
+    const res = filterSpots(mockSpots, { category: '便利商店', brand: '7-Eleven' });
+    expect(res).toHaveLength(1);
+    expect(res[0].brand).toBe('7-Eleven');
   });
 
   it('第二層品牌選擇「APA飯店」時只保留 APA 門市', () => {
@@ -67,15 +82,15 @@ describe('Two-tier Filter Logic Tests', () => {
     expect(res.every(s => s.brand === '東橫INN')).toBe(true);
   });
 
-  it('結合步行時間過濾（3分內）應精準過濾', () => {
-    const res = filterSpots(mockSpots, { category: '飯店', walkFilter: '3' });
-    // id: 1 (東橫INN 3分), id: 4 (APA 2分)
-    expect(res).toHaveLength(2);
-    expect(res.map(s => s.id)).toEqual(['1', '4']);
+  it('結合步行時間快速拉桿（3分內）應精準過濾超商與飯店', () => {
+    const res = filterSpots(mockSpots, { walkFilter: '3' });
+    // id: 1 (東橫INN 3分), id: 4 (APA 2分), id: 6 (7-Eleven 2分), id: 7 (FamilyMart 3分)
+    expect(res).toHaveLength(4);
+    expect(res.map(s => s.id)).toEqual(['1', '4', '6', '7']);
   });
 
   it('全部條件重設 (all) 時應返回完整資料集', () => {
     const res = filterSpots(mockSpots, {});
-    expect(res).toHaveLength(5);
+    expect(res).toHaveLength(8);
   });
 });

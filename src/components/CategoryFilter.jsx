@@ -30,6 +30,13 @@ const DINING_BRANDS = [
   { id: '客美多咖啡', label: '客美多咖啡', color: '#78350f', dotBg: '#92400e', activeBg: '#fef3c7', activeText: '#78350f' }
 ];
 
+const CONVENIENCE_BRANDS = [
+  { id: 'all', label: '全部超商', color: '#64748b' },
+  { id: '7-Eleven', label: '7-Eleven', color: '#16a34a', dotBg: '#ea580c', activeBg: '#f0fdf4', activeText: '#15803d' },
+  { id: 'FamilyMart', label: '全家 FamilyMart', color: '#0284c7', dotBg: '#16a34a', activeBg: '#e0f2fe', activeText: '#0369a1' },
+  { id: 'Lawson', label: '羅森 Lawson', color: '#0284c7', dotBg: '#2563eb', activeBg: '#eff6ff', activeText: '#1d4ed8' }
+];
+
 export default function CategoryFilter({
   currentCategory,
   onSelectCategory,
@@ -54,6 +61,10 @@ export default function CategoryFilter({
     displayBrands = DINING_BRANDS;
     brandSectionTitle = '平價美食:';
     BrandIcon = UtensilsCrossed;
+  } else if (currentCategory === '便利商店') {
+    displayBrands = CONVENIENCE_BRANDS;
+    brandSectionTitle = '便利超商:';
+    BrandIcon = Store;
   } else if (currentCategory === 'all') {
     displayBrands = [
       { id: 'all', label: '全部品牌', color: '#64748b' },
@@ -64,7 +75,10 @@ export default function CategoryFilter({
       DINING_BRANDS[1],
       DINING_BRANDS[2],
       DINING_BRANDS[4],
-      DINING_BRANDS[5]
+      DINING_BRANDS[5],
+      CONVENIENCE_BRANDS[1],
+      CONVENIENCE_BRANDS[2],
+      CONVENIENCE_BRANDS[3]
     ];
     brandSectionTitle = '熱門品牌:';
     BrandIcon = Building2;

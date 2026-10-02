@@ -55,4 +55,15 @@ describe('Seed Datasets Integrity Tests', () => {
       expect(validation.isValid, `Dining seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
     }
   });
+
+  it('convenience_seed.json 中的每一筆資料皆為三大超商且符合 Schema 驗證', async () => {
+    const { default: convSeed } = await import('../../src/data/convenience_seed.json');
+    expect(convSeed.length).toBeGreaterThanOrEqual(20);
+    for (const spot of convSeed) {
+      expect(['7-Eleven', 'FamilyMart', 'Lawson']).toContain(spot.brand);
+      expect(spot.category).toBe('便利商店');
+      const validation = validateSpot(spot);
+      expect(validation.isValid, `Convenience seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
+    }
+  });
 });
