@@ -51,7 +51,7 @@ describe('Seed Datasets Integrity Tests', () => {
     expect(diningSeed.length).toBeGreaterThanOrEqual(10);
     const validDiningBrands = [
       '吉野家', '松屋', 'すき家', '客美多咖啡', '一蘭拉麵',
-      '一風堂', '壽司郎', '藏壽司', 'やよい軒', '大戶屋'
+      '一風堂', '壽司郎', '藏壽司', 'はま寿司', 'やよい軒', '大戶屋'
     ];
     for (const spot of diningSeed) {
       expect(validDiningBrands).toContain(spot.brand);

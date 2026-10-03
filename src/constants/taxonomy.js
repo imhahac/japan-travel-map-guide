@@ -227,6 +227,18 @@ export const BRANDS_REGISTRY = [
     activeBg: '#e0f2fe',
     activeText: '#0369a1'
   },
+  {
+    id: 'はま寿司',
+    label: 'はま寿司 (Hama)',
+    shortLabel: 'はま寿司',
+    category: '美食餐廳',
+    subcategory: '壽司',
+    aliases: ['はま寿司', 'はま寿司 (Hama)', 'Hama Sushi', '濱壽司', '滨寿司', 'はま'],
+    color: '#0369a1',
+    dotBg: '#0284c7',
+    activeBg: '#e0f2fe',
+    activeText: '#0369a1'
+  },
 
   // ── 在地美食 (定食) ──
   {

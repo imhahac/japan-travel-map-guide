@@ -52,7 +52,7 @@ function getSubcategory(category, brand = '', name = '') {
   if (category === '美食餐廳') {
     if (/吉野家|松屋|すき家|牛丼/i.test(brand) || /牛丼/i.test(name)) return '牛丼';
     if (/一蘭|一風堂|拉麵|ラーメン/i.test(brand) || /拉麵|ラーメン/i.test(name)) return '拉麵';
-    if (/壽司郎|藏壽司|スシロー|くら寿司|壽司/i.test(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
+    if (/壽司郎|藏壽司|はま寿司|濱壽司|Hama|スシロー|くら寿司|壽司/i.test(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
     if (/やよい軒|大戶屋|定食|彌生軒/i.test(brand) || /定食|彌生軒/i.test(name)) return '定食';
     if (/客美多|咖啡|珈琲|コメダ/i.test(brand) || /咖啡|珈琲|コメダ/i.test(name)) return '咖啡';
     return '平價美食';
