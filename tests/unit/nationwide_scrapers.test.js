@@ -13,8 +13,10 @@ import { crawlKomeda } from '../../scripts/scrapers/crawl_komeda.js';
 import { crawlYayoiken } from '../../scripts/scrapers/crawl_yayoiken.js';
 import { crawlSaizeriya } from '../../scripts/scrapers/crawl_saizeriya.js';
 import { crawlShakeShack } from '../../scripts/scrapers/crawl_shakeshack.js';
+import { crawlMatsufuji } from '../../scripts/scrapers/crawl_matsufuji.js';
+import { crawlSyabuyo } from '../../scripts/scrapers/crawl_syabuyo.js';
 
-describe('Nationwide 11-Brand Official Scrapers Test Suite', { timeout: 20000 }, () => {
+describe('Nationwide Scrapers Test Suite', { timeout: 20000 }, () => {
   const sampleStations = [
     { name: '新宿', lat: 35.6909, lng: 139.7003, lines: ['JR 山手線'] },
     { name: '東京', lat: 35.6812, lng: 139.7671, lines: ['JR 山手線'] }
@@ -130,4 +132,36 @@ describe('Nationwide 11-Brand Official Scrapers Test Suite', { timeout: 20000 },
     expect(first.subcategory).toBe('漢堡輕食');
     expect(validateSpot(first).isValid).toBe(true);
   }, 15000);
+
+  it('12. 六厘舎 與 舎鈴 (Matsufuji) 爬蟲應獲取官方門市資訊、拉麵子分類且符合 Schema', async () => {
+    const spots = await crawlMatsufuji(sampleStations, { verbose: false });
+    expect(spots.length).toBeGreaterThanOrEqual(80);
+    
+    // 應同時涵蓋六厘舎與舎鈴
+    const rokurinsha = spots.filter(s => s.brand === '六厘舎');
+    const sharin = spots.filter(s => s.brand === '舎鈴');
+    expect(rokurinsha.length).toBeGreaterThanOrEqual(5);
+    expect(sharin.length).toBeGreaterThanOrEqual(70);
+
+    const first = spots[0];
+    expect(first.category).toBe('美食餐廳');
+    expect(first.subcategory).toBe('拉麵');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  }, 20000);
+
+  it('13. しゃぶ葉 (Syabuyo) 爬蟲應獲取官方門市資訊、鍋物料理子分類且符合 Schema', async () => {
+    const spots = await crawlSyabuyo(sampleStations, { verbose: false });
+    expect(spots.length).toBeGreaterThanOrEqual(100);
+    const first = spots[0];
+    expect(first.brand).toBe('しゃぶ葉');
+    expect(first.category).toBe('美食餐廳');
+    expect(first.subcategory).toBe('鍋物料理');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  }, 20000);
 });

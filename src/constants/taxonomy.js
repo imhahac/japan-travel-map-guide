@@ -23,6 +23,7 @@ export const SUBCATEGORIES_MAP = {
   ],
   美食餐廳: [
     { id: 'all', label: '全部美食' },
+    { id: '鍋物料理', label: '鍋物料理' },
     { id: '拉麵', label: '日式拉麵' },
     { id: '牛丼', label: '平價牛丼' },
     { id: '壽司', label: '迴轉壽司' },
@@ -203,6 +204,30 @@ export const BRANDS_REGISTRY = [
     activeBg: '#fef2f2',
     activeText: '#991b1b'
   },
+  {
+    id: '六厘舎',
+    label: '六厘舎 (Rokurinsha)',
+    shortLabel: '六厘舎',
+    category: '美食餐廳',
+    subcategory: '拉麵',
+    aliases: ['六厘舎', '六厘舎 (Rokurinsha)', 'Rokurinsha', '六厘舍', 'ROKURINSHA'],
+    color: '#881337',
+    dotBg: '#991b1b',
+    activeBg: '#fef2f2',
+    activeText: '#881337'
+  },
+  {
+    id: '舎鈴',
+    label: '舎鈴 (Sharin)',
+    shortLabel: '舎鈴',
+    category: '美食餐廳',
+    subcategory: '拉麵',
+    aliases: ['舎鈴', '舎鈴 (Sharin)', 'Sharin', '舍鈴', 'SHARIN'],
+    color: '#ea580c',
+    dotBg: '#f97316',
+    activeBg: '#fff7ed',
+    activeText: '#c2410c'
+  },
 
   // ── 在地美食 (壽司) ──
   {
@@ -308,6 +333,20 @@ export const BRANDS_REGISTRY = [
     dotBg: '#689f38',
     activeBg: '#f1f8e9',
     activeText: '#33691e'
+  },
+
+  // ── 在地美食 (鍋物料理) ──
+  {
+    id: 'しゃぶ葉',
+    label: 'しゃぶ葉 (涮乃葉)',
+    shortLabel: 'しゃぶ葉',
+    category: '美食餐廳',
+    subcategory: '鍋物料理',
+    aliases: ['しゃぶ葉', 'しゃぶ葉 (涮乃葉)', '涮乃葉', 'Syabuyo', 'syabuyo', 'シャブヨウ', 'しゃぶしゃぶ'],
+    color: '#dc2626',
+    dotBg: '#dc2626',
+    activeBg: '#fef2f2',
+    activeText: '#991b1b'
   },
 
   // ── 便利商店 (連鎖超商) ──
@@ -422,8 +461,9 @@ export function determineSubcategory(category, brand = '', name = '') {
   }
 
   if (category === '美食餐廳') {
+    if (/しゃぶ葉|涮乃葉|syabuyo|鍋物|涮涮鍋|壽喜燒|しゃぶしゃぶ|温野菜/i.test(brand) || /しゃぶ葉|涮乃葉|鍋物|涮涮鍋|壽喜燒|しゃぶしゃぶ/i.test(name)) return '鍋物料理';
     if (/吉野家|松屋|すき家|牛丼/i.test(brand) || /牛丼/i.test(name)) return '牛丼';
-    if (/一蘭|一風堂|拉麵|ラーメン/i.test(brand) || /拉麵|ラーメン/i.test(name)) return '拉麵';
+    if (/一蘭|一風堂|六厘舎|舎鈴|拉麵|ラーメン|つけめん|沾麵/i.test(brand) || /拉麵|ラーメン|つけめん|六厘舎|舎鈴/i.test(name)) return '拉麵';
     if (/壽司郎|藏壽司|スシロー|くら寿司|壽司/i.test(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
     if (/やよい軒|大戶屋|定食|彌生軒/i.test(brand) || /定食|彌生軒/i.test(name)) return '定食';
     if (/薩莉亞|サイゼリヤ|サイゼ|家庭餐廳/i.test(brand) || /サイゼリヤ/i.test(name)) return '家庭餐廳';

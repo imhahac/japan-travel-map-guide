@@ -23,6 +23,8 @@
     "crawl:bic": "node scripts/scrapers/crawl_bic_camera.js",
     "crawl:saizeriya": "node scripts/scrapers/crawl_saizeriya.js",
     "crawl:shakeshack": "node scripts/scrapers/crawl_shakeshack.js",
+    "crawl:matsufuji": "node scripts/scrapers/crawl_matsufuji.js",
+    "crawl:syabuyo": "node scripts/scrapers/crawl_syabuyo.js",
     "sync:sheet": "node scripts/sync_to_sheet.js",
     "test": "vitest run",
     "test:watch": "vitest",

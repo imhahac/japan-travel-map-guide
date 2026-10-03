@@ -23,7 +23,7 @@
 - **品質檢驗套件**：Vitest 5 + Testing Library + jsdom + Oxlint
 - **靜態主機代管**：GitHub Pages（由 GitHub Actions 原生工作流自動建置與發布）
 - **雲端試算表資料庫**：Google Sheets（透過 Google Apps Script Webhook 進行二維矩陣原子同步）
-- **資料規模**：內建 **8,652 筆** 全國真實實體門市與景點，以及 **340 座** 日本鐵路與地下鐵車站生活圈索引
+- **資料規模**：內建 **10,176 筆** 全國真實實體門市與景點，以及 **323 座** 日本鐵路與地下鐵車站生活圈索引
 
 ---
 
@@ -49,7 +49,7 @@ npm run dev
 ### 3. 執行全套品質測試與靜態檢查
 在提交任何程式碼或發起 Pull Request 之前，請務必執行測試：
 ```bash
-# 執行全部 12 套單元測試與端到端篩選整合測試 (82 個測資)
+# 執行全部 14 套單元測試與端到端篩選整合測試 (95 個測資全部通過)
 npm test
 
 # 執行 Oxlint 高效能靜態分析檢查
@@ -122,12 +122,12 @@ git push origin main
 - **工作內容**：
   1. 簽出程式碼並安裝 Node.js 24；
   2. 執行 `npm ci` 乾淨安裝相依模組；
-  3. 執行 `npm test`（Vitest 12 個測試套件、82 個測試全數檢驗）；
+  3. 執行 `npm test`（Vitest 14 個測試套件、95 個測試全數檢驗通過）；
   4. 執行 `npm run build` 檢驗靜態產物打包。
 - **目的**：杜絕任何潛在語法錯誤、Schema 欄位缺失或回歸問題被併入主分支。
 
 ### 2. `deploy.yml`（GitHub Pages 自動部署）
-- **觸發條件**：推送至 `main` 分支、每日台灣時間早上 08:00（UTC 00:00）定時排程、或手動手動觸發。
+- **觸發條件**：推送至 `main` 分支、每日台灣時間早上 08:00（UTC 00:00）定時排程、或手動觸發。
 - **工作內容**：執行 `scripts/datagenerate.js` 彙整資料庫，建置 Vite 生產環境代碼，並透過 `@actions/deploy-pages` 安全發布至 Pages 伺服器。
 
 ### 3. `crawl_queue.yml`（試算表待爬佇列排程）
@@ -141,19 +141,25 @@ git push origin main
 若維運人員需要在本地或伺服器端重新抓取最新門市或同步資料：
 
 ```bash
-# 1. 執行 9 大品牌全日本門市總爬蟲 (すき家、松屋、壽司郎、藏壽司、はま寿司、客美多、大戶屋、やよい軒、Bic Camera)
-npm run crawl:nationwide
+# 1. 執行特定品牌官方爬蟲
+npm run crawl:syabuyo        # しゃぶ葉 (涮乃葉火鍋/壽喜燒 337 間)
+npm run crawl:matsufuji      # 六厘舎 (6 間) 與 舎鈴 (77 間)
+npm run crawl:saizeriya      # 薩莉亞 (1,085 間)
+npm run crawl:shakeshack     # Shake Shack (19 間)
+npm run crawl:sukiya        # すき家
+npm run crawl:matsuya       # 松屋
+npm run crawl:nationwide     # 全國連鎖總管線
 
-# 2. 重新產生前端 spots.json (8,652筆) 與 stations.json (340站生活圈索引)
+# 2. 重新產生前端 spots.json (10,176 筆) 與 stations.json (323 站生活圈索引)
 npm run generate
 
 # 3. 將資料庫全量同步至 Google 試算表各分頁 (內建 200 筆批次原子寫入與自動重試)
 node scripts/sync_to_sheet.js --target=all
 
-# 4. 單獨同步美食餐廳 (7,025筆) 至試算表
+# 4. 單獨同步美食餐廳 (8,549 筆) 至試算表
 node scripts/sync_to_sheet.js --target=dining --batch-size=200
 
-# 5. 單獨同步購物藥妝 (970筆) 至試算表
+# 5. 單獨同步購物藥妝 (970 筆) 至試算表
 node scripts/sync_to_sheet.js --target=shopping
 ```
 

@@ -70,9 +70,18 @@ function createCustomPin(spot) {
   } else if (spot.brand === 'すき家') {
     bgColor = '#dc2626'; // Sukiya Red
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 15a3 3 0 0 1-3 3M18 10a3 3 0 0 0-3-3M2 2v20M5 2v20M2 15a3 3 0 0 0 3 3M5 10a3 3 0 0 1-3-3"/></svg>`;
-  } else if (spot.brand === '一蘭拉麵') {
-    bgColor = '#16a34a'; // Ichiran Green
+  } else if (spot.brand === '一蘭拉麵' || spot.brand === '一風堂') {
+    bgColor = '#b91c1c'; // Ramen Crimson Red
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/></svg>`;
+  } else if (spot.brand === '六厘舎') {
+    bgColor = '#881337'; // Rokurinsha Deep Maroon Red
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/></svg>`;
+  } else if (spot.brand === '舎鈴') {
+    bgColor = '#ea580c'; // Sharin Vibrant Ramen Orange
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/></svg>`;
+  } else if (spot.brand === 'しゃぶ葉') {
+    bgColor = '#dc2626'; // Syabuyo Hotpot Crimson
+    iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a1 1 0 0 1 1 1 7 7 0 0 1-7 7H10a7 7 0 0 1-7-7 1 1 0 0 1 1-1Z"/><path d="M9 4v3M15 4v3M12 2v5"/><line x1="2" y1="11" x2="22" y2="11"/></svg>`;
   } else if (spot.brand === '客美多咖啡') {
     bgColor = '#78350f'; // Coffee Brown
     iconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>`;

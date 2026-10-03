@@ -52,10 +52,13 @@ function getSubcategory(category, brand = '', name = '') {
     return '藥妝量販';
   }
   if (category === '美食餐廳') {
+    if (/しゃぶ葉|涮乃葉|syabuyo|鍋物|涮涮鍋|壽喜燒|しゃぶしゃぶ|温野菜/i.test(brand) || /しゃぶ葉|涮乃葉|鍋物|涮涮鍋|壽喜燒|しゃぶしゃぶ/i.test(name)) return '鍋物料理';
     if (/吉野家|松屋|すき家|牛丼/i.test(brand) || /牛丼/i.test(name)) return '牛丼';
-    if (/一蘭|一風堂|拉麵|ラーメン/i.test(brand) || /拉麵|ラーメン/i.test(name)) return '拉麵';
+    if (/一蘭|一風堂|六厘舎|舎鈴|拉麵|ラーメン/i.test(brand) || /拉麵|ラーメン|六厘舎|舎鈴/i.test(name)) return '拉麵';
     if (/壽司郎|藏壽司|はま寿司|濱壽司|Hama|スシロー|くら寿司|壽司/i.test(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
     if (/やよい軒|大戶屋|定食|彌生軒/i.test(brand) || /定食|彌生軒/i.test(name)) return '定食';
+    if (/薩莉亞|サイゼリヤ/i.test(brand) || /サイゼリヤ/i.test(name)) return '家庭餐廳';
+    if (/Shake\s*Shack/i.test(brand) || /Shake\s*Shack/i.test(name)) return '漢堡輕食';
     if (/客美多|咖啡|珈琲|コメダ/i.test(brand) || /咖啡|珈琲|コメダ/i.test(name)) return '咖啡';
     return '平價美食';
   }
@@ -164,6 +167,22 @@ async function generate() {
       const diningSpots = JSON.parse(fs.readFileSync(diningPath, 'utf8'));
       diningSpots.forEach(s => allSpots.push(normalizeSpot(s, '美食餐廳')));
       console.log(`Loaded ${diningSpots.length} dining & restaurant spots from seed data.`);
+    }
+
+    // Also load Matsufuji (六厘舎 & 舎鈴) seed if present
+    const matsufujiPath = path.join(outputDir, 'matsufuji_seed.json');
+    if (fs.existsSync(matsufujiPath)) {
+      const mtfjSpots = JSON.parse(fs.readFileSync(matsufujiPath, 'utf8'));
+      mtfjSpots.forEach(s => allSpots.push(normalizeSpot(s, '美食餐廳')));
+      console.log(`Loaded ${mtfjSpots.length} Matsufuji (六厘舎 / 舎鈴) spots from seed data.`);
+    }
+
+    // Also load Syabuyo (しゃぶ葉) seed if present
+    const syabuyoPath = path.join(outputDir, 'syabuyo_seed.json');
+    if (fs.existsSync(syabuyoPath)) {
+      const syabuyoSpots = JSON.parse(fs.readFileSync(syabuyoPath, 'utf8'));
+      syabuyoSpots.forEach(s => allSpots.push(normalizeSpot(s, '美食餐廳')));
+      console.log(`Loaded ${syabuyoSpots.length} Syabuyo (しゃぶ葉) spots from seed data.`);
     }
 
     // Also load Convenience Store seed if present

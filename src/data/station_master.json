@@ -153,6 +153,33 @@
     "source": "precise_railway"
   },
   {
+    "name": "大崎站",
+    "lat": 35.6197,
+    "lng": 139.728553,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR山手線 / 埼京線 / 湘南新宿線 / 臨海線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "押上站",
+    "lat": 35.710628,
+    "lng": 139.813139,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "東京地鐵半藏門線 / 都營淺草線 / 東武伊勢崎線 / 京成押上線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "羽田機場第3航廈站",
+    "lat": 35.544722,
+    "lng": 139.768611,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "京急機場線 / 東京單軌電車",
+    "source": "precise_railway"
+  },
+  {
     "name": "柏站",
     "lat": 35.862217,
     "lng": 139.970984,
