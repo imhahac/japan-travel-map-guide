@@ -37,24 +37,27 @@ function parseCsv(csvText) {
 }
 
 function getSubcategory(category, brand = '', name = '') {
-  if (category === '飯店' || brand === '東橫INN' || brand === 'APA飯店') {
+  if (category === '飯店' || /東橫|APA|Hotel|飯店/i.test(brand)) {
     return '商務飯店';
   }
   if (category === '購物藥妝') {
-    if (['Bic Camera', '友都八喜', 'Kojima', 'Sofmap'].includes(brand) || /Camera|ヨドバシ|ソフマップ|ビック|コジマ/i.test(name)) {
+    if (
+      /Bic|Camera|友都八喜|Yodobashi|Kojima|Sofmap|ビック|ヨドバシ|コジマ|ソフマップ/i.test(brand) ||
+      /Bic|Camera|友都八喜|Yodobashi|Kojima|Sofmap|ビック|ヨドバシ|コジマ|ソフマップ/i.test(name)
+    ) {
       return '3C家電';
     }
     return '藥妝量販';
   }
   if (category === '美食餐廳') {
-    if (['吉野家', '松屋', 'すき家'].includes(brand) || /牛丼/.test(name)) return '牛丼';
-    if (['一蘭拉麵', '一風堂'].includes(brand) || /拉麵|ラーメン/i.test(name)) return '拉麵';
-    if (['壽司郎', '藏壽司'].includes(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
-    if (['やよい軒', '大戶屋'].includes(brand) || /定食|彌生軒/.test(name)) return '定食';
-    if (['客美多咖啡'].includes(brand) || /咖啡|珈琲|コメダ/i.test(name)) return '咖啡';
+    if (/吉野家|松屋|すき家|牛丼/i.test(brand) || /牛丼/i.test(name)) return '牛丼';
+    if (/一蘭|一風堂|拉麵|ラーメン/i.test(brand) || /拉麵|ラーメン/i.test(name)) return '拉麵';
+    if (/壽司郎|藏壽司|スシロー|くら寿司|壽司/i.test(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
+    if (/やよい軒|大戶屋|定食|彌生軒/i.test(brand) || /定食|彌生軒/i.test(name)) return '定食';
+    if (/客美多|咖啡|珈琲|コメダ/i.test(brand) || /咖啡|珈琲|コメダ/i.test(name)) return '咖啡';
     return '平價美食';
   }
-  if (category === '便利商店' || ['7-Eleven', 'FamilyMart', 'Lawson'].includes(brand)) {
+  if (category === '便利商店' || /7-Eleven|FamilyMart|Lawson/i.test(brand)) {
     return '連鎖超商';
   }
   return '特色精選';

@@ -8,6 +8,7 @@ import InteractiveMap from './components/InteractiveMap';
 import WelcomeExplorer from './components/WelcomeExplorer';
 import SyncModal from './components/SyncModal';
 import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble, ChevronLeft, ExternalLink, Navigation } from 'lucide-react';
+import { isBrandMatch } from './constants/taxonomy.js';
 
 // Attempt to load generated spots and stations data
 let initialSpots = [];
@@ -117,7 +118,7 @@ export default function App() {
         }
 
         // Brand Filter (Tier 3)
-        if (selectedBrand !== 'all' && spot.brand !== selectedBrand) {
+        if (selectedBrand !== 'all' && !isBrandMatch(spot.brand, selectedBrand)) {
           return false;
         }
 
@@ -394,23 +395,85 @@ export default function App() {
                   </div>
                 )}
 
+                {/* Active Filter Tag Strip (允許使用者一目了然目前生效條件，並可單鍵移除) */}
+                {hasActiveFilter && (
+                  <div className="active-filters-strip" style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    padding: '0.15rem 0 0.1rem 0'
+                  }}>
+                    {selectedCategory !== 'all' && (
+                      <span className="filter-pill-tag">
+                        <span>{selectedCategory}</span>
+                        <button type="button" onClick={() => { setSelectedCategory('all'); setSelectedSubcategory('all'); setSelectedBrand('all'); }}>
+                          <X size={11} />
+                        </button>
+                      </span>
+                    )}
+                    {selectedSubcategory !== 'all' && (
+                      <span className="filter-pill-tag">
+                        <span>{selectedSubcategory}</span>
+                        <button type="button" onClick={() => { setSelectedSubcategory('all'); setSelectedBrand('all'); }}>
+                          <X size={11} />
+                        </button>
+                      </span>
+                    )}
+                    {selectedBrand !== 'all' && (
+                      <span className="filter-pill-tag brand-tag">
+                        <span>{selectedBrand}</span>
+                        <button type="button" onClick={() => setSelectedBrand('all')}>
+                          <X size={11} />
+                        </button>
+                      </span>
+                    )}
+                    {selectedRegion !== '全部地區' && (
+                      <span className="filter-pill-tag">
+                        <span>{selectedRegion}</span>
+                        <button type="button" onClick={() => { setSelectedRegion('全部地區'); setSelectedPrefecture('全部都道府縣'); }}>
+                          <X size={11} />
+                        </button>
+                      </span>
+                    )}
+                    {selectedPrefecture !== '全部都道府縣' && (
+                      <span className="filter-pill-tag">
+                        <span>{selectedPrefecture}</span>
+                        <button type="button" onClick={() => setSelectedPrefecture('全部都道府縣')}>
+                          <X size={11} />
+                        </button>
+                      </span>
+                    )}
+                    {walkFilter !== 'all' && (
+                      <span className="filter-pill-tag">
+                        <span>步行 ≤{walkFilter}分</span>
+                        <button type="button" onClick={() => setWalkFilter('all')}>
+                          <X size={11} />
+                        </button>
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 {/* Stats Bar */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                   <span>
                     {filteredSpots.length > visibleSpots.length ? (
                       <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{filteredSpots.length}</strong> 處地標</>
                     ) : (
-                      <>顯示 <strong>{filteredSpots.length}</strong> 處地標</>
+                      <>共 <strong>{filteredSpots.length}</strong> 處地標</>
                     )}
                     {selectedStation && ` (依距離排序)`}
                   </span>
-                  <button
-                    onClick={handleResetAllFilters}
-                    style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
-                  >
-                    <RefreshCw size={12} />
-                    重設篩選
-                  </button>
+                  {hasActiveFilter && (
+                    <button
+                      onClick={handleResetAllFilters}
+                      style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                    >
+                      <RefreshCw size={12} />
+                      重設篩選
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -561,20 +624,82 @@ export default function App() {
               {/* Cards List (Only renders up to 100 cards initially to save resources) */}
               <div className="cards-scroll-container" ref={cardListRef}>
                 {filteredSpots.length === 0 ? (
-                  <div style={{ padding: '3rem 1.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                    <BedDouble size={36} style={{ margin: '0 auto 0.75rem auto', opacity: 0.4 }} />
-                    <h4 style={{ fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.3rem' }}>
-                      找不到符合條件的地標
+                  <div className="no-spots-empty-state" style={{
+                    padding: '2.5rem 1.25rem',
+                    textAlign: 'center',
+                    background: 'var(--bg-card, #ffffff)',
+                    margin: '1rem',
+                    borderRadius: '16px',
+                    border: '1.5px dashed var(--border-color, #cbd5e1)'
+                  }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      background: 'rgba(0, 72, 157, 0.08)',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--primary, #00489d)',
+                      margin: '0 auto 0.85rem auto'
+                    }}>
+                      <SlidersHorizontal size={22} />
+                    </div>
+                    <h4 style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-main)', marginBottom: '0.35rem' }}>
+                      未找到符合條件的地標
                     </h4>
-                    <p style={{ fontSize: '0.82rem', marginBottom: '1rem' }}>
-                      請嘗試放寬步行距離、切換都道府縣或搜尋其他車站
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.25rem', lineHeight: 1.45 }}>
+                      當前條件收斂過細，建議點擊下方快速建議進行放寬：
                     </p>
+
+                    {/* 1-Click Rescue Suggestions */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginBottom: '1.25rem' }}>
+                      {walkFilter !== 'all' && (
+                        <button
+                          type="button"
+                          onClick={() => setWalkFilter('all')}
+                          className="rescue-suggestion-btn"
+                        >
+                          <span>⚡ 放寬步行時間限制（切換為不限距離）</span>
+                        </button>
+                      )}
+                      {selectedPrefecture !== '全部都道府縣' && (
+                        <button
+                          type="button"
+                          onClick={() => { setSelectedRegion('全部地區'); setSelectedPrefecture('全部都道府縣'); }}
+                          className="rescue-suggestion-btn"
+                        >
+                          <span>🗾 展開至全日本 47 都道府縣門市</span>
+                        </button>
+                      )}
+                      {selectedBrand !== 'all' && (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedBrand('all')}
+                          className="rescue-suggestion-btn"
+                        >
+                          <span>🏷️ 查看 {selectedSubcategory !== 'all' ? selectedSubcategory : selectedCategory} 的所有品牌</span>
+                        </button>
+                      )}
+                      {selectedStation && (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedStation(null)}
+                          className="rescue-suggestion-btn"
+                        >
+                          <span>🚉 解除 {selectedStation.name} 聚焦範圍</span>
+                        </button>
+                      )}
+                    </div>
+
                     <button
+                      type="button"
                       onClick={handleResetAllFilters}
                       className="btn-action btn-primary"
-                      style={{ margin: '0 auto', padding: '0.45rem 1rem' }}
+                      style={{ margin: '0 auto', padding: '0.55rem 1.25rem', fontSize: '0.84rem', borderRadius: '10px' }}
                     >
-                      重設篩選條件
+                      <RefreshCw size={14} style={{ marginRight: '0.35rem' }} />
+                      <span>重設所有篩選條件</span>
                     </button>
                   </div>
                 ) : (

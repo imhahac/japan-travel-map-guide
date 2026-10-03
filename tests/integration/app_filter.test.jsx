@@ -106,9 +106,51 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
       expect(screen.queryByText('一蘭拉麵')).toBeNull();
       expect(screen.queryByText('客美多咖啡')).toBeNull();
 
-      // 點擊吉野家品牌
       fireEvent.click(screen.getByText('吉野家'));
       expect(onSelectBrand).toHaveBeenCalledWith('吉野家');
+    });
+
+    it('切換至「購物藥妝 > 3C家電」時，友都八喜應精確展示 24 間門市且絕非 0 間', () => {
+      const onSelectBrand = vi.fn();
+
+      render(
+        <CategoryFilter
+          currentCategory="購物藥妝"
+          currentSubcategory="3C家電"
+          onSelectCategory={vi.fn()}
+          onSelectSubcategory={vi.fn()}
+          currentBrand="all"
+          onSelectBrand={onSelectBrand}
+          categoryCounts={{ '購物藥妝': 970 }}
+          subcategoryCounts={{ '3C家電': 93 }}
+          brandCounts={{
+            'Bic Camera': 45,
+            '友都八喜 (Yodobashi)': 24,
+            'Kojima × Bic Camera': 14,
+            'Sofmap (ソフマップ)': 10
+          }}
+        />
+      );
+
+      // 全部 3C 品牌徽章與 3C 家電子類皆應精確顯示 93
+      expect(screen.getByText('全部 3C 品牌')).toBeInTheDocument();
+      expect(screen.getAllByText('93').length).toBe(2);
+
+      // 友都八喜晶片應存在且數量為 24（非 0）
+      expect(screen.getByText('友都八喜 (Yodobashi)')).toBeInTheDocument();
+      expect(screen.getByText('24')).toBeInTheDocument();
+
+      // Bic Camera 45、Kojima 14、Sofmap 10
+      expect(screen.getByText('Bic Camera')).toBeInTheDocument();
+      expect(screen.getByText('45')).toBeInTheDocument();
+      expect(screen.getByText('Kojima × Bic')).toBeInTheDocument();
+      expect(screen.getByText('14')).toBeInTheDocument();
+      expect(screen.getByText('Sofmap (索芙瑪)')).toBeInTheDocument();
+      expect(screen.getByText('10')).toBeInTheDocument();
+
+      // 點擊友都八喜品牌晶片
+      fireEvent.click(screen.getByText('友都八喜 (Yodobashi)'));
+      expect(onSelectBrand).toHaveBeenCalledWith('友都八喜 (Yodobashi)');
     });
 
     it('Navbar 標題應已移除「東橫 INN 旗艦版」專屬字眼', async () => {
