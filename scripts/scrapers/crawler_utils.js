@@ -95,11 +95,14 @@ export function formatSpotRecord(raw, stationsList = []) {
   let walkMin = typeof raw.walkMinutes === 'number' ? raw.walkMinutes : 5;
 
   if (stationsList && stationsList.length > 0) {
-    const match = findNearestStation(lat, lng, stationsList, 5000);
+    const match = findNearestStation(lat, lng, stationsList, 3000);
     if (match.station) {
       nearestStation = match.station.name;
       walkMin = match.walkMinutes || 3;
       stationLine = match.station.lines?.[0] || 'JR / 地鐵';
+    } else if (!raw.nearestStation || raw.nearestStation === '鄰近車站') {
+      nearestStation = '周邊生活圈';
+      walkMin = 15;
     }
   }
 

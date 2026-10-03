@@ -1,0 +1,2882 @@
+[
+  {
+    "name": "熱海站",
+    "lat": 35.103645,
+    "lng": 139.077795,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR東海道新幹線 / 東海道本線 / 伊東線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "三島站",
+    "lat": 35.126588,
+    "lng": 138.910904,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR東海道新幹線 / 東海道本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "靜岡站",
+    "lat": 34.97171,
+    "lng": 138.389104,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR東海道新幹線 / 東海道本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "濱松站",
+    "lat": 34.703741,
+    "lng": 137.734568,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR東海道新幹線 / 東海道本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "掛川站",
+    "lat": 34.769213,
+    "lng": 138.014526,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR東海道新幹線 / 東海道本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "伊東站",
+    "lat": 34.975056,
+    "lng": 139.092778,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR伊東線 / 伊豆急行線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "伊豆急下田站",
+    "lat": 34.679722,
+    "lng": 138.944722,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "伊豆急行線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "東京站",
+    "lat": 35.681236,
+    "lng": 139.767125,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR山手線 / 新幹線 / 東京地鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "新宿站",
+    "lat": 35.689592,
+    "lng": 139.700413,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR山手線 / 中央線 / 小田急 / 京王",
+    "source": "precise_railway"
+  },
+  {
+    "name": "澀谷站",
+    "lat": 35.658034,
+    "lng": 139.701636,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR山手線 / 東急 / 東京地鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "池袋站",
+    "lat": 35.729756,
+    "lng": 139.711075,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR山手線 / 東武 / 西武 / 東京地鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "品川站",
+    "lat": 35.628471,
+    "lng": 139.73876,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR東海道新幹線 / 山手線 / 京急",
+    "source": "precise_railway"
+  },
+  {
+    "name": "上野站",
+    "lat": 35.713768,
+    "lng": 139.777254,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR山手線 / 新幹線 / 東京地鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "秋葉原站",
+    "lat": 35.698383,
+    "lng": 139.773072,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR山手線 / 總武線 / 筑波快線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "大手町站",
+    "lat": 35.686567,
+    "lng": 139.763489,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "東京地鐵丸之內線 / 東西線 / 千代田線 / 半藏門線 / 三田線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "橫濱站",
+    "lat": 35.465786,
+    "lng": 139.622715,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR東海道本線 / 京急 / 東急 / 相鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "新橫濱站",
+    "lat": 35.507456,
+    "lng": 139.617585,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR東海道新幹線 / 橫濱線 / 相鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "柏站",
+    "lat": 35.862217,
+    "lng": 139.970984,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR常磐線 / 東武野田線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "千葉站",
+    "lat": 35.613374,
+    "lng": 140.113063,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR總武本線 / 千葉都市單軌",
+    "source": "precise_railway"
+  },
+  {
+    "name": "大宮站",
+    "lat": 35.906322,
+    "lng": 139.623992,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR東北新幹線 / 京濱東北線 / 埼京線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "札幌站",
+    "lat": 43.068661,
+    "lng": 141.350755,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR函館本線 / 地鐵南北線 / 東豐線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "旭川站",
+    "lat": 43.763462,
+    "lng": 142.358245,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR函館本線 / 宗谷本線 / 富良野線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "函館站",
+    "lat": 41.773709,
+    "lng": 140.726413,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR函館本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "青森站",
+    "lat": 40.829871,
+    "lng": 140.733472,
+    "prefecture": "青森縣",
+    "region": "東北",
+    "line": "JR奧羽本線 / 津輕線 / 青之森鐵路",
+    "source": "precise_railway"
+  },
+  {
+    "name": "盛岡站",
+    "lat": 39.701281,
+    "lng": 141.136894,
+    "prefecture": "岩手縣",
+    "region": "東北",
+    "line": "JR東北新幹線 / 東北本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "仙台站",
+    "lat": 38.260132,
+    "lng": 140.882438,
+    "prefecture": "宮城縣",
+    "region": "東北",
+    "line": "JR東北新幹線 / 東北本線 / 仙台市地下鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "秋田站",
+    "lat": 39.716944,
+    "lng": 140.129722,
+    "prefecture": "秋田縣",
+    "region": "東北",
+    "line": "JR秋田新幹線 / 奧羽本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "山形站",
+    "lat": 38.248333,
+    "lng": 140.3275,
+    "prefecture": "山形縣",
+    "region": "東北",
+    "line": "JR山形新幹線 / 奧羽本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "郡山站",
+    "lat": 37.398611,
+    "lng": 140.388889,
+    "prefecture": "福島縣",
+    "region": "東北",
+    "line": "JR東北新幹線 / 東北本線 / 磐越西線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "名古屋站",
+    "lat": 35.170915,
+    "lng": 136.881537,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR東海道新幹線 / 東海道本線 / 名鐵 / 近鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "金澤站",
+    "lat": 36.578056,
+    "lng": 136.647778,
+    "prefecture": "石川縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR北陸新幹線 / 北陸本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "富山站",
+    "lat": 36.701389,
+    "lng": 137.213333,
+    "prefecture": "富山縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR北陸新幹線 / 愛之風富山鐵道",
+    "source": "precise_railway"
+  },
+  {
+    "name": "長野站",
+    "lat": 36.643056,
+    "lng": 138.188611,
+    "prefecture": "長野縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR北陸新幹線 / 信越本線 / 長野電鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "新潟站",
+    "lat": 37.912222,
+    "lng": 139.061667,
+    "prefecture": "新潟縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR上越新幹線 / 信越本線 / 白新線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "京都站",
+    "lat": 34.985849,
+    "lng": 135.758767,
+    "prefecture": "京都府",
+    "region": "關西",
+    "line": "JR東海道新幹線 / JR京都線 / 近鐵 / 京都市營地鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "大阪站",
+    "lat": 34.702485,
+    "lng": 135.495951,
+    "prefecture": "大阪府",
+    "region": "關西",
+    "line": "JR大阪環狀線 / JR京都線 / 神戶線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "新大阪站",
+    "lat": 34.733479,
+    "lng": 135.500276,
+    "prefecture": "大阪府",
+    "region": "關西",
+    "line": "JR東海道新幹線 / 山陽新幹線 / Osaka Metro 御堂筋線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "難波站",
+    "lat": 34.662947,
+    "lng": 135.500808,
+    "prefecture": "大阪府",
+    "region": "關西",
+    "line": "南海電鐵 / 近鐵 / Osaka Metro",
+    "source": "precise_railway"
+  },
+  {
+    "name": "神戶三宮站",
+    "lat": 34.693498,
+    "lng": 135.195484,
+    "prefecture": "兵庫縣",
+    "region": "關西",
+    "line": "JR神戶線 / 阪急 / 阪神 / 神戶市營地鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "廣島站",
+    "lat": 34.397672,
+    "lng": 132.475379,
+    "prefecture": "廣島縣",
+    "region": "中國",
+    "line": "JR山陽新幹線 / 山陽本線 / 廣島電鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "岡山站",
+    "lat": 34.665319,
+    "lng": 133.918451,
+    "prefecture": "岡山縣",
+    "region": "中國",
+    "line": "JR山陽新幹線 / 山陽本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "高松站",
+    "lat": 34.350833,
+    "lng": 134.046944,
+    "prefecture": "香川縣",
+    "region": "四國",
+    "line": "JR予讚線 / 高德線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "松山站",
+    "lat": 33.840278,
+    "lng": 132.751667,
+    "prefecture": "愛媛縣",
+    "region": "四國",
+    "line": "JR予讚線 / 伊予鐵道",
+    "source": "precise_railway"
+  },
+  {
+    "name": "博多站",
+    "lat": 33.590184,
+    "lng": 130.420675,
+    "prefecture": "福岡縣",
+    "region": "九州",
+    "line": "JR山陽新幹線 / 九州新幹線 / 鹿兒島本線 / 福岡市地下鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "小倉站",
+    "lat": 33.886884,
+    "lng": 130.882583,
+    "prefecture": "福岡縣",
+    "region": "九州",
+    "line": "JR山陽新幹線 / 鹿兒島本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "熊本站",
+    "lat": 32.789828,
+    "lng": 130.688647,
+    "prefecture": "熊本縣",
+    "region": "九州",
+    "line": "JR九州新幹線 / 鹿兒島本線 / 豐肥本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "大分站",
+    "lat": 33.232778,
+    "lng": 131.606944,
+    "prefecture": "大分縣",
+    "region": "九州",
+    "line": "JR日豐本線 / 久大本線 / 豐肥本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "鹿兒島中央站",
+    "lat": 31.583906,
+    "lng": 130.541339,
+    "prefecture": "鹿兒島縣",
+    "region": "九州",
+    "line": "JR九州新幹線 / 鹿兒島本線 / 指宿枕崎線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "那霸機場站",
+    "lat": 26.206497,
+    "lng": 127.652187,
+    "prefecture": "沖繩縣",
+    "region": "沖繩",
+    "line": "沖繩都市單軌電車線（Yui Rail）",
+    "source": "precise_railway"
+  },
+  {
+    "name": "縣廳前站",
+    "lat": 26.214444,
+    "lng": 127.68,
+    "prefecture": "沖繩縣",
+    "region": "沖繩",
+    "line": "沖繩都市單軌電車線（Yui Rail）",
+    "source": "precise_railway"
+  },
+  {
+    "name": "鄂霍次克網走站",
+    "lat": 44.020681,
+    "lng": 144.253364,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR Sekihoku line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "北見站",
+    "lat": 43.804501,
+    "lng": 143.895273,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "薄野站",
+    "lat": 43.056194,
+    "lng": 141.354452,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "Subway",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "苫小牧站",
+    "lat": 42.638276,
+    "lng": 141.596731,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "弘前站",
+    "lat": 40.599553,
+    "lng": 140.484093,
+    "prefecture": "青森縣",
+    "region": "東北",
+    "line": "JR ouu line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "八戶站",
+    "lat": 40.509527,
+    "lng": 141.433485,
+    "prefecture": "青森縣",
+    "region": "東北",
+    "line": "JR Tohoku shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新白河站",
+    "lat": 37.123096,
+    "lng": 140.186663,
+    "prefecture": "福島縣",
+    "region": "東北",
+    "line": "JR Tohoku Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "日立站",
+    "lat": 36.591694,
+    "lng": 140.660163,
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "JR Jouban Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "土浦站",
+    "lat": 36.078028,
+    "lng": 140.207484,
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "JR Joban Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "守谷站",
+    "lat": 35.951038,
+    "lng": 139.993111,
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "Tsukuba Express Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "東武宇都宮站",
+    "lat": 36.560248,
+    "lng": 139.87941,
+    "prefecture": "栃木縣",
+    "region": "關東",
+    "line": "Tobu Utsunomiya Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "那須鹽原站",
+    "lat": 36.933117111956406,
+    "lng": 140.02083383634564,
+    "prefecture": "栃木縣",
+    "region": "關東",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "櫪木足利站",
+    "lat": 36.332916,
+    "lng": 139.455434,
+    "prefecture": "栃木縣",
+    "region": "關東",
+    "line": "JR Ryomo Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "前橋站",
+    "lat": 36.382766,
+    "lng": 139.073261,
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "埼玉岩槻站",
+    "lat": 35.94949,
+    "lng": 139.693223,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Tobu Urban Park Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "埼玉三鄉站",
+    "lat": 35.845626,
+    "lng": 139.886931,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR Musashino line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "草加站",
+    "lat": 35.828307,
+    "lng": 139.801675,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Toubu Isezaki line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "北朝霞站",
+    "lat": 35.81588,
+    "lng": 139.586658,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR Musashino Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "和光市站",
+    "lat": 35.787132,
+    "lng": 139.612997,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Toubu Toujou Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "千葉港站",
+    "lat": 35.606661,
+    "lng": 140.102278,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR Keiyo line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "流山大鷹之森站",
+    "lat": 35.871471,
+    "lng": 139.923595,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "Tsukuba express",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "茅場町站",
+    "lat": 35.680589,
+    "lng": 139.779831,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Tokyo Metro Tozai Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "藏前站",
+    "lat": 35.703439,
+    "lng": 139.791933,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Toei Asakusa Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新宿御苑前站",
+    "lat": 35.689426,
+    "lng": 139.711102,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Tokyo Metro Marunouchi Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "後樂園站",
+    "lat": 35.709726,
+    "lng": 139.751512,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Namboku Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "大鳥居站",
+    "lat": 35.551889,
+    "lng": 139.742042,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Keikyu Airport line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "蒲田站",
+    "lat": 35.562584,
+    "lng": 139.718201,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR  Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "府中南武線南多摩站",
+    "lat": 35.649524,
+    "lng": 139.488816,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Nambu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "福生站",
+    "lat": 35.742033,
+    "lng": 139.328296,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Ōme Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "秋川站",
+    "lat": 35.728295,
+    "lng": 139.287542,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "川崎站",
+    "lat": 35.53402,
+    "lng": 139.701293,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Keikyu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "武藏中原站",
+    "lat": 35.580538,
+    "lng": 139.641729,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR Nanbu line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "大和站",
+    "lat": 35.469749,
+    "lng": 139.459897,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Odakyu line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "甲府站",
+    "lat": 35.665602,
+    "lng": 138.567743,
+    "prefecture": "山梨縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "佐久平站",
+    "lat": 36.278021,
+    "lng": 138.463026,
+    "prefecture": "長野縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Hokuriku shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "上越妙高站",
+    "lat": 37.081568,
+    "lng": 138.246927,
+    "prefecture": "新潟縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Hokuriku Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新高岡站",
+    "lat": 36.726295,
+    "lng": 137.011259,
+    "prefecture": "富山縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Hokuriku Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "福井站",
+    "lat": 36.062964,
+    "lng": 136.223393,
+    "prefecture": "福井縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "御殿場站",
+    "lat": 35.299860527906915,
+    "lng": 138.93585861021978,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Gotemba Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新富士站",
+    "lat": 35.14166,
+    "lng": 138.664153,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Tokaido Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "靜岡藤枝站",
+    "lat": 34.849955,
+    "lng": 138.252695,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "伊勢松阪站",
+    "lat": 34.575561,
+    "lng": 136.535912,
+    "prefecture": "三重縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Kintetsu Yamada Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "米原站",
+    "lat": 35.315185,
+    "lng": 136.288694,
+    "prefecture": "滋賀縣",
+    "region": "近畿",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "四條大宮站",
+    "lat": 35.004034,
+    "lng": 135.747376,
+    "prefecture": "京都府",
+    "region": "近畿",
+    "line": "Hankyu Kyoto line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "四條站",
+    "lat": 35.003961,
+    "lng": 135.760763,
+    "prefecture": "京都府",
+    "region": "近畿",
+    "line": "Subway Karasuma Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "近鐵奈良站",
+    "lat": 34.684512,
+    "lng": 135.826923,
+    "prefecture": "奈良縣",
+    "region": "近畿",
+    "line": "Kintetsu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "河內永和站",
+    "lat": 34.66410863016265,
+    "lng": 135.57205009081918,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新大阪東三國站",
+    "lat": 34.739108,
+    "lng": 135.499004,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Municipal Subway Midosuji Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "梅田站",
+    "lat": 34.709433,
+    "lng": 135.496765,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Midosuji line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "JR野田站",
+    "lat": 34.690426,
+    "lng": 135.47614,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Sennichimae Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "谷町四丁目站",
+    "lat": 34.680978,
+    "lng": 135.516878,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Tanimachi line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "四橋站",
+    "lat": 34.674634,
+    "lng": 135.495622,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Yotsubashi line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "阪神尼崎站",
+    "lat": 34.717919,
+    "lng": 135.416192,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "Hanshin Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "姬路站",
+    "lat": 34.825689,
+    "lng": 134.690994,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR Kobe Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "相生站",
+    "lat": 34.817234,
+    "lng": 134.474228,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR San-yo Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "播州赤穗站",
+    "lat": 34.756506,
+    "lng": 134.393792,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR Ako Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "東廣島西條站",
+    "lat": 34.430405,
+    "lng": 132.743126,
+    "prefecture": "廣島縣",
+    "region": "cyugoku",
+    "line": "JR San-yo line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "東廣島站",
+    "lat": 34.387515,
+    "lng": 132.759706,
+    "prefecture": "廣島縣",
+    "region": "cyugoku",
+    "line": "JR San-yo Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "出雲市站",
+    "lat": 35.361841,
+    "lng": 132.75677,
+    "prefecture": "島根縣",
+    "region": "cyugoku",
+    "line": "JR San-in Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新山口站",
+    "lat": 34.091462,
+    "lng": 131.396461,
+    "prefecture": "山口縣",
+    "region": "cyugoku",
+    "line": "JR  Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "德山站",
+    "lat": 34.051191,
+    "lng": 131.801556,
+    "prefecture": "山口縣",
+    "region": "cyugoku",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "丸龜站",
+    "lat": 34.291582,
+    "lng": 133.793658,
+    "prefecture": "香川縣",
+    "region": "cyugoku",
+    "line": "JR Yosan Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新居濱站",
+    "lat": 33.948281,
+    "lng": 133.293198,
+    "prefecture": "愛媛縣",
+    "region": "cyugoku",
+    "line": "JR Yosan Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "大橋通站",
+    "lat": 33.559318067338445,
+    "lng": 133.53678181779787,
+    "prefecture": "高知縣",
+    "region": "cyugoku",
+    "line": "Tosaden Kotsu",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "佐賀站",
+    "lat": 33.263715,
+    "lng": 130.296605,
+    "prefecture": "佐賀縣",
+    "region": "kyushu",
+    "line": "JR Nagasaki line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "長崎站",
+    "lat": 32.748636,
+    "lng": 129.872751,
+    "prefecture": "長崎縣",
+    "region": "kyushu",
+    "line": "Streetcar",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "佐世保站",
+    "lat": 33.164607,
+    "lng": 129.72601,
+    "prefecture": "長崎縣",
+    "region": "kyushu",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "大分中津站",
+    "lat": 33.599291,
+    "lng": 131.189305,
+    "prefecture": "大分縣",
+    "region": "kyushu",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "櫻町巴士總站",
+    "lat": 32.797633,
+    "lng": 130.705081,
+    "prefecture": "熊本縣",
+    "region": "kyushu",
+    "line": "Kumamoto-shi streetcar",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "水道町站",
+    "lat": 32.802814,
+    "lng": 130.71243,
+    "prefecture": "熊本縣",
+    "region": "kyushu",
+    "line": "Kumamoto streetcar",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新八代站",
+    "lat": 32.518824,
+    "lng": 130.635572,
+    "prefecture": "熊本縣",
+    "region": "kyushu",
+    "line": "JR Kyusyu shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "宮崎站",
+    "lat": 31.914636,
+    "lng": 131.431827,
+    "prefecture": "宮崎縣",
+    "region": "kyushu",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "薩摩川内站",
+    "lat": 31.814711,
+    "lng": 130.31305,
+    "prefecture": "鹿兒島縣",
+    "region": "kyushu",
+    "line": "JR Kyusyu Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "中央站",
+    "lat": 31.58536,
+    "lng": 130.541706,
+    "prefecture": "鹿兒島縣",
+    "region": "kyushu",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "沖繩那霸國際通美榮橋站",
+    "lat": 26.218626,
+    "lng": 127.683745,
+    "prefecture": "沖繩縣",
+    "region": "kyushu",
+    "line": "Yui Rail",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新函館北斗站",
+    "lat": 41.903333,
+    "lng": 140.648335,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "Tohoku Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新青森站",
+    "lat": 40.8298,
+    "lng": 140.693804,
+    "prefecture": "青森縣",
+    "region": "東北",
+    "line": "ouu line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "一關站",
+    "lat": 38.927514,
+    "lng": 141.137047,
+    "prefecture": "岩手縣",
+    "region": "東北",
+    "line": "JR Tohoku shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "會津若松站",
+    "lat": 37.50839,
+    "lng": 139.931987,
+    "prefecture": "福島縣",
+    "region": "東北",
+    "line": "JR Aizu line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "取手站",
+    "lat": 35.894782,
+    "lng": 140.064646,
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "JR Jouban Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "桐生站",
+    "lat": 36.41009,
+    "lng": 139.333446,
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "群馬太田站",
+    "lat": 36.2922,
+    "lng": 139.380743,
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "Tobu Isesaki Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "浦和美園站",
+    "lat": 35.894807,
+    "lng": 139.728879,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Saitama Railway Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "北戶田站",
+    "lat": 35.8272245,
+    "lng": 139.6619655,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR Saikyo line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "松戶站",
+    "lat": 35.783186,
+    "lng": 139.901091,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR Joban Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "印旛日本醫大站",
+    "lat": 35.7864339,
+    "lng": 140.2013745,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "Hokuso Line,  Keisei Narita Airport Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "袖浦站",
+    "lat": 35.433665,
+    "lng": 139.957098,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR Uchibo Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "京站",
+    "lat": 35.68723,
+    "lng": 139.790612,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Toei Shinjuku Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "溜池山王站",
+    "lat": 35.672147,
+    "lng": 139.742358,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Ginza line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "山手線大塚站",
+    "lat": 35.732643,
+    "lng": 139.727204,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Yamanote Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "赤羽站",
+    "lat": 35.783415,
+    "lng": 139.719953,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Namboku Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "西武池袋線東久留米站",
+    "lat": 35.759374,
+    "lng": 139.53369,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Seibu Ikebukuro Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "京王線東府中站",
+    "lat": 35.669907,
+    "lng": 139.493723,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Keio Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新子安站",
+    "lat": 35.486148,
+    "lng": 139.653484,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "上田站",
+    "lat": 36.397912,
+    "lng": 138.249233,
+    "prefecture": "長野縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Nagano shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "富士山三島站",
+    "lat": 35.128456,
+    "lng": 138.910484,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Toukaidou-honsen Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "富士山沼津站",
+    "lat": 35.104767,
+    "lng": 138.857665,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Tokaido shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "丸之內站",
+    "lat": 35.176441,
+    "lng": 136.895741,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Tsurumai line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "名鐵知立站",
+    "lat": 35.007715,
+    "lng": 137.040669,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Meitetsu",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "豐田市站",
+    "lat": 35.086203,
+    "lng": 137.154412,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Meitetsu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "近鐵四日市站",
+    "lat": 34.968049,
+    "lng": 136.620009,
+    "prefecture": "三重縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Kintetsu Nagoya Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "奈良新大宮站",
+    "lat": 34.686567,
+    "lng": 135.811194,
+    "prefecture": "奈良縣",
+    "region": "近畿",
+    "line": "Kintetsu Nara Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "天理站",
+    "lat": 34.60136003492068,
+    "lng": 135.8317437167555,
+    "prefecture": "奈良縣",
+    "region": "近畿",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "日本橋站",
+    "lat": 34.666523,
+    "lng": 135.508932,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Sennichimae  Subway Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "鶴橋站",
+    "lat": 34.666863,
+    "lng": 135.529402,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Sennichimae Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "湊川公園站",
+    "lat": 34.68067,
+    "lng": 135.169563,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "Kobe municipal subway (Yamate Line)",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "鳥取站",
+    "lat": 35.492509,
+    "lng": 134.227834,
+    "prefecture": "鳥取縣",
+    "region": "cyugoku",
+    "line": "JR San-in line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "米子站",
+    "lat": 35.424564,
+    "lng": 133.335483,
+    "prefecture": "鳥取縣",
+    "region": "cyugoku",
+    "line": "JR San-in line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "松江站",
+    "lat": 35.464641,
+    "lng": 133.060394,
+    "prefecture": "島根縣",
+    "region": "cyugoku",
+    "line": "JR San-in Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "博多口站",
+    "lat": 33.591999,
+    "lng": 130.418761,
+    "prefecture": "福岡縣",
+    "region": "kyushu",
+    "line": "JR  Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "博多站巴士總站",
+    "lat": 33.592292,
+    "lng": 130.419098,
+    "prefecture": "福岡縣",
+    "region": "kyushu",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "辛島町站",
+    "lat": 32.79970757256377,
+    "lng": 130.70688364506606,
+    "prefecture": "熊本縣",
+    "region": "kyushu",
+    "line": "Kumamoto-shi streetcar",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "天文館通站",
+    "lat": 31.58976,
+    "lng": 130.552344,
+    "prefecture": "鹿兒島縣",
+    "region": "kyushu",
+    "line": "Streetcar",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "歌町站",
+    "lat": 26.222129,
+    "lng": 127.697444,
+    "prefecture": "沖繩縣",
+    "region": "kyushu",
+    "line": "Yui Monorail",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "十勝帶廣站",
+    "lat": 42.919538,
+    "lng": 143.199738,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR Nemuro Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "盛岡站南口站",
+    "lat": 39.7015,
+    "lng": 141.139113,
+    "prefecture": "岩手縣",
+    "region": "東北",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "米澤站",
+    "lat": 37.906845,
+    "lng": 140.128362,
+    "prefecture": "山形縣",
+    "region": "東北",
+    "line": "JR Yamagata Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "福島站",
+    "lat": 37.756245,
+    "lng": 140.456949,
+    "prefecture": "福島縣",
+    "region": "東北",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "磐城站",
+    "lat": 37.055766,
+    "lng": 140.893087,
+    "prefecture": "福島縣",
+    "region": "東北",
+    "line": "JR Jouban line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "研究學園站",
+    "lat": 36.083225,
+    "lng": 140.084773,
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "Tsukuba Express Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "宇都宮站",
+    "lat": 36.561823,
+    "lng": 139.897244,
+    "prefecture": "栃木縣",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "小山站",
+    "lat": 36.310625,
+    "lng": 139.806642,
+    "prefecture": "栃木縣",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "高崎站",
+    "lat": 36.320028,
+    "lng": 139.010846,
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "熊谷站",
+    "lat": 36.141284,
+    "lng": 139.390776,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Joetsu Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "三鄉中央站",
+    "lat": 35.823798,
+    "lng": 139.875998,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Tsukuba express",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "八潮站",
+    "lat": 35.807174,
+    "lng": 139.842522,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Tsukuba Express Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "志木站",
+    "lat": 35.824165,
+    "lng": 139.57495,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Tōbu Tōjō Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "所澤站",
+    "lat": 35.78672168024847,
+    "lng": 139.4704141743843,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Seibu Shinjuku Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "成田機場站",
+    "lat": 35.782118,
+    "lng": 140.384197,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "西葛西站",
+    "lat": 35.66465,
+    "lng": 139.86192,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Tōuzai Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "東西線木場站",
+    "lat": 35.670639,
+    "lng": 139.806283,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Subway Tozai Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "鶯谷站",
+    "lat": 35.721459,
+    "lng": 139.780067,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "上野田原町站",
+    "lat": 35.707789,
+    "lng": 139.791324,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Ginza Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "秋葉淺草橋站",
+    "lat": 35.699414,
+    "lng": 139.787927,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "馬喰町站",
+    "lat": 35.695439,
+    "lng": 139.783167,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Sōbu Line (Rapid)",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "東日本橋站",
+    "lat": 35.689801,
+    "lng": 139.781638,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Toei Asakusa Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "大塚站",
+    "lat": 35.733169,
+    "lng": 139.727498,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Yamanote line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "品川青物橫丁站",
+    "lat": 35.609504,
+    "lng": 139.742771,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Keikyu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "品川旗之台站",
+    "lat": 35.604448,
+    "lng": 139.702775,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Tokyu Ikegami line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "南町田站",
+    "lat": 35.51357103225716,
+    "lng": 139.47000611005072,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Tokyu Denentoshi Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "鶴見站",
+    "lat": 35.509018,
+    "lng": 139.679423,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Keikyu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "JR橫濱線相模原站",
+    "lat": 35.580152,
+    "lng": 139.372596,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "二俁川站",
+    "lat": 35.464949,
+    "lng": 139.533866,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Sotetsu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "小田原站",
+    "lat": 35.253738,
+    "lng": 139.155482,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "湘南平塚站",
+    "lat": 35.329792,
+    "lng": 139.349882,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR Tokaido Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "松本站",
+    "lat": 36.229743,
+    "lng": 137.965969,
+    "prefecture": "長野縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "敦賀站",
+    "lat": 35.646084,
+    "lng": 136.073958,
+    "prefecture": "福井縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "豐橋站",
+    "lat": 34.765995,
+    "lng": 137.383144,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR/Meitetsu",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "尾張一宮站",
+    "lat": 35.301018,
+    "lng": 136.798961,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Tokaido Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "三河安城站",
+    "lat": 34.966524,
+    "lng": 137.059861,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Sinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "岐阜羽島站",
+    "lat": 35.313773,
+    "lng": 136.687399,
+    "prefecture": "岐阜縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Tokaido Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "津站",
+    "lat": 34.732258,
+    "lng": 136.508724,
+    "prefecture": "三重縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Kintetsu Nagoya Railway",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "彥根站",
+    "lat": 35.270019,
+    "lng": 136.263863,
+    "prefecture": "滋賀縣",
+    "region": "近畿",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "琵琶湖線南草津站",
+    "lat": 35.002289,
+    "lng": 135.945105,
+    "prefecture": "滋賀縣",
+    "region": "近畿",
+    "line": "JR Biwako-Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "五條站",
+    "lat": 34.998629,
+    "lng": 135.759408,
+    "prefecture": "京都府",
+    "region": "近畿",
+    "line": "Karasuma line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "門真市站",
+    "lat": 34.735331,
+    "lng": 135.58187,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Keihan Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "天神站",
+    "lat": 34.710353,
+    "lng": 135.508017,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Sakaisuji Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "動物園前站",
+    "lat": 34.648136,
+    "lng": 135.508191,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro (Midosuji, Sakaisuji Line)",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "堺站",
+    "lat": 34.58149548001468,
+    "lng": 135.47067718596128,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Nankai Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "神户三宫站",
+    "lat": 34.69608095520638,
+    "lng": 135.19415541287685,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR Kobe Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "濱田站",
+    "lat": 34.902217,
+    "lng": 132.08571,
+    "prefecture": "島根縣",
+    "region": "cyugoku",
+    "line": "JR San-in line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "西鐵久留米站",
+    "lat": 33.311207,
+    "lng": 130.52145,
+    "prefecture": "福岡縣",
+    "region": "kyushu",
+    "line": "Nishitetsu Tenjjin Omuta line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "對馬比田站",
+    "lat": 34.670052,
+    "lng": 129.483104,
+    "prefecture": "長崎縣",
+    "region": "kyushu",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "對馬嚴原站",
+    "lat": 34.204141,
+    "lng": 129.289945,
+    "prefecture": "長崎縣",
+    "region": "kyushu",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "沖繩石垣站",
+    "lat": 24.338544,
+    "lng": 124.148578,
+    "prefecture": "沖繩縣",
+    "region": "kyushu",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "西船橋站",
+    "lat": 35.706688,
+    "lng": 139.958176,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "末廣町站",
+    "lat": 35.701687,
+    "lng": 139.771393,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "神田站",
+    "lat": 35.691998,
+    "lng": 139.775055,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "八丁堀站",
+    "lat": 35.675774,
+    "lng": 139.778198,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "新富町站",
+    "lat": 35.671627,
+    "lng": 139.773651,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "築地站",
+    "lat": 35.666119,
+    "lng": 139.774933,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "新橋站",
+    "lat": 35.661343,
+    "lng": 139.755219,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "神保町站",
+    "lat": 35.694458,
+    "lng": 139.762344,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "飯田橋站",
+    "lat": 35.701069,
+    "lng": 139.747711,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "水道橋站",
+    "lat": 35.702202,
+    "lng": 139.753754,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "御茶之水站",
+    "lat": 35.702946,
+    "lng": 139.767136,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "永田町站",
+    "lat": 35.682785,
+    "lng": 139.739853,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "赤坂站",
+    "lat": 35.675945,
+    "lng": 139.736191,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "六本木站",
+    "lat": 35.657246,
+    "lng": 139.723511,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "大森站",
+    "lat": 35.586506,
+    "lng": 139.730087,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "穴守稻荷站",
+    "lat": 35.549347,
+    "lng": 139.747528,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "三田站",
+    "lat": 35.64822,
+    "lng": 139.749557,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "日暮里站",
+    "lat": 35.727097,
+    "lng": 139.772949,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "綾瀨站",
+    "lat": 35.763149,
+    "lng": 139.826263,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "駒込站",
+    "lat": 35.738445,
+    "lng": 139.746063,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "巢鴨站",
+    "lat": 35.734474,
+    "lng": 139.737701,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "町田站",
+    "lat": 35.542038,
+    "lng": 139.450363,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "八王子站",
+    "lat": 35.656574,
+    "lng": 139.330383,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "小傳馬町站",
+    "lat": 35.690948,
+    "lng": 139.780609,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "人形町站",
+    "lat": 35.688301,
+    "lng": 139.781479,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "淺草站",
+    "lat": 35.707642,
+    "lng": 139.78215,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "淺草橋站",
+    "lat": 35.7001,
+    "lng": 139.787872,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "田原町站",
+    "lat": 35.71011,
+    "lng": 139.79007,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "兩國站",
+    "lat": 35.697586,
+    "lng": 139.79422,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "淀屋橋站",
+    "lat": 34.689659,
+    "lng": 135.505295,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "三宮站",
+    "lat": 34.693855,
+    "lng": 135.190521,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "北上站",
+    "lat": 39.287708,
+    "lng": 141.118881,
+    "prefecture": "岩手縣",
+    "region": "北海道・東北",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "倉敷站",
+    "lat": 34.602024,
+    "lng": 133.767563,
+    "prefecture": "岡山縣",
+    "region": "中國・四國",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "埼玉新都心站",
+    "lat": 35.896447,
+    "lng": 139.632159,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "川口站",
+    "lat": 35.799219,
+    "lng": 139.717534,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR Keihintohoku line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "千葉新鎌谷站",
+    "lat": 35.777797,
+    "lng": 139.99991,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "Tobu Noda Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "三之輪站",
+    "lat": 35.72683851367118,
+    "lng": 139.78964820950256,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Hibiya Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "濱町站",
+    "lat": 35.689282,
+    "lng": 139.785691,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Toei Shinjuku Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "京濱東北線王子站",
+    "lat": 35.756323,
+    "lng": 139.735665,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Keihin Tohoku Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "櫻木町站",
+    "lat": 35.449588,
+    "lng": 139.635439,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR Negishi line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "海老名站",
+    "lat": 35.451117,
+    "lng": 139.393764,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Odakyu Odawara Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "湘南茅之崎站",
+    "lat": 35.332956,
+    "lng": 139.404237,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "燕三條站",
+    "lat": 37.650208,
+    "lng": 138.935364,
+    "prefecture": "新潟縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Joetsu Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "久屋大通站",
+    "lat": 35.172203,
+    "lng": 136.903401,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Sakura-dori Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "堺筋本町站",
+    "lat": 34.67977,
+    "lng": 135.504574,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Sakaisuji Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "JR和歌山站",
+    "lat": 34.233262,
+    "lng": 135.194176,
+    "prefecture": "和歌山縣",
+    "region": "近畿",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "福山站",
+    "lat": 34.488597,
+    "lng": 133.358859,
+    "prefecture": "廣島縣",
+    "region": "cyugoku",
+    "line": "San-yo and Kyushu Shinkansen",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "釧路站",
+    "lat": 42.985465,
+    "lng": 144.383697,
+    "prefecture": "北海道",
+    "region": "北海道",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "水戶站",
+    "lat": 36.367969,
+    "lng": 140.479471,
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "群馬伊勢崎站",
+    "lat": 36.327323,
+    "lng": 139.198159,
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "春日部站",
+    "lat": 35.976573,
+    "lng": 139.753164,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "Tobu Skytree Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "西川口站",
+    "lat": 35.816647,
+    "lng": 139.701783,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "天王洲島站",
+    "lat": 35.621931,
+    "lng": 139.748518,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Rinkai Line, Monorail",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "大井町站",
+    "lat": 35.606204,
+    "lng": 139.731622,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Keihintouhoku line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "調布京王線布田站",
+    "lat": 35.652986,
+    "lng": 139.551474,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Keio Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "昭島站",
+    "lat": 35.713386,
+    "lng": 139.357801,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Ome Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "關內站",
+    "lat": 35.44319,
+    "lng": 139.641686,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "京王線橋本站",
+    "lat": 35.594293,
+    "lng": 139.348233,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR Yokohama Line / Sagami Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "線淵野邊站",
+    "lat": 35.56667,
+    "lng": 139.395911,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR Yokohama Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "本厚木站",
+    "lat": 35.436313,
+    "lng": 139.362525,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Odakyu Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "茅崎站",
+    "lat": 35.334377,
+    "lng": 139.404719,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR Tokaido Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "富士山大月站",
+    "lat": 35.614883,
+    "lng": 138.94455,
+    "prefecture": "山梨縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Chuo Main Line, Fujikyuko Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "靜岡清水站",
+    "lat": 35.023908,
+    "lng": 138.486992,
+    "prefecture": "靜岡縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR Tokaido Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "濱大津站",
+    "lat": 35.008211,
+    "lng": 135.861904,
+    "prefecture": "滋賀縣",
+    "region": "近畿",
+    "line": "Keihan Keishin Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "奈良王寺站",
+    "lat": 34.596737,
+    "lng": 135.706708,
+    "prefecture": "奈良縣",
+    "region": "近畿",
+    "line": "Kansai Main Line,Wakayama Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "阪急十三站",
+    "lat": 34.719251,
+    "lng": 135.479492,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Hankyu line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "JR神戶站",
+    "lat": 34.676865,
+    "lng": 135.175996,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR Kobe Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "岩國站",
+    "lat": 34.169262,
+    "lng": 132.222941,
+    "prefecture": "山口縣",
+    "region": "cyugoku",
+    "line": "JR Sanyo Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "德島站",
+    "lat": 34.071381,
+    "lng": 134.552877,
+    "prefecture": "德島縣",
+    "region": "cyugoku",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "鹿兒島站",
+    "lat": 31.587872,
+    "lng": 130.552264,
+    "prefecture": "鹿兒島縣",
+    "region": "kyushu",
+    "line": "JR line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "茨城縣主要車站",
+    "lat": 36.394627,
+    "lng": 140.529251,
+    "prefecture": "茨城縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "群馬縣主要車站",
+    "lat": 36.322025,
+    "lng": 139.193985,
+    "prefecture": "群馬縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "神奈川縣主要車站",
+    "lat": 35.446384,
+    "lng": 139.637009,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "滋賀縣主要車站",
+    "lat": 34.986065,
+    "lng": 135.925644,
+    "prefecture": "滋賀縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "京都府主要車站",
+    "lat": 35.440639,
+    "lng": 135.321136,
+    "prefecture": "京都府",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "大阪府主要車站",
+    "lat": 34.683712,
+    "lng": 135.498596,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "兵庫縣主要車站",
+    "lat": 34.829296,
+    "lng": 134.693253,
+    "prefecture": "兵庫縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "奈良縣主要車站",
+    "lat": 34.682198,
+    "lng": 135.826508,
+    "prefecture": "奈良縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "和歌山縣主要車站",
+    "lat": 34.234421,
+    "lng": 135.174667,
+    "prefecture": "和歌山縣",
+    "region": "近畿",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "北海道主要車站",
+    "lat": 42.918613,
+    "lng": 143.204544,
+    "prefecture": "北海道",
+    "region": "北海道・東北",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "青森縣主要車站",
+    "lat": 40.512592,
+    "lng": 141.49588,
+    "prefecture": "青森縣",
+    "region": "北海道・東北",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "宮城縣主要車站",
+    "lat": 38.571709,
+    "lng": 140.965668,
+    "prefecture": "宮城縣",
+    "region": "北海道・東北",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "岐阜縣主要車站",
+    "lat": 35.366787,
+    "lng": 136.61731,
+    "prefecture": "岐阜縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "静岡縣主要車站",
+    "lat": 34.971764,
+    "lng": 138.38382,
+    "prefecture": "静岡縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "三重縣主要車站",
+    "lat": 34.850628,
+    "lng": 136.456055,
+    "prefecture": "三重縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "富山縣主要車站",
+    "lat": 36.636883,
+    "lng": 136.953705,
+    "prefecture": "富山縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "石川縣主要車站",
+    "lat": 36.570698,
+    "lng": 136.605484,
+    "prefecture": "石川縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "長野縣主要車站",
+    "lat": 36.342827,
+    "lng": 138.634674,
+    "prefecture": "長野縣",
+    "region": "中部",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "広島縣主要車站",
+    "lat": 34.395443,
+    "lng": 132.472427,
+    "prefecture": "広島縣",
+    "region": "中國・四國",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "香川縣主要車站",
+    "lat": 34.287933,
+    "lng": 133.795135,
+    "prefecture": "香川縣",
+    "region": "中國・四國",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "山口縣主要車站",
+    "lat": 34.169502,
+    "lng": 132.223495,
+    "prefecture": "山口縣",
+    "region": "中國・四國",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "福岡縣主要車站",
+    "lat": 33.726536,
+    "lng": 130.972443,
+    "prefecture": "福岡縣",
+    "region": "九州・沖繩",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "大分縣主要車站",
+    "lat": 33.27877,
+    "lng": 131.499008,
+    "prefecture": "大分縣",
+    "region": "九州・沖繩",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "鹿児島縣主要車站",
+    "lat": 31.588963,
+    "lng": 130.556961,
+    "prefecture": "鹿児島縣",
+    "region": "九州・沖繩",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "沖縄縣主要車站",
+    "lat": 26.334202,
+    "lng": 127.805649,
+    "prefecture": "沖縄縣",
+    "region": "九州・沖繩",
+    "line": "JR / 私鐵",
+    "source": "seed_hotel_APA飯店"
+  },
+  {
+    "name": "門前仲町站",
+    "lat": 35.675162,
+    "lng": 139.791157,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "Metro Tōzai Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "立川站",
+    "lat": 35.698832,
+    "lng": 139.409412,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "市營地鐵中心南站",
+    "lat": 35.544097,
+    "lng": 139.570578,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "Yokohama Subway",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "湘南鎌倉藤澤站",
+    "lat": 35.33902,
+    "lng": 139.48325,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR Tokaido",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "新榮町站",
+    "lat": 35.169846,
+    "lng": 136.916467,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "Higashiyama Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "二條城前站",
+    "lat": 35.0079393,
+    "lng": 135.7518901,
+    "prefecture": "京都府",
+    "region": "近畿",
+    "line": "Kyoto City Subway Tozai Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "天滿橋站",
+    "lat": 34.686194,
+    "lng": 135.514706,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Osaka Metro Tanimachi line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "堺東站",
+    "lat": 34.575249,
+    "lng": 135.479332,
+    "prefecture": "大阪府",
+    "region": "近畿",
+    "line": "Nankai Koya Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "肥後大津站",
+    "lat": 32.88902216639226,
+    "lng": 130.85423523882395,
+    "prefecture": "熊本縣",
+    "region": "kyushu",
+    "line": "JR Hohi Main Line",
+    "source": "seed_hotel_東橫INN"
+  },
+  {
+    "name": "名站",
+    "lat": 35.170915,
+    "lng": 136.881537,
+    "prefecture": "愛知縣",
+    "region": "東海・甲信越・北陸",
+    "line": "JR東海道新幹線 / 東海道本線 / 名鐵 / 近鐵",
+    "source": "precise_railway"
+  }
+]

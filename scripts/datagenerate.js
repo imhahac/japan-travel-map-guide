@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
+import { buildAuthoritativeStationMaster, INVALID_STATION_NAMES, PRECISE_STATION_COORDS } from './core/station_anchors.js';
+import { calculateDistance, calculateWalkingMinutes } from './core/geo.js';
 
 const SHEET_ID = process.env.SHEET_ID || '';
 const GID = process.env.GID || '0';
@@ -183,54 +185,92 @@ async function generate() {
 
   console.log(`Total active spots: ${allSpots.length}`);
 
-  // Build Stations Index
-  const stationMap = new Map();
-  allSpots.forEach(spot => {
-    const station = spot.nearestStation;
-    if (!station || station === '鄰近車站') return;
+  // Build Authoritative Station Master (Fixed physical coordinates, no dynamic averaging!)
+  const stationMaster = buildAuthoritativeStationMaster(allSpots);
+  console.log(`🏛️ Built authoritative station master with ${stationMaster.size} physical stations.`);
 
-    if (!stationMap.has(station)) {
-      stationMap.set(station, {
-        name: station,
-        prefecture: spot.prefecture,
-        region: spot.region,
-        line: spot.stationLine || '',
-        lats: [],
-        lngs: [],
-        count: 0,
-        hotelCount: 0,
-        foodCount: 0,
-        spotIds: []
-      });
-    }
+  const stationsList = Array.from(stationMaster.values());
+  const stationStats = new Map();
 
-    const entry = stationMap.get(station);
-    entry.lats.push(spot.lat);
-    entry.lngs.push(spot.lng);
-    entry.count++;
-    if (spot.category === '飯店') entry.hotelCount++;
-    if (spot.category === '美食餐廳') entry.foodCount++;
-    entry.spotIds.push(spot.id);
-  });
-
-  const stations = Array.from(stationMap.values()).map(st => {
-    const avgLat = st.lats.reduce((a, b) => a + b, 0) / st.lats.length;
-    const avgLng = st.lngs.reduce((a, b) => a + b, 0) / st.lngs.length;
-    return {
+  stationsList.forEach(st => {
+    stationStats.set(st.name, {
       name: st.name,
       prefecture: st.prefecture,
       region: st.region,
-      line: st.line,
-      lat: Number(avgLat.toFixed(6)),
-      lng: Number(avgLng.toFixed(6)),
-      count: st.count,
-      hotelCount: st.hotelCount,
-      foodCount: st.foodCount,
-      spotIds: st.spotIds
-    };
-  }).sort((a, b) => b.count - a.count); // sort by most spots
+      line: st.line || '',
+      lat: Number(st.lat.toFixed(6)),
+      lng: Number(st.lng.toFixed(6)),
+      count: 0,
+      hotelCount: 0,
+      foodCount: 0,
+      spotIds: []
+    });
+  });
 
-  console.log(`Generated ${stations.length} unique stations for smart search & radius filtering.`);
+  // Re-verify and associate each spot with its genuine walking life circle (<= 2500m)
+  let stationLinkedCount = 0;
+  let suburbanCount = 0;
+
+  allSpots.forEach(spot => {
+    let matchedStation = null;
+
+    // 1. Check if existing nearestStation is valid and physically close
+    if (spot.nearestStation && !INVALID_STATION_NAMES.has(spot.nearestStation) && stationStats.has(spot.nearestStation)) {
+      const targetStation = stationStats.get(spot.nearestStation);
+      const dist = calculateDistance(targetStation.lat, targetStation.lng, spot.lat, spot.lng);
+      if (dist <= 2500) {
+        matchedStation = targetStation;
+      }
+    }
+
+    // 2. If out of range or placeholder, search for true closest station within 2500m
+    if (!matchedStation) {
+      let minDistance = Infinity;
+      let closestCandidate = null;
+
+      for (const st of stationsList) {
+        const d = calculateDistance(st.lat, st.lng, spot.lat, spot.lng);
+        if (d < minDistance) {
+          minDistance = d;
+          closestCandidate = st;
+        }
+      }
+
+      if (closestCandidate && minDistance <= 2500) {
+        matchedStation = stationStats.get(closestCandidate.name);
+        spot.nearestStation = closestCandidate.name;
+        spot.stationLine = closestCandidate.line;
+        spot.walkMinutes = calculateWalkingMinutes(minDistance);
+        spot.stationAccess = `鄰近 ${closestCandidate.name} 步行約 ${spot.walkMinutes} 分鐘`;
+      } else {
+        // True suburban or regional location far from major stations
+        spot.nearestStation = '周邊生活圈';
+        if (spot.walkMinutes > 30 || isNaN(spot.walkMinutes)) {
+          spot.walkMinutes = 15;
+        }
+      }
+    }
+
+    // 3. Link to station statistics if matched
+    if (matchedStation) {
+      matchedStation.count++;
+      if (spot.category === '飯店') matchedStation.hotelCount++;
+      if (spot.category === '美食餐廳') matchedStation.foodCount++;
+      matchedStation.spotIds.push(spot.id);
+      stationLinkedCount++;
+    } else {
+      suburbanCount++;
+    }
+  });
+
+  console.log(`📍 Stations linked spots: ${stationLinkedCount}, Suburban/regional spots: ${suburbanCount}`);
+
+  // Only export genuine stations with spots or registered in master
+  const stations = Array.from(stationStats.values())
+    .filter(st => !INVALID_STATION_NAMES.has(st.name) && (st.count > 0 || PRECISE_STATION_COORDS[st.name]))
+    .sort((a, b) => b.count - a.count);
+
+  console.log(`Generated ${stations.length} physically verified stations for smart search & radius filtering.`);
 
   // Write files
   const spotsOut = path.join(outputDir, 'spots.json');
@@ -239,7 +279,13 @@ async function generate() {
   const stationsOut = path.join(outputDir, 'stations.json');
   fs.writeFileSync(stationsOut, JSON.stringify(stations, null, 2), 'utf8');
 
-  console.log(`✅ Data generation complete! Output saved to ${spotsOut} & ${stationsOut}`);
+  const stationMasterOut = path.join(outputDir, 'station_master.json');
+  fs.writeFileSync(stationMasterOut, JSON.stringify(stationsList, null, 2), 'utf8');
+
+  console.log(`✅ Data generation complete! Saved:
+  - Spots: ${spotsOut}
+  - Stations: ${stationsOut}
+  - Station Master: ${stationMasterOut}`);
 }
 
 generate().catch(console.error);

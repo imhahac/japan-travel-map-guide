@@ -76,7 +76,8 @@ export function findNearestStation(lat, lng, stations, maxRadiusMeters = 10000) 
 
   if (!nearest || minDistance > maxRadiusMeters) {
     return {
-      station: nearest,
+      station: null,
+      nearestCandidate: nearest,
       distanceMeters: minDistance === Infinity ? 0 : minDistance,
       walkMinutes: calculateWalkingMinutes(minDistance),
       isWithin500m: false,
