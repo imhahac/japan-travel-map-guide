@@ -6,8 +6,7 @@ import RegionHierarchyFilter from './components/RegionHierarchyFilter';
 import SpotCard from './components/SpotCard';
 import InteractiveMap from './components/InteractiveMap';
 import WelcomeExplorer from './components/WelcomeExplorer';
-import SyncModal from './components/SyncModal';
-import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble, ChevronLeft, ExternalLink, Navigation } from 'lucide-react';
+import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble, ChevronLeft, ChevronUp, ChevronDown, ExternalLink, Navigation, Map, List } from 'lucide-react';
 import { isBrandMatch } from './constants/taxonomy.js';
 
 // Attempt to load generated spots and stations data
@@ -46,8 +45,12 @@ export default function App() {
   const [selectedStation, setSelectedStation] = useState(null);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [theme, setTheme] = useState(() => localStorage.getItem('japan_guide_theme') || 'light');
-  const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
-  const [isMobileDrawerCollapsed, setIsMobileDrawerCollapsed] = useState(false);
+  const [isMobileDrawerCollapsed, setIsMobileDrawerCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth <= 860;
+    }
+    return false;
+  });
   const [visibleLimit, setVisibleLimit] = useState(100);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const [mapViewport, setMapViewport] = useState(null);
@@ -207,9 +210,12 @@ export default function App() {
     setSelectedSpot(spot);
     if (!spot) return;
 
-    // 關鍵：選取商家時，確保使用者進入互動態並展開抽屜，讓左側清晰呈現商家資訊
     setHasUserInteracted(true);
-    setIsMobileDrawerCollapsed(false);
+    // On desktop, auto-expand drawer; on mobile, preserve map view if drawer is collapsed and show floating mini card
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 860;
+    if (!isMobile) {
+      setIsMobileDrawerCollapsed(false);
+    }
 
     // If spot is beyond currently loaded cards, expand visibleLimit to reveal it
     const index = inBoundsSpots.findIndex(s => s.id === spot.id);
@@ -271,18 +277,36 @@ export default function App() {
         currentCategory={selectedCategory}
         theme={theme}
         onToggleTheme={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
-        onOpenSyncModal={() => setIsSyncModalOpen(true)}
       />
 
       {/* Main Body */}
       <div className="main-content">
         {/* Left Sidebar: Controls and Spot Cards */}
         <aside className={`sidebar ${isMobileDrawerCollapsed ? 'collapsed' : ''}`}>
-          {/* Mobile Drawer Grab Handle */}
+          {/* Mobile Drawer Grab Handle & Status Bar */}
           <div
-            className="mobile-drawer-handle"
+            className="mobile-drawer-header-bar"
             onClick={() => setIsMobileDrawerCollapsed(prev => !prev)}
-          />
+            role="button"
+            tabIndex={0}
+            aria-label={isMobileDrawerCollapsed ? '展開列表' : '收合列表'}
+          >
+            <div className="mobile-drawer-handle" />
+            <div className="mobile-drawer-status-summary">
+              <span className="drawer-status-text">
+                {selectedStation ? (
+                  <>🚉 已聚焦 <strong>{selectedStation.name}</strong> 生活圈 ({inBoundsSpots.length} 間)</>
+                ) : syncWithMapBounds ? (
+                  <>📍 視野內 <strong>{inBoundsSpots.length}</strong> 處地標</>
+                ) : (
+                  <>🗾 全國收錄 <strong>{filteredSpots.length}</strong> 處地標</>
+                )}
+              </span>
+              <span className="drawer-status-action">
+                {isMobileDrawerCollapsed ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </span>
+            </div>
+          </div>
 
           {isExploreMode ? (
             /* Mode 1: 探索首頁模式 (Google Maps / Airbnb 風格：上方搜尋，下方探索主頁，零冗餘！) */
@@ -914,14 +938,88 @@ export default function App() {
               <span>請在左側搜尋車站、都道府縣或點選分類標籤，立即顯示在地生活圈店家</span>
             </div>
           )}
+
+          {/* Mobile Spot Floating Mini Preview Card */}
+          {selectedSpot && isMobileDrawerCollapsed && (
+            <div
+              className="mobile-spot-preview-card"
+              onClick={() => setIsMobileDrawerCollapsed(false)}
+              role="button"
+              tabIndex={0}
+            >
+              <div className="preview-card-inner">
+                <img
+                  src={selectedSpot.imageUrl || 'https://www.toyoko-inn.com/images/ogp/ogp_default.png'}
+                  alt={selectedSpot.name}
+                  className="preview-card-thumb"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://www.toyoko-inn.com/images/ogp/ogp_default.png';
+                  }}
+                />
+                <div className="preview-card-info">
+                  <div className="preview-card-tags">
+                    <span className="preview-badge-brand">{selectedSpot.brand || selectedSpot.category}</span>
+                    {selectedSpot.walkMinutes && (
+                      <span className="preview-badge-walk">步行 {selectedSpot.walkMinutes} 分</span>
+                    )}
+                  </div>
+                  <h4 className="preview-card-title">{selectedSpot.name}</h4>
+                  <p className="preview-card-sub">
+                    {selectedSpot.nearestStation ? `最鄰近：${selectedSpot.nearestStation}` : selectedSpot.address}
+                  </p>
+                </div>
+              </div>
+              <div className="preview-card-actions">
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${selectedSpot.lat},${selectedSpot.lng}&travelmode=walking`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="preview-nav-btn"
+                  title="開啟 Google 步行導航"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Navigation size={13} />
+                  <span>導航</span>
+                </a>
+                <button
+                  type="button"
+                  className="preview-close-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSpot(null);
+                  }}
+                  aria-label="關閉預覽"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Mobile Floating View Switcher (Google Maps / Airbnb style) */}
+          <div className="mobile-floating-controls">
+            <button
+              type="button"
+              className="mobile-view-switch-btn"
+              onClick={() => setIsMobileDrawerCollapsed(prev => !prev)}
+              aria-label={isMobileDrawerCollapsed ? '查看列表' : '查看地圖'}
+            >
+              {isMobileDrawerCollapsed ? (
+                <>
+                  <List size={16} />
+                  <span>查看列表 ({inBoundsSpots.length})</span>
+                </>
+              ) : (
+                <>
+                  <Map size={16} />
+                  <span>查看地圖</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* Google Sheet Sync Modal */}
-      <SyncModal
-        isOpen={isSyncModalOpen}
-        onClose={() => setIsSyncModalOpen(false)}
-      />
     </div>
   );
 }

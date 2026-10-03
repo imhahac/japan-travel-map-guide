@@ -745,10 +745,10 @@ export default function InteractiveMap({
         <button className="map-control-btn" onClick={handleResetJapan} title="重設地圖檢視全日本">
           <RotateCcw size={16} />
         </button>
-        <button className="map-control-btn" onClick={handleZoomIn} title="放大">
+        <button className="map-control-btn map-zoom-btn" onClick={handleZoomIn} title="放大">
           <ZoomIn size={18} />
         </button>
-        <button className="map-control-btn" onClick={handleZoomOut} title="縮小">
+        <button className="map-control-btn map-zoom-btn" onClick={handleZoomOut} title="縮小">
           <ZoomOut size={18} />
         </button>
       </div>

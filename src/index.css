@@ -637,8 +637,44 @@ body {
   transform: translateY(-1px);
 }
 
-/* Mobile Responsive Adjustments */
+/* ==========================================================================
+   Mobile Responsive Adjustments (Google Maps / Airbnb Native App Aesthetic)
+   ========================================================================== */
 @media (max-width: 860px) {
+  :root {
+    --header-height: 54px;
+  }
+
+  /* Top Navbar on Mobile */
+  .navbar {
+    height: var(--header-height);
+    padding: 0 0.85rem;
+  }
+
+  .brand-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .brand-title {
+    font-size: 1.02rem;
+    letter-spacing: -0.3px;
+  }
+
+  .brand-subtitle {
+    display: none !important; /* 隱藏冗長副標題，避免手機頂部混亂 */
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .theme-toggle-btn {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  /* Bottom Sheet Drawer on Mobile */
   .sidebar {
     position: absolute;
     bottom: 0;
@@ -647,24 +683,362 @@ body {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    height: 52%;
+    height: 84vh; /* 展開狀態高度 */
+    max-height: 84vh;
     border-right: none;
     border-top: 1px solid var(--border);
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 22px 22px 0 0;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18);
+    background: var(--bg-card);
+    z-index: 1000;
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
+  /* 收合狀態：固定露出 64px 底部條，保持全螢幕大地圖 */
   .sidebar.collapsed {
-    transform: translateY(calc(100% - 72px));
+    transform: translateY(calc(100% - 64px));
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Mobile Drawer Header Bar (把手 + 即時狀態條) */
+  .mobile-drawer-header-bar {
+    width: 100%;
+    padding: 0.45rem 1rem 0.45rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
   }
 
   .mobile-drawer-handle {
-    width: 48px;
-    height: 5px;
-    background: var(--border);
+    width: 40px;
+    height: 4.5px;
+    background: #cbd5e1;
     border-radius: 3px;
-    margin: 0.4rem auto 0 auto;
+    margin-bottom: 0.35rem;
+    transition: background-color 0.2s ease;
+  }
+
+  [data-theme="dark"] .mobile-drawer-handle {
+    background: #334155;
+  }
+
+  .mobile-drawer-status-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.8rem;
+    color: var(--text-main);
+  }
+
+  .drawer-status-text {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .drawer-status-text strong {
+    color: var(--primary);
+  }
+
+  .drawer-status-action {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+  }
+
+  /* Mobile Floating Switcher Button (Airbnb / Google Maps style) */
+  .mobile-floating-controls {
+    display: flex;
+    position: absolute;
+    bottom: 78px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1020;
+    pointer-events: auto;
+  }
+
+  .mobile-view-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(15, 23, 42, 0.9);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
     cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .mobile-view-switch-btn:active {
+    transform: scale(0.94);
+  }
+
+  [data-theme="dark"] .mobile-view-switch-btn {
+    background: rgba(30, 41, 59, 0.92);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Mobile Spot Floating Mini Preview Card */
+  .mobile-spot-preview-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 74px;
+    left: 0.75rem;
+    right: 0.75rem;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 0.6rem 0.75rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+    z-index: 1015;
+    gap: 0.65rem;
+    cursor: pointer;
+    animation: slideUpPreview 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideUpPreview {
+    from {
+      transform: translateY(24px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .preview-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .preview-card-thumb {
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #e2e8f0;
+  }
+
+  .preview-card-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .preview-card-tags {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .preview-badge-brand {
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 0.64rem;
+    font-weight: 700;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  .preview-badge-walk {
+    background: #10b981;
+    color: #ffffff;
+    font-size: 0.64rem;
+    font-weight: 700;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  .preview-card-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+  }
+
+  .preview-card-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.1rem;
+  }
+
+  .preview-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .preview-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: #10b981;
+    color: #ffffff;
+    padding: 0.45rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+  }
+
+  .preview-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  /* Compact Horizontal Spot Cards on Mobile */
+  .spot-card {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.7rem;
+    padding: 0.6rem !important;
+    border-radius: 14px !important;
+    align-items: flex-start;
+  }
+
+  .card-image-box {
+    width: 88px !important;
+    height: 88px !important;
+    min-height: 88px !important;
+    flex-shrink: 0 !important;
+    border-radius: 10px !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  .card-top-badges {
+    top: 4px;
+    left: 4px;
+    gap: 2px;
+  }
+
+  .badge-brand, .badge-walk {
+    font-size: 0.62rem !important;
+    padding: 0.1rem 0.3rem !important;
+  }
+
+  .card-distance-tag {
+    display: none; /* 在手機小圖隱藏以維持圖片乾淨 */
+  }
+
+  .card-body {
+    flex: 1;
+    min-width: 0;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 88px;
+  }
+
+  .card-title {
+    font-size: 0.86rem !important;
+    line-height: 1.25 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-subtext {
+    font-size: 0.68rem !important;
+    display: none; /* 手機端節省空間 */
+  }
+
+  .card-station-row {
+    font-size: 0.72rem !important;
+    margin: 0.15rem 0 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-tags {
+    display: none !important; /* 手機緊湊卡片隱藏次要標籤 */
+  }
+
+  .card-actions {
+    margin-top: auto !important;
+    gap: 0.35rem !important;
+  }
+
+  .btn-action {
+    padding: 0.28rem 0.55rem !important;
+    font-size: 0.72rem !important;
+    border-radius: 6px !important;
+  }
+
+  /* Map Controls on Mobile */
+  .map-floating-panel {
+    top: 0.6rem !important;
+    right: 0.6rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .map-control-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .map-zoom-btn {
+    display: none !important; /* 手機使用手勢縮放，節省右側空間 */
+  }
+
+  /* Compact Filter Bar on Mobile */
+  .category-pills {
+    gap: 0.35rem !important;
+  }
+
+  .pill-btn {
+    padding: 0.36rem 0.65rem !important;
+    font-size: 0.78rem !important;
   }
 }
 

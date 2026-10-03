@@ -1,7 +1,7 @@
 import React from 'react';
-import { MapPin, Moon, Sun, Database, Sparkles, BedDouble } from 'lucide-react';
+import { MapPin, Moon, Sun, Sparkles } from 'lucide-react';
 
-export default function Navbar({ totalSpots, currentCategory, theme, onToggleTheme, onOpenSyncModal }) {
+export default function Navbar({ totalSpots = 0, currentCategory, theme, onToggleTheme }) {
   return (
     <header className="navbar">
       <div className="brand-section">
@@ -20,21 +20,18 @@ export default function Navbar({ totalSpots, currentCategory, theme, onToggleThe
       </div>
 
       <div className="nav-actions">
-        <button
-          onClick={onOpenSyncModal}
-          className="pill-btn"
-          title="Google Sheet 資料庫設定"
-          style={{ borderColor: '#cbd5e1' }}
-        >
-          <Database size={14} color="#00489d" />
-          <span style={{ fontSize: '0.8rem' }}>Google Sheet 串接</span>
-        </button>
+        {totalSpots > 0 && (
+          <div className="nav-spots-badge desktop-only" title="日本全國已收錄門市總數">
+            <Sparkles size={13} color="#00489d" />
+            <span>{totalSpots.toLocaleString()} 處地標</span>
+          </div>
+        )}
 
         <button
           onClick={onToggleTheme}
-          className="map-control-btn"
+          className="map-control-btn theme-toggle-btn"
           title="切換深淺色主題"
-          style={{ width: '36px', height: '36px' }}
+          aria-label="切換主題"
         >
           {theme === 'dark' ? <Sun size={17} color="#f59e0b" /> : <Moon size={17} color="#475569" />}
         </button>
