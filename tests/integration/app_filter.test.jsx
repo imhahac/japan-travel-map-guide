@@ -55,7 +55,7 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
       expect(onSelectBrand).toHaveBeenCalledWith('7-Eleven');
     });
 
-    it('切換至「美食餐廳」大類時，應顯示 Tier 2 子分類（全部美食、日式拉麵、平價牛丼、迴轉壽司、和風定食、喫茶咖啡）', () => {
+    it('切換至「美食餐廳」大類時，應顯示 Tier 2 子分類（含家庭餐廳、漢堡輕食、日式拉麵、平價牛丼等）', () => {
       const onSelectSubcategory = vi.fn();
       const onSelectBrand = vi.fn();
 
@@ -65,7 +65,7 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
           onSelectCategory={vi.fn()}
           currentSubcategory="all"
           onSelectSubcategory={onSelectSubcategory}
-          subcategoryCounts={{ '拉麵': 242, '牛丼': 34, '壽司': 21, '定食': 13, '咖啡': 11 }}
+          subcategoryCounts={{ '拉麵': 242, '牛丼': 34, '壽司': 21, '定食': 13, '咖啡': 11, '家庭餐廳': 1085, '漢堡輕食': 19 }}
           currentBrand="all"
           onSelectBrand={onSelectBrand}
         />
@@ -76,6 +76,8 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
       expect(screen.getByText('平價牛丼')).toBeInTheDocument();
       expect(screen.getByText('迴轉壽司')).toBeInTheDocument();
       expect(screen.getByText('和風定食')).toBeInTheDocument();
+      expect(screen.getByText('家庭餐廳')).toBeInTheDocument();
+      expect(screen.getByText('漢堡輕食')).toBeInTheDocument();
       expect(screen.getByText('喫茶咖啡')).toBeInTheDocument();
 
       // 點擊「平價牛丼」子類別

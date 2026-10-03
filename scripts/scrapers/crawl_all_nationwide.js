@@ -27,12 +27,14 @@ import { crawlOotoya } from './crawl_ootoya.js';
 import { crawlKomeda } from './crawl_komeda.js';
 import { crawlYayoiken } from './crawl_yayoiken.js';
 import { crawlBicCamera } from './crawl_bic_camera.js';
+import { crawlSaizeriya } from './crawl_saizeriya.js';
+import { crawlShakeShack } from './crawl_shakeshack.js';
 import { deduplicateSpots } from '../core/dedupe.js';
 import { validateSpotsBatch } from '../core/validator.js';
 
 export async function runNationwidePipeline(options = {}) {
   const {
-    brands = ['bic_camera', 'sukiya', 'matsuya', 'sushiro', 'kura', 'hama', 'yayoiken', 'ootoya', 'komeda'],
+    brands = ['bic_camera', 'sukiya', 'matsuya', 'sushiro', 'kura', 'hama', 'yayoiken', 'ootoya', 'komeda', 'saizeriya', 'shakeshack'],
     outDir = 'src/data',
     fresh = false,
     verbose = true
@@ -55,7 +57,9 @@ export async function runNationwidePipeline(options = {}) {
     hama: [],
     yayoiken: [],
     ootoya: [],
-    komeda: []
+    komeda: [],
+    saizeriya: [],
+    shakeshack: []
   };
 
   const getSeedOrFetch = async (brandKey, fileName, crawlerFn, crawlerOpts = {}) => {
@@ -151,6 +155,24 @@ export async function runNationwidePipeline(options = {}) {
     }
   }
 
+  // 10. 薩莉亞 (Saizeriya)
+  if (brands.includes('saizeriya')) {
+    try {
+      results.saizeriya = await getSeedOrFetch('saizeriya', 'saizeriya_seed.json', crawlSaizeriya);
+    } catch (err) {
+      console.error('❌ [薩莉亞] 抓取異常:', err.message);
+    }
+  }
+
+  // 11. Shake Shack (昔客來)
+  if (brands.includes('shakeshack')) {
+    try {
+      results.shakeshack = await getSeedOrFetch('shakeshack', 'shakeshack_seed.json', crawlShakeShack);
+    } catch (err) {
+      console.error('❌ [Shake Shack] 抓取異常:', err.message);
+    }
+  }
+
   // =========================================================================
   // 彙整更新 dining_seed.json
   // =========================================================================
@@ -163,7 +185,7 @@ export async function runNationwidePipeline(options = {}) {
   }
 
   // Retain non-target brands (like 一蘭, 一風堂, 吉野家) from existing dining
-  const targetBrandNames = ['すき家', '松屋', '壽司郎', '藏壽司', 'はま寿司', 'やよい軒', '大戶屋', '客美多咖啡'];
+  const targetBrandNames = ['すき家', '松屋', '壽司郎', '藏壽司', 'はま寿司', 'やよい軒', '大戶屋', '客美多咖啡', '薩莉亞', 'Shake Shack'];
   const retainedDining = existingDining.filter(s => !targetBrandNames.includes(s.brand));
 
   const newDiningSpots = [
@@ -175,7 +197,9 @@ export async function runNationwidePipeline(options = {}) {
     ...results.hama,
     ...results.yayoiken,
     ...results.ootoya,
-    ...results.komeda
+    ...results.komeda,
+    ...results.saizeriya,
+    ...results.shakeshack
   ];
 
   const { uniqueSpots: uniqueDining, duplicateCount: diningDups } = deduplicateSpots(newDiningSpots);
@@ -213,6 +237,8 @@ export async function runNationwidePipeline(options = {}) {
   console.log(`  7. やよい軒: ${results.yayoiken.length} 間`);
   console.log(`  8. 大戶屋: ${results.ootoya.length} 間`);
   console.log(`  9. 客美多咖啡: ${results.komeda.length} 間`);
+  console.log(`  10. 薩莉亞: ${results.saizeriya.length} 間`);
+  console.log(`  11. Shake Shack: ${results.shakeshack.length} 間`);
   console.log('================================================================\n');
 
   return {
@@ -224,7 +250,7 @@ export async function runNationwidePipeline(options = {}) {
 
 async function run() {
   const args = process.argv.slice(2);
-  let brands = ['bic_camera', 'sukiya', 'matsuya', 'sushiro', 'kura', 'hama', 'yayoiken', 'ootoya', 'komeda'];
+  let brands = ['bic_camera', 'sukiya', 'matsuya', 'sushiro', 'kura', 'hama', 'yayoiken', 'ootoya', 'komeda', 'saizeriya', 'shakeshack'];
   const fresh = args.includes('--fresh');
 
   const brandArg = args.find(a => a.startsWith('--brand='));

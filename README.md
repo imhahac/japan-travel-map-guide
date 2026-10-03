@@ -109,18 +109,20 @@ npm run build
 專案提供完整的官方門市爬蟲工具鏈，位於 `scripts/scrapers/`：
 
 ```bash
-# 1. 一鍵執行 9 大品牌全日本門市爬蟲總管線
+# 1. 一鍵執行 11 大品牌全日本門市爬蟲總管線
 npm run crawl:nationwide
 
 # 2. 單獨執行特定品牌官方爬蟲
-npm run crawl:sukiya      # すき家 (約 1,962 間)
-npm run crawl:matsuya     # 松屋 (約 1,146 間)
-npm run crawl:komeda      # 客美多咖啡 (約 1,029 間)
-npm run crawl:sushiro     # 壽司郎 (約 685 間)
-npm run crawl:hama        # はま寿司 (約 617 間)
-npm run crawl:kura        # 藏壽司 (約 551 間)
-npm run crawl:yayoiken    # やよい軒 (約 360 間)
-npm run crawl:ootoya      # 大戶屋 (約 339 間)
+npm run crawl:saizeriya    # 薩莉亞 (1,085 間)
+npm run crawl:shakeshack   # Shake Shack (19 間)
+npm run crawl:sukiya      # すき家 (約 2,011 間)
+npm run crawl:matsuya     # 松屋 (約 1,176 間)
+npm run crawl:komeda      # 客美多咖啡 (約 1,046 間)
+npm run crawl:sushiro     # 壽司郎 (約 670 間)
+npm run crawl:hama        # はま寿司 (約 687 間)
+npm run crawl:kura        # 藏壽司 (約 559 間)
+npm run crawl:yayoiken    # やよい軒 (約 296 間)
+npm run crawl:ootoya      # 大戶屋 (約 323 間)
 npm run crawl:bic         # Bic Camera 大型旗艦店 (45 間)
 npm run crawl:toyoko      # 東橫 INN (354 間)
 
@@ -194,9 +196,11 @@ japan-travel-map-guide/
 │   │   ├── StationSearchBar.jsx    # 車站智慧搜尋與生活圈聚焦自動完成
 │   │   └── SyncModal.jsx           # Google Sheet 雲端同步設定導覽彈窗
 │   ├── data/                       # 核心產物與離線種子庫
-│   │   ├── spots.json              # 8,652 筆全域有效景點資料庫
+│   │   ├── spots.json              # 9,756 筆全域有效景點資料庫
 │   │   ├── stations.json           # 340 座日本樞紐車站座標與生活圈索引
-│   │   ├── dining_seed.json        # 7,025 筆全國美食餐廳離線種子庫
+│   │   ├── dining_seed.json        # 8,129 筆全國美食餐廳離線種子庫 (含薩莉亞/Shake Shack)
+│   │   ├── saizeriya_seed.json     # 1,085 間薩莉亞日本本土官方門市庫
+│   │   ├── shakeshack_seed.json    # 19 間 Shake Shack 日本官方門市庫
 │   │   ├── shopping_seed.json      # 970 筆購物藥妝離線種子庫
 │   │   ├── toyoko_seed.json        # 354 間東橫 INN 官方門市庫
 │   │   ├── apa_seed.json           # 324 間 APA 飯店官方門市庫
@@ -204,7 +208,7 @@ japan-travel-map-guide/
 │   ├── App.jsx                     # 應用程式主畫面與效能狀態管理
 │   ├── index.css                   # 現代日式美學色彩系統與響應式排版
 │   └── main.jsx                    # React 19 掛載入口
-├── tests/                          # 測試套件 (12 個測試檔案、82 個測試全部通過)
+├── tests/                          # 測試套件 (13 個測試檔案、88 個測試全部通過)
 │   ├── unit/                       # 爬蟲、幾何運算、去重與資料驗證測試
 │   └── integration/                # 多層篩選、定位精度與左側看板連動測試
 ├── index.html                      # SEO 優化入口 HTML

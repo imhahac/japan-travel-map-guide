@@ -43,6 +43,12 @@ const TARGET_CONFIGS = {
   dining: [
     { file: 'src/data/dining_seed.json', sheetName: '美食餐廳', label: '美食餐廳' }
   ],
+  saizeriya: [
+    { file: 'src/data/saizeriya_seed.json', sheetName: '美食餐廳', label: '薩莉亞 (1,085門市)' }
+  ],
+  shakeshack: [
+    { file: 'src/data/shakeshack_seed.json', sheetName: '美食餐廳', label: 'Shake Shack (19門市)' }
+  ],
   convenience: [
     { file: 'src/data/convenience_seed.json', sheetName: '便利商店', label: '便利商店' }
   ],

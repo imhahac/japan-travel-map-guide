@@ -21,6 +21,8 @@
     "crawl:komeda": "node scripts/scrapers/crawl_komeda.js",
     "crawl:yayoiken": "node scripts/scrapers/crawl_yayoiken.js",
     "crawl:bic": "node scripts/scrapers/crawl_bic_camera.js",
+    "crawl:saizeriya": "node scripts/scrapers/crawl_saizeriya.js",
+    "crawl:shakeshack": "node scripts/scrapers/crawl_shakeshack.js",
     "sync:sheet": "node scripts/sync_to_sheet.js",
     "test": "vitest run",
     "test:watch": "vitest",

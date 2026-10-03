@@ -27,6 +27,8 @@ export const SUBCATEGORIES_MAP = {
     { id: '牛丼', label: '平價牛丼' },
     { id: '壽司', label: '迴轉壽司' },
     { id: '定食', label: '和風定食' },
+    { id: '家庭餐廳', label: '家庭餐廳' },
+    { id: '漢堡輕食', label: '漢堡輕食' },
     { id: '咖啡', label: '喫茶咖啡' }
   ],
   便利商店: [
@@ -280,6 +282,34 @@ export const BRANDS_REGISTRY = [
     activeText: '#78350f'
   },
 
+  // ── 在地美食 (家庭餐廳) ──
+  {
+    id: '薩莉亞',
+    label: '薩莉亞 (Saizeriya)',
+    shortLabel: '薩莉亞',
+    category: '美食餐廳',
+    subcategory: '家庭餐廳',
+    aliases: ['薩莉亞', '薩莉亞 (Saizeriya)', 'Saizeriya', 'サイゼリヤ', 'サイゼ'],
+    color: '#008837',
+    dotBg: '#008837',
+    activeBg: '#f0fdf4',
+    activeText: '#15803d'
+  },
+
+  // ── 在地美食 (漢堡輕食) ──
+  {
+    id: 'Shake Shack',
+    label: 'Shake Shack',
+    shortLabel: 'Shake Shack',
+    category: '美食餐廳',
+    subcategory: '漢堡輕食',
+    aliases: ['Shake Shack', 'ShakeShack', 'シェイクシャック', '昔客來'],
+    color: '#558b2f',
+    dotBg: '#689f38',
+    activeBg: '#f1f8e9',
+    activeText: '#33691e'
+  },
+
   // ── 便利商店 (連鎖超商) ──
   {
     id: '7-Eleven',
@@ -396,6 +426,8 @@ export function determineSubcategory(category, brand = '', name = '') {
     if (/一蘭|一風堂|拉麵|ラーメン/i.test(brand) || /拉麵|ラーメン/i.test(name)) return '拉麵';
     if (/壽司郎|藏壽司|スシロー|くら寿司|壽司/i.test(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
     if (/やよい軒|大戶屋|定食|彌生軒/i.test(brand) || /定食|彌生軒/i.test(name)) return '定食';
+    if (/薩莉亞|サイゼリヤ|サイゼ|家庭餐廳/i.test(brand) || /サイゼリヤ/i.test(name)) return '家庭餐廳';
+    if (/Shake\s*Shack|シェイクシャック|昔客來|漢堡/i.test(brand) || /Shake\s*Shack/i.test(name)) return '漢堡輕食';
     if (/客美多|咖啡|珈琲|コメダ/i.test(brand) || /咖啡|珈琲|コメダ/i.test(name)) return '咖啡';
     return '平價美食';
   }
