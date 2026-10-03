@@ -50,8 +50,11 @@ export default function App() {
   const [isMobileDrawerCollapsed, setIsMobileDrawerCollapsed] = useState(false);
   const [visibleLimit, setVisibleLimit] = useState(100);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
+  const [mapViewport, setMapViewport] = useState(null);
+  const [syncWithMapBounds, setSyncWithMapBounds] = useState(true);
 
   const cardListRef = useRef(null);
+  const mapControlsRef = useRef(null);
 
   // Apply theme to document element
   useEffect(() => {
@@ -155,10 +158,49 @@ export default function App() {
       });
   }, [spots, selectedCategory, selectedSubcategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
 
-  // Reset visible limit back to 100 whenever filters change
+  // Filter spots within visible map viewport when syncWithMapBounds is enabled
+  const inBoundsSpots = useMemo(() => {
+    if (!syncWithMapBounds || !mapViewport) {
+      return filteredSpots;
+    }
+
+    const { north, south, east, west } = mapViewport;
+
+    return filteredSpots
+      .filter(spot => {
+        if (!spot.lat || !spot.lng) return false;
+        if (spot.lat < south || spot.lat > north) return false;
+        if (west <= east) {
+          return spot.lng >= west && spot.lng <= east;
+        } else {
+          return spot.lng >= west || spot.lng <= east;
+        }
+      })
+      .map(spot => {
+        let distCenter = Infinity;
+        if (mapViewport.center && spot.lat && spot.lng) {
+          distCenter = calculateDistance(mapViewport.center.lat, mapViewport.center.lng, spot.lat, spot.lng);
+        }
+        return { ...spot, distanceToCenter: distCenter };
+      })
+      .sort((a, b) => {
+        // 1. If station is selected, prioritize distance to station
+        if (selectedStation) {
+          return a.currentDistance - b.currentDistance;
+        }
+        // 2. If syncWithMapBounds is on, sort by distance to visible map center
+        if (mapViewport.center && a.distanceToCenter !== b.distanceToCenter) {
+          return a.distanceToCenter - b.distanceToCenter;
+        }
+        // 3. Fallback to walk minutes
+        return (a.walkMinutes || 5) - (b.walkMinutes || 5);
+      });
+  }, [filteredSpots, syncWithMapBounds, mapViewport, selectedStation]);
+
+  // Reset visible limit back to 100 whenever filters or map viewport changes
   useEffect(() => {
     setVisibleLimit(100);
-  }, [selectedCategory, selectedSubcategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
+  }, [selectedCategory, selectedSubcategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation, mapViewport]);
 
   // Handle Spot Selection
   const handleSelectSpot = (spot) => {
@@ -170,7 +212,7 @@ export default function App() {
     setIsMobileDrawerCollapsed(false);
 
     // If spot is beyond currently loaded cards, expand visibleLimit to reveal it
-    const index = filteredSpots.findIndex(s => s.id === spot.id);
+    const index = inBoundsSpots.findIndex(s => s.id === spot.id);
     if (index >= 0 && index >= visibleLimit) {
       setVisibleLimit(Math.ceil((index + 1) / 100) * 100);
     }
@@ -218,8 +260,8 @@ export default function App() {
 
   // Visible spots capped at 100 per load to optimize DOM & memory resources
   const visibleSpots = useMemo(() => {
-    return filteredSpots.slice(0, visibleLimit);
-  }, [filteredSpots, visibleLimit]);
+    return inBoundsSpots.slice(0, visibleLimit);
+  }, [inBoundsSpots, visibleLimit]);
 
   return (
     <div className="app-container">
@@ -318,7 +360,11 @@ export default function App() {
                     <span>返回探索首頁</span>
                   </button>
                   <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                    共 <strong>{filteredSpots.length}</strong> 處地標
+                    {syncWithMapBounds ? (
+                      <>視野內 <strong>{inBoundsSpots.length}</strong> / 全國 {filteredSpots.length} 處</>
+                    ) : (
+                      <>共 <strong>{filteredSpots.length}</strong> 處地標</>
+                    )}
                   </span>
                 </div>
 
@@ -455,25 +501,76 @@ export default function App() {
                   </div>
                 )}
 
-                {/* Stats Bar */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                  <span>
-                    {filteredSpots.length > visibleSpots.length ? (
-                      <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{filteredSpots.length}</strong> 處地標</>
-                    ) : (
-                      <>共 <strong>{filteredSpots.length}</strong> 處地標</>
-                    )}
-                    {selectedStation && ` (依距離排序)`}
-                  </span>
-                  {hasActiveFilter && (
+                {/* Stats & Viewport Control Bar */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontSize: '0.78rem',
+                  color: 'var(--text-muted)',
+                  flexWrap: 'wrap',
+                  gap: '0.35rem'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <span>
+                      {inBoundsSpots.length > visibleSpots.length ? (
+                        <>顯示前 <strong>{visibleSpots.length}</strong> / <strong>{inBoundsSpots.length}</strong> 處</>
+                      ) : (
+                        <>共 <strong>{inBoundsSpots.length}</strong> 處地標</>
+                      )}
+                      {syncWithMapBounds ? (
+                        <span style={{ color: 'var(--primary, #00489d)', fontWeight: 700, marginLeft: '4px' }}>
+                          (地圖範圍內)
+                        </span>
+                      ) : (
+                        <span style={{ marginLeft: '4px' }}>(全域模式)</span>
+                      )}
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                     <button
-                      onClick={handleResetAllFilters}
-                      style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                      type="button"
+                      onClick={() => setSyncWithMapBounds(prev => !prev)}
+                      title={syncWithMapBounds ? "點擊解除視野連動，檢視全部符合條件之店家" : "點擊鎖定僅顯示地圖當前視野範圍內之店家"}
+                      style={{
+                        background: syncWithMapBounds ? 'var(--primary-light, #e8f0fe)' : 'var(--bg-page, #f1f5f9)',
+                        color: syncWithMapBounds ? 'var(--primary, #00489d)' : 'var(--text-muted, #64748b)',
+                        border: `1.2px solid ${syncWithMapBounds ? 'var(--primary, #00489d)' : 'var(--border, #cbd5e1)'}`,
+                        borderRadius: '6px',
+                        padding: '2px 8px',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                        transition: 'all 0.15s ease'
+                      }}
                     >
-                      <RefreshCw size={12} />
-                      重設篩選
+                      <span>{syncWithMapBounds ? '📍 依地圖範圍' : '🌐 顯示全區'}</span>
+                      <span style={{
+                        fontSize: '8.5px',
+                        background: syncWithMapBounds ? 'var(--primary, #00489d)' : '#94a3b8',
+                        color: '#ffffff',
+                        borderRadius: '3px',
+                        padding: '1px 3.5px',
+                        fontWeight: 800
+                      }}>
+                        {syncWithMapBounds ? 'ON' : 'OFF'}
+                      </span>
                     </button>
-                  )}
+
+                    {hasActiveFilter && (
+                      <button
+                        onClick={handleResetAllFilters}
+                        style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}
+                      >
+                        <RefreshCw size={12} />
+                        重設
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -623,7 +720,7 @@ export default function App() {
 
               {/* Cards List (Only renders up to 100 cards initially to save resources) */}
               <div className="cards-scroll-container" ref={cardListRef}>
-                {filteredSpots.length === 0 ? (
+                {inBoundsSpots.length === 0 ? (
                   <div className="no-spots-empty-state" style={{
                     padding: '2.5rem 1.25rem',
                     textAlign: 'center',
@@ -646,14 +743,36 @@ export default function App() {
                       <SlidersHorizontal size={22} />
                     </div>
                     <h4 style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-main)', marginBottom: '0.35rem' }}>
-                      未找到符合條件的地標
+                      {filteredSpots.length > 0 && syncWithMapBounds ? '當前地圖視野內暫無符合店家' : '未找到符合條件的地標'}
                     </h4>
                     <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.25rem', lineHeight: 1.45 }}>
-                      當前條件收斂過細，建議點擊下方快速建議進行放寬：
+                      {filteredSpots.length > 0 && syncWithMapBounds ? (
+                        <>您目前檢視的地圖範圍內沒有符合條件的店家（在其他區域共有 <strong>{filteredSpots.length}</strong> 間），建議滑動地圖、縮小視野或切換為全區清單：</>
+                      ) : (
+                        <>當前條件收斂過細，建議點擊下方快速建議進行放寬：</>
+                      )}
                     </p>
 
                     {/* 1-Click Rescue Suggestions */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginBottom: '1.25rem' }}>
+                      {filteredSpots.length > 0 && syncWithMapBounds && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => mapControlsRef.current?.zoomOut?.()}
+                            className="rescue-suggestion-btn"
+                          >
+                            <span>🔍 縮小地圖視野以擴大搜尋範圍</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSyncWithMapBounds(false)}
+                            className="rescue-suggestion-btn"
+                          >
+                            <span>🌐 檢視全部 {filteredSpots.length} 間店家清單（關閉地圖範圍鎖定）</span>
+                          </button>
+                        </>
+                      )}
                       {walkFilter !== 'all' && (
                         <button
                           type="button"
@@ -716,11 +835,11 @@ export default function App() {
                     ))}
 
                     {/* 載入更多 100 筆按鈕 */}
-                    {filteredSpots.length > visibleSpots.length && (
+                    {inBoundsSpots.length > visibleSpots.length && (
                       <div style={{ padding: '1rem 0.5rem 1.5rem 0.5rem', textAlign: 'center' }}>
                         <button
                           type="button"
-                          onClick={() => setVisibleLimit(prev => Math.min(prev + 100, filteredSpots.length))}
+                          onClick={() => setVisibleLimit(prev => Math.min(prev + 100, inBoundsSpots.length))}
                           style={{
                             width: '100%',
                             padding: '0.75rem 1rem',
@@ -746,7 +865,7 @@ export default function App() {
                             <span>⬇️ 載入更多 100 筆地標</span>
                           </span>
                           <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, #64748b)', fontWeight: 500 }}>
-                            已顯示 {visibleSpots.length} / 共 {filteredSpots.length} 處（尚有 {filteredSpots.length - visibleSpots.length} 處未載入）
+                            已顯示 {visibleSpots.length} / 共 {inBoundsSpots.length} 處（尚有 {inBoundsSpots.length - visibleSpots.length} 處未載入）
                           </span>
                         </button>
                       </div>
@@ -765,6 +884,9 @@ export default function App() {
             selectedSpot={selectedSpot}
             selectedStation={selectedStation}
             onSelectSpot={handleSelectSpot}
+            onViewportChange={(vp) => setMapViewport(vp)}
+            syncWithMapBounds={syncWithMapBounds}
+            mapControlsRef={mapControlsRef}
             theme={theme}
           />
           {isExploreMode && (

@@ -154,7 +154,16 @@ function createStationPin(station) {
   });
 }
 
-export default function InteractiveMap({ spots = [], selectedSpot, selectedStation, onSelectSpot, theme = 'light' }) {
+export default function InteractiveMap({
+  spots = [],
+  selectedSpot,
+  selectedStation,
+  onSelectSpot,
+  onViewportChange,
+  syncWithMapBounds = true,
+  mapControlsRef,
+  theme = 'light'
+}) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const tileLayerRef = useRef(null);
@@ -170,10 +179,27 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
     onSelectSpotRef.current = onSelectSpot;
   }, [onSelectSpot]);
 
+  const onViewportChangeRef = useRef(onViewportChange);
+  useEffect(() => {
+    onViewportChangeRef.current = onViewportChange;
+  }, [onViewportChange]);
+
   // Sync active tile with theme
   useEffect(() => {
     setActiveTileKey(theme === 'dark' ? 'dark' : 'gsi_pale');
   }, [theme]);
+
+  // Expose imperative controls to parent component
+  useEffect(() => {
+    if (mapControlsRef) {
+      mapControlsRef.current = {
+        zoomIn: () => mapInstanceRef.current?.zoomIn(),
+        zoomOut: () => mapInstanceRef.current?.zoomOut(),
+        resetJapan: () => mapInstanceRef.current?.flyTo([36.2048, 138.2529], 6, { duration: 1 }),
+        flyTo: (lat, lng, zoom = 15) => mapInstanceRef.current?.flyTo([lat, lng], zoom, { duration: 1.2 })
+      };
+    }
+  }, [mapControlsRef]);
 
   // 1. Initialize Map
   useEffect(() => {
@@ -305,7 +331,43 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
     stationLayerRef.current = L.layerGroup().addTo(map);
     mapInstanceRef.current = map;
 
+    // Viewport change emitter
+    const emitViewport = () => {
+      if (!mapInstanceRef.current || !onViewportChangeRef.current) return;
+      const b = mapInstanceRef.current.getBounds();
+      const c = mapInstanceRef.current.getCenter();
+      if (b && c) {
+        onViewportChangeRef.current({
+          north: b.getNorth(),
+          south: b.getSouth(),
+          east: b.getEast(),
+          west: b.getWest(),
+          center: { lat: c.lat, lng: c.lng },
+          zoom: mapInstanceRef.current.getZoom()
+        });
+      }
+    };
+
+    let moveTimer = null;
+    const handleMapMove = () => {
+      if (moveTimer) clearTimeout(moveTimer);
+      moveTimer = setTimeout(() => {
+        emitViewport();
+      }, 100);
+    };
+
+    map.on('moveend', handleMapMove);
+    map.on('zoomend', handleMapMove);
+
+    // Initial emit once map container and layers are ready
+    map.whenReady(() => {
+      setTimeout(emitViewport, 60);
+    });
+
     return () => {
+      if (moveTimer) clearTimeout(moveTimer);
+      map.off('moveend', handleMapMove);
+      map.off('zoomend', handleMapMove);
       map.remove();
       mapInstanceRef.current = null;
     };
@@ -580,6 +642,41 @@ export default function InteractiveMap({ spots = [], selectedSpot, selectedStati
   return (
     <div className="map-container" style={{ position: 'relative' }}>
       <div id="leaflet-map" ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
+
+      {/* Viewport Sync Indicator Pill */}
+      {syncWithMapBounds && spots.length > 0 && (
+        <div className="map-viewport-sync-indicator" style={{
+          position: 'absolute',
+          top: '1rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 990,
+          background: 'rgba(255, 255, 255, 0.94)',
+          backdropFilter: 'blur(8px)',
+          border: '1.5px solid var(--border)',
+          borderRadius: '24px',
+          padding: '0.35rem 0.9rem',
+          boxShadow: '0 4px 14px rgba(0, 72, 157, 0.12)',
+          fontSize: '0.76rem',
+          fontWeight: 700,
+          color: 'var(--primary, #00489d)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+          pointerEvents: 'none',
+          userSelect: 'none'
+        }}>
+          <span style={{
+            width: '7px',
+            height: '7px',
+            borderRadius: '50%',
+            background: '#10b981',
+            display: 'inline-block',
+            boxShadow: '0 0 0 2.5px rgba(16, 185, 129, 0.25)'
+          }} />
+          <span>📍 已依地圖視野同步左側商店清單</span>
+        </div>
+      )}
 
       {/* Floating Map Controls */}
       <div className="map-floating-panel">
