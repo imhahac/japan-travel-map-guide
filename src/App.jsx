@@ -37,6 +37,7 @@ export default function App() {
   const [spots, setSpots] = useState(initialSpots);
   const [stations, setStations] = useState(initialStations);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedSubcategory, setSelectedSubcategory] = useState('all');
   const [selectedBrand, setSelectedBrand] = useState('all');
   const [selectedRegion, setSelectedRegion] = useState('全部地區');
   const [selectedPrefecture, setSelectedPrefecture] = useState('全部都道府縣');
@@ -57,7 +58,7 @@ export default function App() {
     localStorage.setItem('japan_guide_theme', theme);
   }, [theme]);
 
-  // Compute Category Counts
+  // Compute Category Counts (Tier 1)
   const categoryCounts = useMemo(() => {
     const counts = { all: spots.length };
     spots.forEach(s => {
@@ -66,16 +67,33 @@ export default function App() {
     return counts;
   }, [spots]);
 
-  // Compute Brand Counts for all brands across all categories
+  // Compute Subcategory Counts (Tier 2)
+  const subcategoryCounts = useMemo(() => {
+    const counts = {};
+    spots.forEach(s => {
+      if (s.subcategory) {
+        if (selectedCategory === 'all' || s.category === selectedCategory) {
+          counts[s.subcategory] = (counts[s.subcategory] || 0) + 1;
+        }
+      }
+    });
+    return counts;
+  }, [spots, selectedCategory]);
+
+  // Compute Brand Counts for all brands across all categories (Tier 3)
   const brandCounts = useMemo(() => {
     const counts = {};
     spots.forEach(s => {
       if (s.brand) {
-        counts[s.brand] = (counts[s.brand] || 0) + 1;
+        if (selectedCategory === 'all' || s.category === selectedCategory) {
+          if (selectedSubcategory === 'all' || s.subcategory === selectedSubcategory) {
+            counts[s.brand] = (counts[s.brand] || 0) + 1;
+          }
+        }
       }
     });
     return counts;
-  }, [spots]);
+  }, [spots, selectedCategory, selectedSubcategory]);
 
   // Filter and Sort Spots
   const filteredSpots = useMemo(() => {
@@ -88,12 +106,17 @@ export default function App() {
         return { ...spot, currentDistance: dist };
       })
       .filter(spot => {
-        // Category Filter
+        // Category Filter (Tier 1)
         if (selectedCategory !== 'all' && spot.category !== selectedCategory) {
           return false;
         }
 
-        // Brand Filter (when specified)
+        // Subcategory Filter (Tier 2)
+        if (selectedSubcategory !== 'all' && spot.subcategory !== selectedSubcategory) {
+          return false;
+        }
+
+        // Brand Filter (Tier 3)
         if (selectedBrand !== 'all' && spot.brand !== selectedBrand) {
           return false;
         }
@@ -129,12 +152,12 @@ export default function App() {
         // Otherwise sort by walk minutes or region
         return (a.walkMinutes || 5) - (b.walkMinutes || 5);
       });
-  }, [spots, selectedCategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
+  }, [spots, selectedCategory, selectedSubcategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
 
   // Reset visible limit back to 100 whenever filters change
   useEffect(() => {
     setVisibleLimit(100);
-  }, [selectedCategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
+  }, [selectedCategory, selectedSubcategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation]);
 
   // Handle Spot Selection
   const handleSelectSpot = (spot) => {
@@ -166,6 +189,7 @@ export default function App() {
   const hasActiveFilter = useMemo(() => {
     return Boolean(
       (selectedCategory && selectedCategory !== 'all') ||
+      (selectedSubcategory && selectedSubcategory !== 'all') ||
       selectedBrand !== 'all' ||
       selectedRegion !== '全部地區' ||
       selectedPrefecture !== '全部都道府縣' ||
@@ -173,13 +197,14 @@ export default function App() {
       selectedStation ||
       selectedSpot
     );
-  }, [selectedCategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation, selectedSpot]);
+  }, [selectedCategory, selectedSubcategory, selectedBrand, selectedRegion, selectedPrefecture, walkFilter, selectedStation, selectedSpot]);
 
   const isExploreMode = !hasActiveFilter && !hasUserInteracted;
 
   // Reset all filters
   const handleResetAllFilters = () => {
     setSelectedCategory('all');
+    setSelectedSubcategory('all');
     setSelectedBrand('all');
     setSelectedRegion('全部地區');
     setSelectedPrefecture('全部都道府縣');
@@ -239,6 +264,7 @@ export default function App() {
                 categoryCounts={categoryCounts}
                 onSelectCategory={(cat) => {
                   setSelectedCategory(cat);
+                  setSelectedSubcategory('all');
                   setSelectedBrand('all');
                   setHasUserInteracted(true);
                 }}
@@ -308,15 +334,23 @@ export default function App() {
                   onClearStation={() => setSelectedStation(null)}
                 />
 
-                {/* 2. Two-tier Category & Brand Filter */}
+                {/* 2. Three-tier Category, Subcategory & Brand Filter */}
                 <CategoryFilter
                   currentCategory={selectedCategory}
                   onSelectCategory={(cat) => {
                     setSelectedCategory(cat);
+                    setSelectedSubcategory('all');
                     setSelectedBrand('all');
                     setHasUserInteracted(true);
                   }}
                   categoryCounts={categoryCounts}
+                  currentSubcategory={selectedSubcategory}
+                  onSelectSubcategory={(sub) => {
+                    setSelectedSubcategory(sub);
+                    setSelectedBrand('all');
+                    setHasUserInteracted(true);
+                  }}
+                  subcategoryCounts={subcategoryCounts}
                   currentBrand={selectedBrand}
                   onSelectBrand={(b) => {
                     setSelectedBrand(b);

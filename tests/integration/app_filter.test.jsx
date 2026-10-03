@@ -55,66 +55,60 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
       expect(onSelectBrand).toHaveBeenCalledWith('7-Eleven');
     });
 
-    it('切換至「美食餐廳」大類時，第二層應展開平價美食晶片（吉野家、松屋、すき家、一蘭拉麵、客美多咖啡）', () => {
+    it('切換至「美食餐廳」大類時，應顯示 Tier 2 子分類（全部美食、日式拉麵、平價牛丼、迴轉壽司、和風定食、喫茶咖啡）', () => {
+      const onSelectSubcategory = vi.fn();
       const onSelectBrand = vi.fn();
 
       render(
         <CategoryFilter
           currentCategory="美食餐廳"
           onSelectCategory={vi.fn()}
+          currentSubcategory="all"
+          onSelectSubcategory={onSelectSubcategory}
+          subcategoryCounts={{ '拉麵': 242, '牛丼': 34, '壽司': 21, '定食': 13, '咖啡': 11 }}
           currentBrand="all"
           onSelectBrand={onSelectBrand}
         />
       );
 
       expect(screen.getByText('全部美食')).toBeInTheDocument();
-      expect(screen.getByText('吉野家')).toBeInTheDocument();
-      expect(screen.getByText('松屋')).toBeInTheDocument();
-      expect(screen.getByText(/すき家/)).toBeInTheDocument();
-      expect(screen.getByText('一蘭拉麵')).toBeInTheDocument();
-      expect(screen.getByText('客美多咖啡')).toBeInTheDocument();
+      expect(screen.getByText('日式拉麵')).toBeInTheDocument();
+      expect(screen.getByText('平價牛丼')).toBeInTheDocument();
+      expect(screen.getByText('迴轉壽司')).toBeInTheDocument();
+      expect(screen.getByText('和風定食')).toBeInTheDocument();
+      expect(screen.getByText('喫茶咖啡')).toBeInTheDocument();
 
-      // 點擊客美多咖啡
-      fireEvent.click(screen.getByText('客美多咖啡'));
-      expect(onSelectBrand).toHaveBeenCalledWith('客美多咖啡');
+      // 點擊「平價牛丼」子類別
+      fireEvent.click(screen.getByText('平價牛丼'));
+      expect(onSelectSubcategory).toHaveBeenCalledWith('牛丼');
     });
 
-    it('切換至「購物藥妝」大類時，第二層應展開購物品牌晶片（唐吉訶德、松本清）', () => {
+    it('選中「牛丼」子類時，Tier 3 應僅篩選展示牛丼品牌（吉野家、松屋、すき家）', () => {
       const onSelectBrand = vi.fn();
 
       render(
         <CategoryFilter
-          currentCategory="購物藥妝"
+          currentCategory="美食餐廳"
           onSelectCategory={vi.fn()}
+          currentSubcategory="牛丼"
+          onSelectSubcategory={vi.fn()}
           currentBrand="all"
           onSelectBrand={onSelectBrand}
+          brandCounts={{ '吉野家': 12, '松屋': 11, 'すき家': 11 }}
         />
       );
 
-      expect(screen.getByText('全部購物')).toBeInTheDocument();
-      expect(screen.getByText(/唐吉訶德/)).toBeInTheDocument();
-      expect(screen.getByText(/松本清/)).toBeInTheDocument();
+      expect(screen.getByText('全部牛丼品牌')).toBeInTheDocument();
+      expect(screen.getByText('吉野家')).toBeInTheDocument();
+      expect(screen.getByText('松屋')).toBeInTheDocument();
+      expect(screen.getByText(/すき家/)).toBeInTheDocument();
+      // 不應展示拉麵或咖啡品牌
+      expect(screen.queryByText('一蘭拉麵')).toBeNull();
+      expect(screen.queryByText('客美多咖啡')).toBeNull();
 
-      // 點擊唐吉訶德
-      fireEvent.click(screen.getByText(/唐吉訶德/));
-      expect(onSelectBrand).toHaveBeenCalledWith('唐吉訶德');
-    });
-
-    it('購物品牌「全部購物」徽章數字應精確顯示為該大類數量（30）而非 372', () => {
-      render(
-        <CategoryFilter
-          currentCategory="購物藥妝"
-          onSelectCategory={vi.fn()}
-          categoryCounts={{ all: 439, 飯店: 372, 購物藥妝: 30, 美食餐廳: 14, 便利商店: 23 }}
-          currentBrand="all"
-          onSelectBrand={vi.fn()}
-          brandCounts={{ '唐吉訶德': 17, '松本清': 13 }}
-        />
-      );
-
-      const allShoppingBtn = screen.getByText('全部購物').closest('button');
-      expect(allShoppingBtn).toHaveTextContent('30');
-      expect(allShoppingBtn).not.toHaveTextContent('372');
+      // 點擊吉野家品牌
+      fireEvent.click(screen.getByText('吉野家'));
+      expect(onSelectBrand).toHaveBeenCalledWith('吉野家');
     });
 
     it('Navbar 標題應已移除「東橫 INN 旗艦版」專屬字眼', async () => {

@@ -36,6 +36,30 @@ function parseCsv(csvText) {
   });
 }
 
+function getSubcategory(category, brand = '', name = '') {
+  if (category === '飯店' || brand === '東橫INN' || brand === 'APA飯店') {
+    return '商務飯店';
+  }
+  if (category === '購物藥妝') {
+    if (['Bic Camera', '友都八喜', 'Kojima', 'Sofmap'].includes(brand) || /Camera|ヨドバシ|ソフマップ|ビック|コジマ/i.test(name)) {
+      return '3C家電';
+    }
+    return '藥妝量販';
+  }
+  if (category === '美食餐廳') {
+    if (['吉野家', '松屋', 'すき家'].includes(brand) || /牛丼/.test(name)) return '牛丼';
+    if (['一蘭拉麵', '一風堂'].includes(brand) || /拉麵|ラーメン/i.test(name)) return '拉麵';
+    if (['壽司郎', '藏壽司'].includes(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
+    if (['やよい軒', '大戶屋'].includes(brand) || /定食|彌生軒/.test(name)) return '定食';
+    if (['客美多咖啡'].includes(brand) || /咖啡|珈琲|コメダ/i.test(name)) return '咖啡';
+    return '平價美食';
+  }
+  if (category === '便利商店' || ['7-Eleven', 'FamilyMart', 'Lawson'].includes(brand)) {
+    return '連鎖超商';
+  }
+  return '特色精選';
+}
+
 function normalizeSpot(row, fallbackCategory = '飯店') {
   const latLng = (row.Coordinates || row.coordinates || '').split(',').map(s => parseFloat(s.trim()));
   const lat = !isNaN(latLng[0]) ? latLng[0] : (parseFloat(row.lat) || 35.6812);
@@ -47,11 +71,16 @@ function normalizeSpot(row, fallbackCategory = '飯店') {
     : (Array.isArray(rawTags) ? rawTags : []);
 
   const walkMin = parseInt(row.WalkMinutes || row.walkMinutes || 5, 10);
+  const category = row.Category || row.category || fallbackCategory;
+  const brand = row.Brand || row.brand || '';
+  const name = row.Name || row.name || '未命名地點';
+  const subcategory = row.Subcategory || row.subcategory || getSubcategory(category, brand, name);
 
   return {
     id: String(row.ID || row.id || `spot-${Math.random().toString(36).substr(2, 9)}`),
-    category: row.Category || row.category || fallbackCategory,
-    brand: row.Brand || row.brand || '',
+    category: category,
+    subcategory: subcategory,
+    brand: brand,
     name: row.Name || row.name || '未命名地點',
     nameJa: row.NameJa || row.nameJa || row.Name || row.name || '',
     region: row.Region || row.region || '其他',
