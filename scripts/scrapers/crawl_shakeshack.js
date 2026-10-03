@@ -72,18 +72,20 @@ export async function crawlShakeShack(stationsList = [], options = {}) {
     const locations = await res.json();
     if (verbose) console.log(`   [Shake Shack] 成功取得官方門市列表，共 ${locations.length} 間門市。`);
 
-    for (const loc of locations) {
+    const targetLocations = locations.slice(0, maxStores);
+    for (const loc of targetLocations) {
       const slug = loc.slug || `${loc.id}`;
       const title = (loc.title?.rendered || slug).trim();
       const link = loc.link || `https://shakeshack.jp/locations/${slug}/`;
+      const fallback = SHAKE_SHACK_FALLBACK_COORDS[slug] || {};
 
-      let address = '';
+      let address = fallback.address || '';
       let hours = '';
       let phone = '';
 
       // 抓取個別門市詳細頁面解析地址與營業時間
       try {
-        const detailRes = await fetchWithRetry(link, {}, 2, 6000);
+        const detailRes = await fetchWithRetry(link, {}, 2, 4000);
         if (detailRes.ok) {
           const html = await detailRes.text();
           const $ = cheerio.load(html);
@@ -94,7 +96,8 @@ export async function crawlShakeShack(stationsList = [], options = {}) {
             const unit = $(el).closest('.locations-2cols__unit');
             if (h2Text === 'address') {
               const pTags = unit.children('p').not('.page-heading__lead');
-              address = pTags.text().trim();
+              const foundAddr = pTags.text().trim();
+              if (foundAddr) address = foundAddr;
             } else if (h2Text === 'hours') {
               const pTags = unit.children('p').not('.page-heading__lead');
               hours = pTags.text().replace(/\s+/g, ' ').trim();
@@ -119,20 +122,15 @@ export async function crawlShakeShack(stationsList = [], options = {}) {
         if (verbose) console.warn(`   [Shake Shack] 詳細頁取得失敗 (${slug}):`, err.message);
       }
 
-      // 若未抓到地址則取備份字典
-      const fallback = SHAKE_SHACK_FALLBACK_COORDS[slug] || {};
-      if (!address && fallback.address) {
-        address = fallback.address;
-      }
       if (!address) {
-        address = `東京都港區 (${title})`;
+        address = fallback.address || `東京都港區 (${title})`;
       }
 
-      // 國土地理院反查或備用經緯度
-      let coord = await geocodeAddressWithGsi(address);
-      if (!coord && fallback.lat && fallback.lng) {
-        coord = { lat: fallback.lat, lng: fallback.lng };
-      }
+      // 優先使用精確人工校驗經緯度，其次反查國土地理院
+      let coord = (fallback.lat && fallback.lng)
+        ? { lat: fallback.lat, lng: fallback.lng }
+        : await geocodeAddressWithGsi(address);
+
       if (!coord) {
         coord = { lat: 35.672778, lng: 139.718889 }; // 外苑前預設
       }

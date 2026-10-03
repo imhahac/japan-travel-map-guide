@@ -14,7 +14,7 @@ import { crawlYayoiken } from '../../scripts/scrapers/crawl_yayoiken.js';
 import { crawlSaizeriya } from '../../scripts/scrapers/crawl_saizeriya.js';
 import { crawlShakeShack } from '../../scripts/scrapers/crawl_shakeshack.js';
 
-describe('Nationwide 11-Brand Official Scrapers Test Suite', () => {
+describe('Nationwide 11-Brand Official Scrapers Test Suite', { timeout: 20000 }, () => {
   const sampleStations = [
     { name: '新宿', lat: 35.6909, lng: 139.7003, lines: ['JR 山手線'] },
     { name: '東京', lat: 35.6812, lng: 139.7671, lines: ['JR 山手線'] }
@@ -129,5 +129,5 @@ describe('Nationwide 11-Brand Official Scrapers Test Suite', () => {
     expect(first.category).toBe('美食餐廳');
     expect(first.subcategory).toBe('漢堡輕食');
     expect(validateSpot(first).isValid).toBe(true);
-  });
+  }, 15000);
 });
