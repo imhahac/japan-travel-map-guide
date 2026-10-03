@@ -1,43 +1,46 @@
-# 系統架構與演算法設計手冊 (Architecture & Algorithm Specification)
+# 系統架構與演算法規格手冊 (Architecture & Algorithm Specification)
 
-> **版本**：v2.0 (多類別、雙層篩選與生活圈導引架構)  
-> **更新日期**：2026-10-02
+> **版本**：v3.0 (全國 8,652 筆門市、三層分類階層、340 站生活圈與零預設渲染架構)  
+> **更新日期**：2026-10-03  
+> **維護人員**：`imhahac`
 
 ---
 
 ## 一、系統整體架構圖
 
-本專案採分層解耦架構，資料層、演算法層與前端展現層完全獨立，支援離線 Seed、即時爬蟲與 Google Sheets 雲端三向資料管線。
+本專案採現代化分層解耦架構，資料來源層、核心計算檢驗層、索引彙整層與前端展現層完全獨立，支援離線種子庫、官方即時爬蟲與 Google Sheets 雲端三向資料管線。
 
 ```mermaid
 graph TD
-    subgraph Data Sources [資料來源層]
-        A1[Google Sheets 雲端試算表]
-        A2[官網即時爬蟲 Toyoko/APA/OSM]
-        A3[離線種子資料庫 Seed JSONs]
+    subgraph Data Sources [資料來源層 Data Sources]
+        A1[Google Sheets 雲端試算表 5 大分頁]
+        A2[9 大品牌官方爬蟲 REST / Navitime / Canly / LBS API]
+        A3[離線種子資料庫 Seed JSONs: 8,652 筆真實地標]
     end
 
-    subgraph Core Engine [核心計算與驗證引擎 scripts/core]
-        B1[geo.js: Haversine & 1.25x 街廓係數]
-        B2[geo.js: 500m 車站半徑嚴格過濾演算法]
-        B3[validator.js: 日本邊界盒 & Schema 檢驗]
-        B4[dedupe.js: 座標鄰近與名稱正規化去重]
+    subgraph Core Processing [核心計算與品質檢驗 scripts/core]
+        B1["geo.js: Haversine 球面距離 & 1.25x 日本都市街廓係數"]
+        B2["geo.js: 340 座主要車站 300m / 500m / 1000m 生活圈配對"]
+        B3["validator.js: 日本國土邊界盒 (24.0°N~46.0°N, 122.0°E~154.0°E) 檢驗"]
+        B4["dedupe.js: 空間鄰近座標 (20m) 與店名標準化去重"]
     end
 
-    subgraph Data Aggregator [資料彙整與索引 scripts/datagenerate.js]
-        C1[(src/data/spots.json: 439 處生活地標)]
-        C2[(src/data/stations.json: 277 座日本車站索引)]
+    subgraph Data Aggregator [資料彙整與靜態索引 scripts/datagenerate.js]
+        C1[("src/data/spots.json: 8,652 筆全域生活與旅遊地標")]
+        C2[("src/data/stations.json: 340 座日本樞紐車站生活圈索引")]
     end
 
-    subgraph Presentation Layer [前端互動展現層 React 19]
-        D1[InteractiveMap.jsx: Leaflet + 專屬品牌圖釘]
-        D2[CategoryFilter.jsx: 雙層分類與品牌晶片]
-        D3[RegionHierarchyFilter.jsx: 區域與步行拉桿]
-        D4[StationSearchBar.jsx: 車站生活圈聚焦搜尋]
-        D5[SpotCard.jsx: 即時步行時間與導航卡片]
+    subgraph Presentation Layer [前端互動展現層 React 19 + Leaflet 1.9]
+        D1["零預設渲染控制器 (Zero-Default Render Controller)"]
+        D2["CategoryFilter.jsx: 三層分類階層與品牌專屬晶片"]
+        D3["StationSearchBar.jsx: 車站生活圈搜尋與多環半徑聚焦"]
+        D4["RegionHierarchyFilter.jsx: 8 大地區與 47 都道府縣切換"]
+        D5["InteractiveMap.jsx: Leaflet + MarkerCluster + 品牌專屬色圖釘"]
+        D6["SelectedSpotPanel: 左側獨立地圖選取商家看板 (防遮蔽)"]
+        D7["SpotCard.jsx: 單頁上限 100 筆卡片清單 (防記憶體暴增)"]
     end
 
-    A1 -->|雙軌備援| C1
+    A1 -->|雙向同步 / 備援| C1
     A2 --> B1
     A3 --> B1
     B1 --> B2
@@ -45,157 +48,162 @@ graph TD
     B3 --> B4
     B4 --> C1
     C1 --> D1
-    C1 --> D2
-    C1 --> D3
-    C1 --> D5
-    C2 --> D4
-    C2 --> D1
+    C2 --> D3
+    D1 --> D2
+    D1 --> D3
+    D1 --> D4
+    D2 --> D5
+    D3 --> D5
+    D4 --> D5
+    D5 -->|選取事件| D6
+    D1 -->|篩選結果動態加載| D7
 ```
 
 ---
 
 ## 二、核心地理演算法規範 (`scripts/core/geo.js`)
 
-### 1. Haversine 大圓距離公式
-計算兩點經緯度之球面最短距離（公尺）：
+### 1. Haversine 大圓球面距離公式
+精確計算地表兩點經緯度間之最短大圓弧長距離（公尺）：
 $$\Delta\sigma = 2 \arcsin \left( \sqrt{\sin^2\left(\frac{\Delta\phi}{2}\right) + \cos\phi_1 \cos\phi_2 \sin^2\left(\frac{\Delta\lambda}{2}\right)} \right)$$
-$$d = R \cdot \Delta\sigma \quad (\text{其中 } R = 6,371,000 \text{ 公尺})$$
+$$d = R \cdot \Delta\sigma \quad (\text{其中地球平均半徑 } R = 6,371,000 \text{ 公尺})$$
 
 ### 2. 街廓繞行係數 (Street Detour Factor) 與步行常數
-- **日本都市街廓特性**：旅客無法直穿高樓建築物，日本國土交通省都市計畫基準實務通常採 **1.20 ~ 1.30** 之迂迴常數。
+- **日本都市街廓特性**：旅客無法直穿高樓建築群與封閉街區，日本國土交通省都市計畫標準與各級自治體實務通常採 **1.20 ~ 1.30** 之街廓迂迴常數。
 - **計算公式**：
   $$\text{實際步行距離} = \text{直線距離} \times 1.25$$
-- **步行速度**：依據日本不動產標示公正競爭規約（不動産公正競争規約），標準步行速度訂為 **80 公尺／分鐘**（不滿 1 分鐘以 1 分鐘計）：
-  $$\text{步行分鐘} = \left\lceil \frac{\text{實際步行距離}}{80} \right\rceil$$
+- **步行速度規範**：依據日本不動產標示公正競爭規約（不動産公正競争規約施行規則），公眾標示之標準步行速度訂為 **80 公尺／分鐘**（不滿 1 分鐘以 1 分鐘計算）：
+  $$\text{步行時間（分鐘）} = \left\lceil \frac{\text{實際步行距離}}{80} \right\rceil$$
 
-### 3. 車站 500 公尺半徑過濾演算法 (`filterStoresWithinStationRadius`)
-- **設計動機**：日本三大超商與平價牛丼總店數超過數萬間，若無限制收錄將造成：
-  1. 瀏覽器 Leaflet MarkerCluster 記憶體暴增、行動裝置卡頓；
-  2. Google Sheet 存取超過 6 分鐘逾時；
-  3. 旅客查找失去「出站生活圈」的聚焦性。
-- **演算法邏輯**：
-  1. 對每筆待檢驗門市，計算其與全日本 277 座主要樞紐車站的直線距離；
-  2. 僅保留 $\text{最近車站距離} \le 500\text{m}$ 之門市；
-  3. 距離大於 500m 的郊區門市一律自動排除，確保每處地標皆在出站步行可及範圍（6 分鐘以內）。
+### 3. 車站生活圈多環半徑模型 (Multi-Ring Station Proximity Model)
+系統內建全日本 **340 座主要樞紐車站**（涵蓋 JR 新幹線、在來線、各主要私鐵與地下鐵系統），並建立三層步行生活圈環形模型：
+- **核心出站環（300 公尺）**：步行約 3~4 分鐘內，涵蓋站前商店街、飯店大廳及地下街直通門市。
+- **生活圈環（500 公尺）**：步行約 6~7 分鐘內，為一般自由行旅客最理想的採買與住宿半徑。
+- **延伸商圈環（1,000 公尺）**：步行約 12~15 分鐘內，涵蓋主要市區延伸商圈與大型量販購物中心。
 
 ---
 
-## 三、資料模型規範 (Schema Specification)
+## 三、三層分類與品牌晶片架構 (Three-Tier Hierarchy)
+
+為有效管理多達 8,652 間實體門市，系統建立三層次由寬至窄的篩選模型：
+
+```mermaid
+stateDiagram-v2
+    [*] --> 零預設渲染模式 (首屏乾淨、不盲加載DOM)
+
+    state "第一層：核心大分類 (L1 Categories)" as L1 {
+        全部
+        住宿飯店 (678間)
+        購物藥妝 (970間)
+        美食餐廳 (7025間)
+        便利商店 (23間精選)
+    }
+
+    state "第二層：品牌與次分類晶片 (L2 Brand Chips)" as L2 {
+        住宿: 東橫INN / APA飯店
+        購物: 唐吉訶德 / 松本清 / Bic Camera / 友都八喜
+        美食: すき家 / 松屋 / 壽司郎 / 藏壽司 / はま寿司 / 客美多 / 大戶屋 / やよい軒 / 一蘭 / 一風堂
+        超商: 7-Eleven / 全家 / 羅森
+    }
+
+    state "第三層：空間與生活圈維度 (L3 Spatial Filters)" as L3 {
+        8大地理分區 (關東、近畿、中部、北海道等)
+        47都道府縣
+        340座車站生活圈 (300m / 500m / 1000m)
+    }
+
+    state "前端展示與防禦機制" as Output {
+        左側地圖選取看板 (即時呈現點選門市資訊)
+        左側卡片清單 (嚴格限制單頁最大100筆)
+        地圖 MarkerCluster 智慧聚合 (避免圖標堆疊)
+    }
+
+    [*] --> L1
+    L1 --> L2
+    L2 --> L3
+    L3 --> Output
+```
+
+---
+
+## 四、前端效能與記憶體防護規範
+
+收錄規模達近萬筆門市時，若直接在瀏覽器掛載上萬個 DOM 節點，將導致低階行動裝置或瀏覽器記憶體崩潰。本系統實施下列核心防禦機制：
+
+### 1. 零預設渲染策略 (Zero-Default Render)
+- 進入首頁時，預設保持清爽的生活圈地圖全貌與車站搜尋引導，**不盲目在側邊欄渲染 8,652 個 DOM 卡片**。
+- 當使用者點選特定分類（如「購物藥妝」）、選取品牌（如「Bic Camera」）或搜尋車站（如「新宿」）時，系統才進行精準匹配與動態渲染。
+
+### 2. 左側商家列表分頁截斷 (Chunking Cap: Max 100)
+- 不論篩選結果有多少筆（例如「美食餐廳」全國 7,025 筆），側邊欄列表**單次最大載入 100 筆最相關卡片**。
+- 若已選定車站，100 筆卡片嚴格依離站步行公尺數由近至遠排序；若未選定車站，則依推薦優先級排序，徹底防止記憶體耗盡。
+
+### 3. 左側獨立「地圖選取商家資訊」看板 (Selected Spot Inspector)
+- 傳統地圖點擊 Marker 僅能仰賴地圖彈窗 (Popup)，經常發生被螢幕邊界遮擋、手機縮放時難以閱讀之問題。
+- 本專案特別設計：點擊地圖上任一圖釘時，左側側邊欄頂部立即升起醒目的高對比度資訊面板，呈現完整地址、電話、即時步行距離與導航按鈕，實現地圖與左側卡片無死角雙向連動。
+
+### 4. Leaflet 向量圖釘與 MarkerCluster Canvas 最佳化
+- 地圖標記全面採用 Leaflet MarkerCluster 進行視角動態聚類；
+- 在全國高空視野時以圓形數量徽章呈現，縮放至街廓等級時平滑綻放為各品牌專屬色系與圖標，保持 60 FPS 順暢縮放。
+
+---
+
+## 五、資料模型規格 (Data Schema Specification)
 
 ### 1. 景點與門市模型 (`Spot`)
 
 | 欄位名稱 | 型別 | 必填 | 範例 | 說明 |
 | :--- | :--- | :---: | :--- | :--- |
-| `id` | `string` | 是 | `dining-yoshinoya-shinjuku-east` | 全域唯一識別碼，格式：`{類別}-{品牌代碼}-{分店}` |
-| `category` | `string` | 是 | `飯店` / `購物藥妝` / `美食餐廳` / `便利商店` | 頂層大分類，必須符合系統枚舉值 |
-| `brand` | `string` | 是 | `東橫INN` / `吉野家` / `7-Eleven` | 品牌名稱，驅動第二層晶片與專屬圖釘 |
-| `name` | `string` | 是 | `7-Eleven 新宿東口站前店` | 繁體中文或習慣稱呼之完整店名 |
-| `nameJa` | `string` | 否 | `セブン-イレブン 新宿東口駅前店` | 日文官方登記店名 |
-| `region` | `string` | 是 | `關東` / `近畿` / `北海道` 等 | 日本八大地理分區 |
+| `id` | `string` | 是 | `dining-sukiya-tokyo-0012` | 全域唯一識別碼，格式：`{類別}-{品牌}-{識別碼}` |
+| `category` | `string` | 是 | `美食餐廳` / `購物藥妝` / `飯店` / `便利商店` | 第一層大分類，符合系統規範 |
+| `brand` | `string` | 是 | `すき家` / `Bic Camera` / `東橫INN` | 品牌名稱，驅動品牌晶片與專屬色圖釘 |
+| `name` | `string` | 是 | `すき家 新宿南口店` | 繁體中文或通用店名 |
+| `nameJa` | `string` | 否 | `すき家 新宿南口店` | 日文官方登記店名 |
+| `region` | `string` | 是 | `關東` / `近畿` / `北海道` 等 | 日本 8 大地理分區 |
 | `prefecture` | `string` | 是 | `東京都` / `大阪府` / `京都府` | 都道府縣 |
-| `nearestStation` | `string` | 是 | `新宿站` | 經由演算法配對之最近車站 |
+| `nearestStation` | `string` | 是 | `新宿站` | 經演算法配對之最近樞紐車站 |
 | `stationLine` | `string` | 否 | `JR山手線` | 該車站主要途經鐵道路線 |
-| `stationAccess` | `string` | 否 | `JR 新宿站 東口步行約 2 分鐘` | 交通指引文字描述 |
-| `walkMinutes` | `number` | 是 | `2` | 出站實際步行時間（整數，$\ge 0$） |
-| `address` | `string` | 是 | `東京都新宿区新宿3-24-1` | 完整日本地址 |
-| `lat` | `number` | 是 | `35.6918` | 緯度（必須介於 24.0 至 46.0） |
-| `lng` | `number` | 是 | `139.7012` | 經度（必須介於 122.0 至 154.0） |
-| `phone` | `string` | 否 | `03-3352-7111` | 連絡電話 |
-| `bookingUrl` | `string` | 否 | `https://www.sej.co.jp/` | 官方預約或門市詳情連結 |
-| `googleMapUrl` | `string` | 否 | `https://maps.google.com/?q=...` | Google 地圖定位連結 |
+| `stationAccess` | `string` | 否 | `JR 新宿站 南口步行約 3 分鐘` | 交通指引文字描述 |
+| `walkMinutes` | `number` | 是 | `3` | 出站實際步行時間（整數，$\ge 0$） |
+| `address` | `string` | 是 | `東京都新宿区西新宿1-18-5` | 完整日本地址 |
+| `lat` | `number` | 是 | `35.6885` | 緯度（必須介於 24.0 至 46.0 日本國土內） |
+| `lng` | `number` | 是 | `139.6991` | 經度（必須介於 122.0 至 154.0 日本國土內） |
+| `phone` | `string` | 否 | `0120-498-007` | 聯絡電話 |
+| `bookingUrl` | `string` | 否 | `https://maps.sukiya.jp/...` | 官方門市介紹、菜單或預約網址 |
+| `googleMapUrl` | `string` | 否 | `https://maps.google.com/?q=...` | Google 地圖定位導航連結 |
 | `imageUrl` | `string` | 否 | `https://images.unsplash.com/...` | 門市或商品代表性照片 |
-| `tags` | `string` | 否 | `24小時營業, Seven Bank ATM` | 以逗號分隔之特性標籤字串 |
-| `notes` | `string` | 否 | `提供外幣提款 ATM 與熟食炸物。` | 特色說明與使用者備註 |
+| `tags` | `string` | 否 | `24小時營業, 外帶服務, 電子支付` | 以逗號分隔之特性標籤字串 |
+| `notes` | `string` | 否 | `平價牛丼首選，早餐時段提供日式定食。` | 使用者備註（同步時永久保護不抹除） |
 
-### 2. 車站索引模型 (`Station`)
+### 2. 車站生活圈索引模型 (`Station`)
 
 | 欄位名稱 | 型別 | 範例 | 說明 |
 | :--- | :--- | :--- | :--- |
-| `name` | `string` | `東京站` | 車站中文通用名稱 |
-| `nameJa` | `string` | `東京駅` | 車站日文名稱 |
-| `lat` | `number` | `35.681236` | 車站中心點緯度 |
-| `lng` | `number` | `139.767125` | 車站中心點經度 |
-| `lines` | `string[]` | `["JR山手線", "JR中央線"]` | 途經路線陣列 |
+| `name` | `string` | `新宿站` | 車站中文通用名稱 |
+| `nameJa` | `string` | `新宿駅` | 車站日文官方名稱 |
+| `lat` | `number` | `35.6896` | 車站中心點緯度 |
+| `lng` | `number` | `139.7006` | 車站中心點經度 |
+| `lines` | `string[]` | `["JR山手線", "JR中央線", "東京地鐵丸之內線"]` | 途經路線陣列 |
 | `region` | `string` | `關東` | 車站所屬地區 |
 | `prefecture` | `string` | `東京都` | 車站所屬都道府縣 |
-| `count` | `number` | `8` | 該車站周邊 500m~1km 內之地標數量 |
+| `count` | `number` | `185` | 該車站周邊 1km 內所收錄之地標與門市總數 |
 
 ---
 
-## 四、前端雙層篩選與狀態流轉
+## 六、全國爬蟲管線與反爬蟲防禦機制
 
-```mermaid
-stateDiagram-v2
-    [*] --> 全部顯示 (439處地標)
+專案於 `scripts/scrapers/` 建立了 9 大品牌專屬官方爬蟲，統籌於 `crawl_all_nationwide.js`：
 
-    state "第一層：大類切換" as L1 {
-        全部 --> 飯店 (372)
-        全部 --> 購物藥妝 (30)
-        全部 --> 美食餐廳 (14)
-        全部 --> 便利商店 (23)
-    }
+1. **すき家 (Sukiya) & はま寿司 (Hama Sushi)**：對接 Zensho Holdings 官方分店查詢 API，批次擷取各都道府縣經緯度與營業標籤。
+2. **松屋 (Matsuya)**：對接 Navitime Citrus API 實時分店圖資，取得精確地址與車站距離。
+3. **壽司郎 (Sushiro)**：解析 Akindo Sushiro 官方門市清單與分店詳情。
+4. **藏壽司 (Kura Sushi)**：對接官方地理空間資料庫，抓取營業時間與經緯度。
+5. **客美多咖啡 (Komeda's Coffee)**：對接官方分店 REST API，擷取全日本逾千間門市與禁菸/插座標籤。
+6. **大戶屋 (Ootoya)**：對接 Canly 官方 API，擷取定食門市精確座標。
+7. **やよい軒 (Yayoiken)**：對接 Mapion LBS API，完整解析各分店設施。
+8. **Bic Camera**：解析官方店鋪指南頁面，建立全日本 45 間大型旗艦家電量販店資料。
 
-    state "第二層：品牌細分" as L2 {
-        飯店 --> 東橫INN / APA飯店
-        購物藥妝 --> 唐吉訶德 / 松本清
-        美食餐廳 --> 吉野家 / 松屋 / すき家 / 一蘭 / 客美多
-        便利商店 --> 7-Eleven / 全家 / 羅森
-    }
-
-    state "維度交集過濾" as Filters {
-        區域都道府縣過濾
-        步行拉桿 (3分/5分/10分)
-        車站生活圈聚焦 (1km半徑)
-    }
-
-    L1 --> L2
-    L2 --> Filters
-    Filters --> 地圖圖釘即時重繪與聚合
-```
-
----
-
-## 五、目錄結構索引
-
-```
-japan-travel-map-guide/
-├── .github/workflows/          # 自動化工作流程
-│   ├── ci_test.yml             # [CI] 每次 PR / Push 執行測試與建置檢查
-│   ├── deploy.yml              # [CD] 自動打包並部署至 GitHub Pages
-│   ├── sync_to_sheet.yml       # [Sync] 雙向同步至 Google Sheet
-│   └── crawl_url.yml           # [Scraper] 佇列爬蟲工作流
-├── docs/                       # 零通靈完整文檔
-│   ├── DEPLOYMENT.md           # 部署與維運手冊
-│   ├── ARCHITECTURE.md         # 系統架構與演算法規格手冊
-│   └── GOOGLE_SHEETS_GUIDE.md  # 試算表對齊與 GAS Webhook 指南
-├── gas/
-│   └── Code.gs                 # Google Apps Script Webhook 批次寫入引擎
-├── scripts/
-│   ├── core/                   # 核心不可變邏輯模組
-│   │   ├── geo.js              # Haversine、路網係數與 500m 車站篩選
-│   │   ├── validator.js        # 資料格式與日本邊界檢驗
-│   │   └── dedupe.js           # 座標與名稱去重
-│   ├── scrapers/               # 模組化爬蟲
-│   │   ├── apa.js              # APA 飯店爬蟲
-│   │   ├── donki.js            # 唐吉訶德爬蟲
-│   │   ├── matsumoto.js        # 松本清爬蟲
-│   │   ├── dining.js           # 平價美食連鎖爬蟲
-│   │   └── convenience.js      # 三大超商爬蟲
-│   └── datagenerate.js         # 全域資料建置與標準化主程式
-├── src/
-│   ├── components/             # React UI 組件
-│   │   ├── InteractiveMap.jsx  # Leaflet 地圖、自訂圖釘、聚類圖示
-│   │   ├── CategoryFilter.jsx  # 雙層分類與品牌晶片選擇器
-│   │   ├── RegionHierarchyFilter.jsx # 區域與步行拉桿
-│   │   ├── StationSearchBar.jsx# 車站智慧搜尋與生活圈聚焦
-│   │   ├── SpotCard.jsx        # 地標卡片
-│   │   └── Navbar.jsx          # 頂部導航
-│   └── data/                   # 種子資料與產出資料
-│       ├── spots.json          # 彙總 439 筆地標
-│       ├── stations.json       # 277 座車站索引
-│       └── *_seed.json         # 各分類離線種子庫
-└── tests/                      # Vitest 測試套件 (10 套件、65 測資)
-    ├── fixtures/               # 離線測試用樣本
-    ├── unit/                   # 單元測試
-    └── integration/            # 雙層篩選與連動整合測試
-```
+**防禦與品質控制規範**：
+- **User-Agent 與禮貌延遲**：模擬正規瀏覽器 Header，每次請求間隔 300~500ms，杜絕伺服器負載風險。
+- **經緯度有效性與國土邊界盒驗證**：若爬取到的經緯度為空、為 0 或超出日本國土邊界（24°N~46°N, 122°E~154°E），一律自動剔除。
+- **鄰近車站智慧配對**：自動比對 340 座樞紐車站，計算離站距離與 1.25x 步行時間，補齊 `nearestStation` 與 `walkMinutes`。

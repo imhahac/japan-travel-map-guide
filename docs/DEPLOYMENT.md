@@ -1,57 +1,61 @@
 # 專案部署與維運手冊 (Deployment & Operations Manual)
 
-> **目標**：提供最詳盡、零猜測（零通靈）的部署與設定指南。任何人依照本文件之逐步圖文引導，皆可在 10 分鐘內完成 GitHub Pages 靜態網站、GitHub Actions 自動化工作流與 Google Apps Script 雲端同步之全套部署。
+> **目標**：提供最詳盡、零猜測（零通靈）的部署與維運指南。任何人依照本文件之逐步引導，皆可在 10 分鐘內完成 GitHub Pages 靜態網站、GitHub Actions 自動化工作流程與 Google Apps Script (GAS) 雲端試算表同步之全套部署。
 
 ---
 
 ## 目錄
-1. [系統架構與環境要求](#一系統架構與環境要求)
+1. [系統架構與環境需求](#一系統架構與環境需求)
 2. [本地開發與測試環境設置](#二本地開發與測試環境設置)
 3. [GitHub Pages 部署全步驟（零通靈）](#三github-pages-部署全步驟零通靈)
 4. [GitHub Repository Secrets & Variables 設定表](#四github-repository-secrets--variables-設定表)
-5. [GitHub Actions 工作流總覽](#五github-actions-工作流總覽)
-6. [疑難排解與常見問題 (FAQ)](#六疑難排解與常見問題-faq)
+5. [GitHub Actions 自動化工作流程總覽](#五github-actions-自動化工作流程總覽)
+6. [全國門市爬蟲與試算表同步維運指令](#六全國門市爬蟲與試算表同步維運指令)
+7. [疑難排解與常見問題 (FAQ)](#七疑難排解與常見問題-faq)
 
 ---
 
-## 一、系統架構與環境要求
+## 一、系統架構與環境需求
 
-本系統採用現代化前端 JAMstack 架構：
-- **前端運行環境**：React 19 + Vite 8 + Leaflet 1.9 + MarkerCluster
-- **打包與建置**：Node.js >= 20（GitHub Actions 使用 Node 24 LTS）
-- **單元與整合測試**：Vitest 5 + Testing Library + jsdom
-- **靜態主機代管**：GitHub Pages（由 GitHub Actions 自動建置與發佈）
-- **雲端資料庫**：Google Sheets（雙向同步，支援離線 Seed JSON 備援防護）
+本系統採用現代化前端 JAMstack 與無伺服器 (Serverless) 架構：
+- **前端核心框架**：React 19 + Vite 8 + Leaflet 1.9 + Leaflet.MarkerCluster
+- **運行與打包環境**：Node.js >= 20.x（建議使用 Node.js 20 或 22 LTS；GitHub Actions 工作流固定使用 Node 24）
+- **品質檢驗套件**：Vitest 5 + Testing Library + jsdom + Oxlint
+- **靜態主機代管**：GitHub Pages（由 GitHub Actions 原生工作流自動建置與發布）
+- **雲端試算表資料庫**：Google Sheets（透過 Google Apps Script Webhook 進行二維矩陣原子同步）
+- **資料規模**：內建 **8,652 筆** 全國真實實體門市與景點，以及 **340 座** 日本鐵路與地下鐵車站生活圈索引
 
 ---
 
 ## 二、本地開發與測試環境設置
 
-### 1. 複製專案與安裝相依套件
+### 1. 複製專案與安裝相依模組
+開啟您的終端機，執行以下指令：
 ```bash
-# 複製專案
+# 複製專案儲存庫
 git clone https://github.com/imhahac/japan-travel-map-guide.git
 cd japan-travel-map-guide
 
-# 安裝相依模組
+# 安裝相依套件模組
 npm install
 ```
 
-### 2. 本地開發伺服器
+### 2. 啟動本地開發伺服器
 ```bash
 npm run dev
 ```
-啟動後於瀏覽器開啟 `http://localhost:5173/` 即可進行即時預覽，支援 Vite HMR (熱模組替換)。
+啟動成功後，終端機會顯示本地伺服器網址（例如 `http://localhost:5173/`）。使用瀏覽器開啟即可進行即時操作與預覽，程式碼修改會透過 Vite HMR (熱模組替換) 瞬間更新。
 
-### 3. 本地執行品質測試
+### 3. 執行全套品質測試與靜態檢查
+在提交任何程式碼或發起 Pull Request 之前，請務必執行測試：
 ```bash
-# 執行全部單元測試與整合測試（10 套件、65 項測資）
+# 執行全部 12 套單元測試與端到端篩選整合測試 (82 個測資)
 npm test
 
-# 執行程式碼靜態分析
+# 執行 Oxlint 高效能靜態分析檢查
 npm run lint
 
-# 執行資料產生器與生產環境建置檢查
+# 驗證靜態資料產生器與生產環境建置
 npm run build
 ```
 
@@ -59,82 +63,115 @@ npm run build
 
 ## 三、GitHub Pages 部署全步驟（零通靈）
 
-本專案使用 GitHub Actions 原生 Pages 機制 (`deploy-pages`)，**完全不需要**手動切換 `gh-pages` 分支！
+本專案採用 GitHub Actions 原生的 `deploy-pages` 部署機制，**完全不需要**手動建立或維護 `gh-pages` 分支！
 
 ### 步驟 1：開啟 GitHub Pages Actions 權限
-1. 進入您的 GitHub Repository 頁面（例如 `https://github.com/<您的帳號>/japan-travel-map-guide`）。
-2. 點選上方頁籤 **「Settings」**。
-3. 在左側選單中找到 **「Pages」**（位於 Code and automation 分類下）。
-4. 在 **「Build and deployment」** 區塊：
-   - **Source**：請由下拉選單選取 **`GitHub Actions`**（⚠️ 請勿選取 Deploy from a branch）。
-5. 設定完成後，GitHub 即具備由 Actions 直接推送產物的權限。
+1. 在瀏覽器中開啟您的 GitHub 儲存庫頁面（例如 `https://github.com/<您的GitHub帳號>/japan-travel-map-guide`）。
+2. 點選儲存庫頂部選單最右側的 **「Settings」**（設定）。
+3. 在左側側邊欄中找到 **「Code and automation」** 分類下的 **「Pages」**。
+4. 在右側 **「Build and deployment」** 區塊：
+   - **Source**（來源）：請點擊下拉選單，選取 **`GitHub Actions`**。  
+     *(⚠️ 注意：千萬不要選取「Deploy from a branch」)*
+5. 設定完成後，GitHub 會自動授權 GitHub Actions 部署靜態產物至 GitHub Pages。
 
-### 步驟 2：觸發首次自動建置
-當您將程式碼推送至 `main` 分支時，`.github/workflows/deploy.yml` 將會自動被觸發：
+### 步驟 2：觸發首次自動建置與部署
+當您將程式碼推送至 `main` 分支時，位於 `.github/workflows/deploy.yml` 的自動化工作流程便會自動啟動：
 ```bash
 git push origin main
 ```
-您亦可至 GitHub Repository 頁面：
-1. 點選上方 **「Actions」** 頁籤。
-2. 在左側選單點選 **「Deploy to GitHub Pages」**。
-3. 點擊右側 **「Run workflow」** -> 選擇 `main` 分支 -> 點擊綠色 **「Run workflow」** 按鈕手動觸發。
+您也可以手動在 GitHub 網頁上立即觸發：
+1. 進入儲存庫頁面，點選頂部選單的 **「Actions」** 頁籤。
+2. 在左側 Actions 清單中點選 **「Deploy to GitHub Pages」**。
+3. 點選右側的 **「Run workflow」** 按鈕 $\rightarrow$ 選擇分支為 `main` $\rightarrow$ 點擊綠色的 **「Run workflow」**。
 
-### 步驟 3：取得發佈網址
-當 `deploy` 工作流程顯示綠色打勾（約 40 秒），您的導覽地圖即成功上線！
-網址格式為：
-```
-https://<您的GitHub使用者名稱>.github.io/japan-travel-map-guide/
-```
+### 步驟 3：取得並檢視上線網址
+等待約 40~60 秒，當 `deploy` 工作流程亮起綠色勾勾（Success）後：
+- 您的網站即刻正式上線！
+- 預設網址格式為：
+  ```
+  https://<您的GitHub使用者名稱>.github.io/japan-travel-map-guide/
+  ```
+- 您可回到 **Settings** $\rightarrow$ **Pages** 查看頂端顯示的專屬網站網址。
 
 ---
 
 ## 四、GitHub Repository Secrets & Variables 設定表
 
-本專案具備 **「雙軌備援容錯機制」**：即使您完全不設定任何 Google Sheet 金鑰，系統也會自動載入內建的 439 筆精選地標 Seed 資料；若您需要啟用 Google 試算表雙向同步與自訂爬蟲，請依下表設定：
+本系統具備**「雙軌備援容錯機制」**：即使您完全不設定任何 Google Sheet 金鑰或變數，系統在打包與建置時，也會自動載入內建的 8,652 筆全日本真實門市與 340 座車站離線資料庫，保證 100% 順暢運行！
 
-前往路徑：**GitHub Repository -> Settings -> Secrets and variables -> Actions**
+若您希望在 Actions 中啟用 Google 試算表即時連動或排程同步，請至：  
+**儲存庫頁面 $\rightarrow$ Settings $\rightarrow$ Secrets and variables $\rightarrow$ Actions** 進行配置：
 
-| 變數名稱 | 類型 | 必要性 | 預設值/範例 | 說明 |
-| :--- | :--- | :--- | :--- | :--- |
-| `SHEET_ID` | Secret / Variable | 選填 | `1AbCdEfGhIjKlMnOp...` | Google 試算表網址 `/d/` 與 `/edit` 之間的那串 ID |
-| `GID_HOTEL` | Variable | 選填 | `0` | 試算表中「飯店」分頁的網址 `gid` 參數 |
-| `GID_SHOPPING` | Variable | 選填 | `123456789` | 試算表中「購物藥妝」分頁的 `gid` 參數 |
-| `GID_FOOD` | Variable | 選填 | `987654321` | 試算表中「美食餐廳」分頁的 `gid` 參數 |
-| `GID_CONVENIENCE` | Variable | 選填 | `556677889` | 試算表中「便利商店」分頁的 `gid` 參數 |
-| `GAS_WEBHOOK_URL`| Secret | 選填 | `https://script.google.com/macros/s/.../exec` | Google Apps Script 網頁應用程式部署網址 |
-
----
-
-## 五、GitHub Actions 工作流總覽
-
-專案於 `.github/workflows/` 下內建完整自動化管道：
-
-1. **`ci_test.yml`（CI 品質測試閘門）**
-   - **觸發時機**：每次推送 (Push) 或發起 Pull Request 至 `main` 分支。
-   - **執行內容**：依序執行 `npm ci` -> `npm test` (Vitest 全測試) -> `npm run build`。
-   - **功能**：確保任何程式碼變更在合併進生產環境前 100% 通過驗收，防範回歸問題。
-
-2. **`deploy.yml`（GitHub Pages 生產部署）**
-   - **觸發時機**：推送至 `main` 分支、每日午夜 (UTC 00:00) 定時執行、或手動手動觸發。
-   - **執行內容**：執行 `scripts/datagenerate.js` 整合最新 Google 試算表或離線 Seed，建置 Vite 靜態產物並部署至 Pages。
-
-3. **`sync_to_sheet.yml`（試算表雙向同步）**
-   - **觸發時機**：手動或定時。
-   - **執行內容**：將專案內最新地標與自訂景點批次 Upsert 寫入至 Google Sheet。
-
-4. **`crawl_toyoko.yml` & `crawl_url.yml`（資料抓取工作流）**
-   - **觸發時機**：手動或排程觸發。
-   - **執行內容**：抓取官網即時門市資料，經由地理資訊模組驗證後儲存。
+| 變數名稱 | 存放位置 | 必要性 | 預設值 / 範例 | 說明 |
+| :--- | :--- | :---: | :--- | :--- |
+| `GAS_WEBHOOK_URL` | **Secrets** | 選填 | `https://script.google.com/macros/s/.../exec` | 部署後的 Google Apps Script 網頁應用程式網址，用於自動推送或讀取資料。 |
+| `SHEET_ID` | **Variables** | 選填 | `1AbCdEfGhIjKlMnOpQrStUvWxYz...` | Google 試算表網址列中 `/d/` 與 `/edit` 之間的那串專屬試算表 ID。 |
+| `GID_HOTEL` | **Variables** | 選填 | `0` | 試算表中「飯店」分頁網址末端的 `gid` 參數。 |
+| `GID_SHOPPING` | **Variables** | 選填 | `123456789` | 試算表中「購物藥妝」分頁網址末端的 `gid` 參數。 |
+| `GID_FOOD` | **Variables** | 選填 | `987654321` | 試算表中「美食餐廳」分頁網址末端的 `gid` 參數。 |
+| `GID_CONVENIENCE` | **Variables** | 選填 | `556677889` | 試算表中「便利商店」分頁網址末端的 `gid` 參數。 |
 
 ---
 
-## 六、疑難排解與常見問題 (FAQ)
+## 五、GitHub Actions 自動化工作流程總覽
 
-### Q1：GitHub Actions 部署失敗，出現 `Process completed with exit code 1`？
-- **檢查點**：確認是否為外部 Google Sheet 存取受阻。專案的 `datagenerate.js` 設有 4 秒 Timeout 降級機制，若外部網路失敗會自動退回離線 Seed。若在 CI 中失敗，請檢查 `npm test` 終端機日誌，確認是否有檔案路徑大小寫不符等問題。
+專案於 `.github/workflows/` 目錄內建有高可靠性的自動化工作流：
 
-### Q2：GitHub Pages 顯示 404 Not Found？
-- **檢查點**：確認 `vite.config.js` 中的 `base` 設為 `'./'`。若設為絕對路徑 `'/'`，在非自訂網域的 GitHub Pages (`/japan-travel-map-guide/`) 會導致 JS/CSS 載入失敗。本專案已預設配置 `base: './'`。
+### 1. `ci_test.yml`（CI 品質驗證閘門）
+- **觸發條件**：任何推送到 `main` 分支的提交，或針對 `main` 分支發起的 Pull Request。
+- **工作內容**：
+  1. 簽出程式碼並安裝 Node.js 24；
+  2. 執行 `npm ci` 乾淨安裝相依模組；
+  3. 執行 `npm test`（Vitest 12 個測試套件、82 個測試全數檢驗）；
+  4. 執行 `npm run build` 檢驗靜態產物打包。
+- **目的**：杜絕任何潛在語法錯誤、Schema 欄位缺失或回歸問題被併入主分支。
 
-### Q3：為什麼 Ubuntu 24.04 是指定運行環境？
-- 避免 GitHub Actions `ubuntu-latest` 標籤在 Ubuntu 26 轉換過渡期引發非預期的套件相依變更，本專案工作流全面鎖定 `runs-on: ubuntu-24.04`，確保長青穩定運行。
+### 2. `deploy.yml`（GitHub Pages 自動部署）
+- **觸發條件**：推送至 `main` 分支、每日台灣時間早上 08:00（UTC 00:00）定時排程、或手動手動觸發。
+- **工作內容**：執行 `scripts/datagenerate.js` 彙整資料庫，建置 Vite 生產環境代碼，並透過 `@actions/deploy-pages` 安全發布至 Pages 伺服器。
+
+### 3. `crawl_queue.yml`（試算表待爬佇列排程）
+- **觸發條件**：每 6 小時定時執行，或在 Actions 面板手動觸發。
+- **工作內容**：讀取 Google 試算表中的「待爬清單」分頁，解析使用者輸入的網址並完成門市資料正規化，隨後寫入正式分頁並標記為 `DONE`。
+
+---
+
+## 六、全國門市爬蟲與試算表同步維運指令
+
+若維運人員需要在本地或伺服器端重新抓取最新門市或同步資料：
+
+```bash
+# 1. 執行 9 大品牌全日本門市總爬蟲 (すき家、松屋、壽司郎、藏壽司、はま寿司、客美多、大戶屋、やよい軒、Bic Camera)
+npm run crawl:nationwide
+
+# 2. 重新產生前端 spots.json (8,652筆) 與 stations.json (340站生活圈索引)
+npm run generate
+
+# 3. 將資料庫全量同步至 Google 試算表各分頁 (內建 200 筆批次原子寫入與自動重試)
+node scripts/sync_to_sheet.js --target=all
+
+# 4. 單獨同步美食餐廳 (7,025筆) 至試算表
+node scripts/sync_to_sheet.js --target=dining --batch-size=200
+
+# 5. 單獨同步購物藥妝 (970筆) 至試算表
+node scripts/sync_to_sheet.js --target=shopping
+```
+
+---
+
+## 七、疑難排解與常見問題 (FAQ)
+
+### Q1：GitHub Actions 部署失敗，終端機顯示 `Process completed with exit code 1`？
+- **排查方式**：
+  1. 請前往 Actions 頁面檢視失敗的 Step 日誌；
+  2. 若失敗在 `npm test`，請確認是否有新增的景點未通過 `validator.js` 的 Schema 必填欄位或經緯度邊界盒檢查；
+  3. 專案的 `datagenerate.js` 設有 4 秒 Timeout 降級機制，即使 Google 外部網路異常，亦會自動平滑降級使用本地種子庫，不會中斷部署。
+
+### Q2：GitHub Pages 部署後網頁空白或顯示 404 Not Found？
+- **排查方式**：
+  1. 確認 `vite.config.js` 中的 `base` 參數設為 `'./'`（相對路徑）。
+  2. 若設為絕對路徑 `'/'`，在預設二級目錄的 GitHub Pages（`/<repo-name>/`）會造成 JavaScript 與 CSS 資源找不到；本專案已預設採用 `'./'`，請勿改動。
+
+### Q3：資料量高達 8,652 筆，靜態網站建置會不會很久？
+- **說明**：
+  專案經過高效率最佳化，全量 8,652 筆地標與 340 座車站索引的 JSON 檔案在 Vite 打包時，利用了 Node.js Stream 記憶體快取，整個 `npm run build` 建置時間僅需約 **2.5 ~ 3.5 秒**，非常迅速輕盈。
