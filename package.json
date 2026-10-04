@@ -25,6 +25,8 @@
     "crawl:shakeshack": "node scripts/scrapers/crawl_shakeshack.js",
     "crawl:matsufuji": "node scripts/scrapers/crawl_matsufuji.js",
     "crawl:syabuyo": "node scripts/scrapers/crawl_syabuyo.js",
+    "crawl:wendys": "node scripts/scrapers/crawl_wendys.js",
+    "crawl:negishi": "node scripts/scrapers/crawl_negishi.js",
     "sync:sheet": "node scripts/sync_to_sheet.js",
     "test": "vitest run",
     "test:watch": "vitest",

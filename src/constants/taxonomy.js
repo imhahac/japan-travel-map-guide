@@ -292,6 +292,18 @@ export const BRANDS_REGISTRY = [
     activeBg: '#eff6ff',
     activeText: '#1e40af'
   },
+  {
+    id: 'ねぎし',
+    label: 'ねぎし (Negishi 牛舌)',
+    shortLabel: 'ねぎし',
+    category: '美食餐廳',
+    subcategory: '定食',
+    aliases: ['ねぎし', 'Negishi', 'ねぎしフードサービス', '根岸', '牛たん ねぎし', '牛たん・とろろ・麦めし ねぎし'],
+    color: '#b45309',
+    dotBg: '#d97706',
+    activeBg: '#fef3c7',
+    activeText: '#92400e'
+  },
 
   // ── 在地美食 (咖啡) ──
   {
@@ -333,6 +345,18 @@ export const BRANDS_REGISTRY = [
     dotBg: '#689f38',
     activeBg: '#f1f8e9',
     activeText: '#33691e'
+  },
+  {
+    id: 'Wendy\'s First Kitchen',
+    label: 'Wendy\'s First Kitchen',
+    shortLabel: 'Wendy\'s',
+    category: '美食餐廳',
+    subcategory: '漢堡輕食',
+    aliases: ['Wendy\'s First Kitchen', 'Wendys', 'Wendy\'s', 'ウェンディーズ', 'ファーストキッチン', 'First Kitchen', 'WFK', '溫蒂漢堡'],
+    color: '#e11d48',
+    dotBg: '#e11d48',
+    activeBg: '#ffe4e6',
+    activeText: '#be123c'
   },
 
   // ── 在地美食 (鍋物料理) ──

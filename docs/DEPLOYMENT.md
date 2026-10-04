@@ -23,7 +23,7 @@
 - **品質檢驗套件**：Vitest 5 + Testing Library + jsdom + Oxlint
 - **靜態主機代管**：GitHub Pages（由 GitHub Actions 原生工作流自動建置與發布）
 - **雲端試算表資料庫**：Google Sheets（透過 Google Apps Script Webhook 進行二維矩陣原子同步）
-- **資料規模**：內建 **10,176 筆** 全國真實實體門市與景點，以及 **350 座** 日本鐵路與地下鐵車站生活圈索引
+- **資料規模**：內建 **10,303 筆** 全國真實實體門市與景點，以及 **350 座** 日本鐵路與地下鐵車站生活圈索引
 
 ---
 
@@ -150,7 +150,7 @@ npm run crawl:sukiya        # すき家
 npm run crawl:matsuya       # 松屋
 npm run crawl:nationwide     # 全國連鎖總管線
 
-# 2. 重新產生前端 spots.json (10,176 筆) 與 stations.json (350 站生活圈索引)
+# 2. 重新產生前端 spots.json (10,303 筆) 與 stations.json (350 站生活圈索引)
 npm run generate
 
 # 3. 將資料庫全量同步至 Google 試算表各分頁 (內建 200 筆批次原子寫入與自動重試)

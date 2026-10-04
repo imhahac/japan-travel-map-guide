@@ -1,6 +1,6 @@
 # 系統架構與演算法規格手冊 (Architecture & Algorithm Specification)
 
-> **版本**：v3.4 (全國 10,176 筆門市、三層分類階層、350 站生活圈、零預設渲染與智慧步行導航架構)  
+> **版本**：v3.5 (全國 10,303 筆門市、三層分類階層、350 站生活圈、零預設渲染與智慧步行導航架構)  
 > **更新日期**：2026-10-04  
 > **維護人員**：`imhahac`
 
@@ -14,8 +14,8 @@
 graph TD
     subgraph Data Sources [資料來源層 Data Sources]
         A1[Google Sheets 雲端試算表 5 大分頁]
-        A2[18+ 大指標品牌官方爬蟲 REST / GOGA / Nuxt3 / Navitime / Canly / LBS API]
-        A3[離線種子資料庫 Seed JSONs: 10,176 筆真實地標]
+        A2[20+ 大指標品牌官方爬蟲 REST / GOGA / Nuxt3 / Navitime / Canly / LBS API]
+        A3[離線種子資料庫 Seed JSONs: 10,303 筆真實地標]
     end
 
     subgraph Core Processing [核心計算與品質檢驗 scripts/core]
@@ -26,7 +26,7 @@ graph TD
     end
 
     subgraph Data Aggregator [資料彙整與靜態索引 scripts/datagenerate.js]
-        C1[("src/data/spots.json: 10,176 筆全域生活與旅遊地標")]
+        C1[("src/data/spots.json: 10,303 筆全域生活與旅遊地標")]
         C2[("src/data/stations.json: 350 座日本樞紐車站生活圈索引")]
         C3[("src/data/station_master.json: 車站實體坐標權威母檔")]
     end
@@ -97,7 +97,7 @@ stateDiagram-v2
         全部
         住宿飯店 (634間)
         購物藥妝 (970間)
-        美食餐廳 (8549間)
+        美食餐廳 (8676間)
         便利商店 (23間精選)
     }
 
@@ -106,8 +106,8 @@ stateDiagram-v2
         購物: 藥妝量販 (唐吉訶德 / 松本清) / 3C家電 (Bic Camera / 友都八喜)
         拉麵: 六厘舎 / 舎鈴 / 一蘭 / 一風堂
         鍋物: しゃぶ葉 (涮乃葉日式涮涮鍋/壽喜燒)
-        洋食家庭: 薩莉亞 (Saizeriya) / Shake Shack 漢堡
-        牛丼定食: すき家 / 松屋 / 吉野家 / 大戶屋 / やよい軒
+        洋食家庭: 薩莉亞 (Saizeriya) / Shake Shack / Wendy's First Kitchen
+        牛丼定食: すき家 / 松屋 / 吉野家 / 大戶屋 / やよい軒 / ねぎし (Negishi 牛舌)
         壽司咖啡: 壽司郎 / 藏壽司 / はま寿司 / 客美多咖啡
         超商: 7-Eleven / 全家 FamilyMart / 羅森 Lawson
     }
@@ -216,6 +216,8 @@ stateDiagram-v2
 10. **大戶屋 (Ootoya)**：對接 Canly 官方 API，擷取定食門市精確座標。
 11. **やよい軒 (Yayoiken)**：對接 Mapion LBS API，完整解析各分店設施。
 12. **Bic Camera**：解析官方店鋪指南頁面，建立全日本 45 間大型旗艦家電量販店資料。
+13. **Wendy's First Kitchen (溫蒂漢堡 × First Kitchen)**：遍歷官方 11 大地理分區查詢結果，透過原生 `TextDecoder('euc-jp')` 解析 EUC-JP 編碼門市清單，並並行提取官方 `map.php?shopid=...` 內建之 Google Maps 物理經緯度，精確收錄全日本 75 間門市。
+14. **ねぎし (Negishi / 牛たん・とろろ・麦めし)**：解析官方門市導覽表格結構，從店鋪 Google Maps 標註連結中提取 `ll=lat,lng` 物理座標，完整收錄東京、橫濱、川崎、千葉、埼玉、大阪與神戶 52 間官方牛舌與山藥麥飯定食門市。
 
 **防禦與品質控制規範**：
 - **User-Agent 與禮貌延遲**：模擬正規瀏覽器 Header，每次請求間隔 300~500ms，杜絕伺服器負載風險。

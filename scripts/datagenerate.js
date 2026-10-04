@@ -56,9 +56,9 @@ function getSubcategory(category, brand = '', name = '') {
     if (/吉野家|松屋|すき家|牛丼/i.test(brand) || /牛丼/i.test(name)) return '牛丼';
     if (/一蘭|一風堂|六厘舎|舎鈴|拉麵|ラーメン/i.test(brand) || /拉麵|ラーメン|六厘舎|舎鈴/i.test(name)) return '拉麵';
     if (/壽司郎|藏壽司|はま寿司|濱壽司|Hama|スシロー|くら寿司|壽司/i.test(brand) || /壽司|スシ|寿司/i.test(name)) return '壽司';
-    if (/やよい軒|大戶屋|定食|彌生軒/i.test(brand) || /定食|彌生軒/i.test(name)) return '定食';
+    if (/やよい軒|大戶屋|定食|彌生軒|ねぎし|牛たん/i.test(brand) || /定食|彌生軒|ねぎし/i.test(name)) return '定食';
     if (/薩莉亞|サイゼリヤ/i.test(brand) || /サイゼリヤ/i.test(name)) return '家庭餐廳';
-    if (/Shake\s*Shack/i.test(brand) || /Shake\s*Shack/i.test(name)) return '漢堡輕食';
+    if (/Shake\s*Shack|Wendy|First\s*Kitchen|ファーストキッチン|ウェンディーズ/i.test(brand) || /Shake\s*Shack|Wendy|First\s*Kitchen/i.test(name)) return '漢堡輕食';
     if (/客美多|咖啡|珈琲|コメダ/i.test(brand) || /咖啡|珈琲|コメダ/i.test(name)) return '咖啡';
     return '平價美食';
   }
@@ -193,6 +193,22 @@ async function generate() {
       const syabuyoSpots = JSON.parse(fs.readFileSync(syabuyoPath, 'utf8'));
       syabuyoSpots.forEach(s => allSpots.push(normalizeSpot(s, '美食餐廳')));
       console.log(`Loaded ${syabuyoSpots.length} Syabuyo (しゃぶ葉) spots from seed data.`);
+    }
+
+    // Also load Wendy's First Kitchen seed if present
+    const wendysPath = path.join(outputDir, 'wendys_seed.json');
+    if (fs.existsSync(wendysPath)) {
+      const wendysSpots = JSON.parse(fs.readFileSync(wendysPath, 'utf8'));
+      wendysSpots.forEach(s => allSpots.push(normalizeSpot(s, '美食餐廳')));
+      console.log(`Loaded ${wendysSpots.length} Wendy's First Kitchen spots from seed data.`);
+    }
+
+    // Also load Negishi (ねぎし) seed if present
+    const negishiPath = path.join(outputDir, 'negishi_seed.json');
+    if (fs.existsSync(negishiPath)) {
+      const negishiSpots = JSON.parse(fs.readFileSync(negishiPath, 'utf8'));
+      negishiSpots.forEach(s => allSpots.push(normalizeSpot(s, '美食餐廳')));
+      console.log(`Loaded ${negishiSpots.length} Negishi (ねぎし) spots from seed data.`);
     }
 
     // Also load Convenience Store seed if present

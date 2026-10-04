@@ -2,14 +2,14 @@
 
 > **專為赴日旅人量身打造的「車站生活圈導覽地圖與全日本連鎖門市資料庫」**。徹底解決自由行行前規劃與現場導航時「想在特定車站周邊快速找到推薦飯店、生活採買、平價美食、火鍋鍋物與便利商店」的痛點。
 >
-> 完整收錄 **全日本 10,176+ 處真實門市與地標**、**350 座樞紐鐵路與地下鐵車站索引**，全數門市皆由官方 API 與公開圖資實時爬取，經嚴謹的日本國土邊界盒與街廓演算法驗證，拒絕虛構資料！
+> 完整收錄 **全日本 10,303+ 處真實門市與地標**、**350 座樞紐鐵路與地下鐵車站索引**，全數門市皆由官方 API 與公開圖資實時爬取，經嚴謹的日本國土邊界盒與街廓演算法驗證，拒絕虛構資料！
 
 ![Frontend](https://img.shields.io/badge/Frontend-Vite%20%2B%20React%2019-blue?style=flat-square)
 ![Map Engine](https://img.shields.io/badge/Map-Leaflet%201.9%20%2B%20MarkerCluster-green?style=flat-square)
 ![Database](https://img.shields.io/badge/Database-Google%20Sheets%20%2B%20GAS-amber?style=flat-square)
-![Data Volume](https://img.shields.io/badge/Verified%20Spots-10%2C176%2B-orange?style=flat-square)
+![Data Volume](https://img.shields.io/badge/Verified%20Spots-10%2C303%2B-orange?style=flat-square)
 ![Stations](https://img.shields.io/badge/Indexed%20Stations-350%20Stations-red?style=flat-square)
-![Test Coverage](https://img.shields.io/badge/Vitest-16%20Suites%20%7C%20112%20Passed-brightgreen?style=flat-square)
+![Test Coverage](https://img.shields.io/badge/Vitest-16%20Suites%20%7C%20114%20Passed-brightgreen?style=flat-square)
 ![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-purple?style=flat-square)
 
 ---
@@ -26,15 +26,15 @@
 
 ## 📊 全國已收錄門市與品牌分佈統計 (真實數據)
 
-全站總計收錄 **10,176 筆** 通過 Schema 與經緯度檢驗之實體景點與門市：
+全站總計收錄 **10,303 筆** 通過 Schema 與經緯度檢驗之實體景點與門市：
 
 | 分類維度 | 主要品牌 / 門市類別 | 收錄筆數 | 官方資料來源 / 抓取方式 |
 | :--- | :--- | :---: | :--- |
 | **住宿飯店** | **東橫 INN** (354 間)<br>**APA 飯店** (287 間) | **634 間** | 官方預訂系統 REST API、地理座標反查 |
 | **購物藥妝** | **Bic Camera** 大型電器旗艦店 (45 間)<br>**友都八喜 Yodobashi** (24 間)<br>**唐吉訶德 Don Quijote** (28 間)<br>**松本清 Matsumoto Kiyoshi** (116 間)<br>其他生活家電與藥妝 (757 間) | **970 間** | 官網分店導覽、Mapion LBS、官方分店 API |
-| **美食餐廳** | **すき家 Sukiya** (1,962 間)<br>**松屋 Matsuya** (1,146 間)<br>**薩莉亞 Saizeriya** (1,085 間)<br>**客美多咖啡 Komeda** (1,029 間)<br>**壽司郎 Sushiro** (685 間)<br>**はま寿司 Hama Sushi** (617 間)<br>**藏壽司 Kura Sushi** (551 間)<br>**やよい軒 Yayoiken** (360 間)<br>**大戶屋 Ootoya** (339 間)<br>**しゃぶ葉 Syabuyo** (337 間)<br>**一蘭 / 一風堂** (336 間)<br>**舎鈴 Sharin** (77 間)<br>**Shake Shack** (19 間)<br>**六厘舎 Rokurinsha** (6 間) | **8,549 間** | 雲雀集團 GOGA API、國土地理院 GSI 校準、松富士 Nuxt3 Payload、Zensho API、Navitime Citrus API、Canly 官方 API、Komeda REST API、Mapion LBS API |
+| **美食餐廳** | **すき家 Sukiya** (1,962 間)<br>**松屋 Matsuya** (1,146 間)<br>**薩莉亞 Saizeriya** (1,085 間)<br>**客美多咖啡 Komeda** (1,029 間)<br>**壽司郎 Sushiro** (685 間)<br>**はま寿司 Hama Sushi** (617 間)<br>**藏壽司 Kura Sushi** (551 間)<br>**やよい軒 Yayoiken** (360 間)<br>**大戶屋 Ootoya** (339 間)<br>**しゃぶ葉 Syabuyo** (337 間)<br>**一蘭 / 一風堂** (336 間)<br>**舎鈴 Sharin** (77 間)<br>**Wendy's First Kitchen** (75 間)<br>**ねぎし Negishi** (52 間)<br>**Shake Shack** (19 間)<br>**六厘舎 Rokurinsha** (6 間) | **8,676 間** | 雲雀集團 GOGA API、國土地理院 GSI 校準、松富士 Nuxt3 Payload、Wendy's 官方分店圖資、ねぎし官方地標資料庫、Zensho API、Navitime Citrus API、Canly 官方 API、Komeda REST API、Mapion LBS API |
 | **便利商店** | **7-Eleven、FamilyMart 全家、Lawson 羅森** | **23 間** | 500m 車站生活圈站前精選種子店 |
-| **全站總計** | **4 大核心領域、18+ 指標連鎖品牌** | **10,176 筆** | **100% 通過日本國土範圍與車站配對驗證** |
+| **全站總計** | **4 大核心領域、20+ 指標連鎖品牌** | **10,303 筆** | **100% 通過日本國土範圍與車站配對驗證** |
 
 ---
 
@@ -45,7 +45,7 @@
 - **第二層（次分類與品牌晶片）**：
   - 🏨 **住宿飯店**：`商務飯店`（東橫INN、APA飯店）
   - 🛍️ **購物藥妝**：`藥妝量販`（唐吉訶德、松本清）、`3C家電`（Bic Camera、友都八喜）
-  - 🍜 **美食餐廳**：`日式拉麵`（六厘舎、舎鈴、一蘭、一風堂）、`鍋物料理`（しゃぶ葉 / 涮乃葉）、`家庭餐廳`（薩莉亞）、`漢堡輕食`（Shake Shack）、`平價牛丼`（すき家、松屋、吉野家）、`迴轉壽司`（壽司郎、藏壽司、はま寿司）、`和風定食`（大戶屋、やよい軒）、`喫茶咖啡`（客美多咖啡）
+  - 🍜 **美食餐廳**：`日式拉麵`（六厘舎、舎鈴、一蘭、一風堂）、`鍋物料理`（しゃぶ葉 / 涮乃葉）、`家庭餐廳`（薩莉亞）、`漢堡輕食`（Shake Shack、Wendy's First Kitchen）、`平價牛丼`（すき家、松屋、吉野家）、`迴轉壽司`（壽司郎、藏壽司、はま寿司）、`和風定食`（大戶屋、やよい軒、ねぎし）、`喫茶咖啡`（客美多咖啡）
   - 🏪 **便利商店**：`連鎖超商`（7-Eleven、全家 FamilyMart、羅森 Lawson）
 - **第三層（空間生活圈）**：日本 8 大地區（關東、近畿、中部、九州等） $\rightarrow$ 47 都道府縣 $\rightarrow$ 350 座主要車站。
 
@@ -127,6 +127,8 @@ npm run build
 npm run crawl:nationwide
 
 # 2. 單獨執行特定品牌官方爬蟲
+npm run crawl:wendys       # Wendy's First Kitchen (75 間美式漢堡/義大利麵)
+npm run crawl:negishi      # ねぎし (52 間牛舌/山藥麥飯定食)
 npm run crawl:syabuyo      # しゃぶ葉 (涮乃葉，337 間火鍋/壽喜燒)
 npm run crawl:matsufuji    # 六厘舎 (6 間) 與 舎鈴 (77 間) 松富士拉麵沾麵
 npm run crawl:saizeriya    # 薩莉亞 (1,085 間)
@@ -217,9 +219,11 @@ japan-travel-map-guide/
 │   │   ├── StationSearchBar.jsx    # 車站智慧搜尋與生活圈聚焦自動完成
 │   │   └── SyncModal.jsx           # Google Sheet 雲端同步設定導覽彈窗
 │   ├── data/                       # 核心產物與離線種子庫
-│   │   ├── spots.json              # 10,176 筆全域有效景點資料庫
+│   │   ├── spots.json              # 10,303 筆全域有效景點資料庫
 │   │   ├── stations.json           # 350 座日本樞紐車站座標與生活圈索引
 │   │   ├── station_master.json     # 車站權威物理母檔資料
+│   │   ├── wendys_seed.json        # 75 間 Wendy's First Kitchen 官方直營門市庫
+│   │   ├── negishi_seed.json       # 52 間ねぎし (Negishi 牛舌定食) 官方門市庫
 │   │   ├── syabuyo_seed.json       # 337 間しゃぶ葉官方直營門市庫
 │   │   ├── matsufuji_seed.json     # 83 間六厘舎與舎鈴官方門市庫
 │   │   ├── saizeriya_seed.json     # 1,085 間薩莉亞日本本土官方門市庫
@@ -236,7 +240,7 @@ japan-travel-map-guide/
 │   ├── App.jsx                     # 應用程式主畫面與效能狀態管理
 │   ├── index.css                   # 現代日式美學色彩系統與響應式排版
 │   └── main.jsx                    # React 19 掛載入口
-├── tests/                          # 測試套件 (16 個測試檔案、112 個測試全部通過)
+├── tests/                          # 測試套件 (16 個測試檔案、114 個測試全部通過)
 │   ├── unit/                       # 爬蟲、導航、幾何運算、去重與資料驗證測試
 │   └── integration/                # 多層篩選、定位精度與左側看板連動測試
 ├── index.html                      # SEO 優化入口 HTML

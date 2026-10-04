@@ -15,6 +15,8 @@ import { crawlSaizeriya } from '../../scripts/scrapers/crawl_saizeriya.js';
 import { crawlShakeShack } from '../../scripts/scrapers/crawl_shakeshack.js';
 import { crawlMatsufuji } from '../../scripts/scrapers/crawl_matsufuji.js';
 import { crawlSyabuyo } from '../../scripts/scrapers/crawl_syabuyo.js';
+import { buildWendysSpots } from '../../scripts/scrapers/crawl_wendys.js';
+import { buildNegishiSpots } from '../../scripts/scrapers/crawl_negishi.js';
 
 describe('Nationwide Scrapers Test Suite', { timeout: 20000 }, () => {
   const sampleStations = [
@@ -164,4 +166,30 @@ describe('Nationwide Scrapers Test Suite', { timeout: 20000 }, () => {
     const val = validateSpotsBatch(spots);
     expect(val.invalidCount).toBe(0);
   }, 20000);
+
+  it('14. Wendy\'s First Kitchen 爬蟲應獲取官方門市資訊、漢堡輕食子分類且符合 Schema', async () => {
+    const spots = await buildWendysSpots(sampleStations, { forceBenchmark: true });
+    expect(spots.length).toBeGreaterThanOrEqual(5);
+    const first = spots[0];
+    expect(first.brand).toBe('Wendy\'s First Kitchen');
+    expect(first.category).toBe('美食餐廳');
+    expect(first.subcategory).toBe('漢堡輕食');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  });
+
+  it('15. ねぎし (Negishi) 爬蟲應獲取官方門市資訊、定食子分類且符合 Schema', async () => {
+    const spots = await buildNegishiSpots(sampleStations, { forceBenchmark: true });
+    expect(spots.length).toBeGreaterThanOrEqual(5);
+    const first = spots[0];
+    expect(first.brand).toBe('ねぎし');
+    expect(first.category).toBe('美食餐廳');
+    expect(first.subcategory).toBe('定食');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  });
 });
