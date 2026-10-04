@@ -103,7 +103,17 @@ function normalizeSpot(row, fallbackCategory = '飯店') {
     lng: lng,
     phone: row.Phone || row.phone || '',
     bookingUrl: row.BookingUrl || row.bookingUrl || '',
-    googleMapUrl: row.GoogleMapUrl || row.googleMapUrl || `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
+    googleMapUrl: (() => {
+      const existing = row.GoogleMapUrl || row.googleMapUrl || '';
+      const nameStr = (row.NameJa || row.nameJa || row.Name || row.name || '').trim();
+      const addrStr = (row.Address || row.address || '').trim().replace(/〒?\s*\d{3}[-－]?\d{4}\s*/g, '');
+      const isLegacyCoordUrl = /^https?:\/\/(www\.)?google\.com\/maps\/search\/\?api=1&query=[0-9.-]+,[0-9.-]+$/i.test(existing);
+      if (!existing || isLegacyCoordUrl) {
+        const q = nameStr && addrStr ? `${nameStr} ${addrStr}` : (nameStr || addrStr || `${lat},${lng}`);
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q.replace(/[\u3000\s]+/g, ' ').trim())}`;
+      }
+      return existing;
+    })(),
     imageUrl: row.ImageUrl || row.imageUrl || (Array.isArray(row.images) ? row.images[0] : '') || '',
     images: Array.isArray(row.images) ? row.images : (row.ImageUrl ? [row.ImageUrl] : []),
     tags: tags,
@@ -233,40 +243,42 @@ async function generate() {
   allSpots.forEach(spot => {
     let matchedStation = null;
 
-    // 1. Check if existing nearestStation is valid and physically close
+    // 1. Check if existing nearestStation is valid and physically close (<= 600m)
+    let existingDist = Infinity;
     if (spot.nearestStation && !INVALID_STATION_NAMES.has(spot.nearestStation) && stationStats.has(spot.nearestStation)) {
       const targetStation = stationStats.get(spot.nearestStation);
-      const dist = calculateDistance(targetStation.lat, targetStation.lng, spot.lat, spot.lng);
-      if (dist <= 2500) {
+      existingDist = calculateDistance(targetStation.lat, targetStation.lng, spot.lat, spot.lng);
+      if (existingDist <= 600) {
         matchedStation = targetStation;
       }
     }
 
-    // 2. If out of range or placeholder, search for true closest station within 2500m
-    if (!matchedStation) {
-      let minDistance = Infinity;
-      let closestCandidate = null;
+    // 2. Find the physically closest station across the entire network
+    let minDistance = Infinity;
+    let closestCandidate = null;
 
-      for (const st of stationsList) {
-        const d = calculateDistance(st.lat, st.lng, spot.lat, spot.lng);
-        if (d < minDistance) {
-          minDistance = d;
-          closestCandidate = st;
-        }
+    for (const st of stationsList) {
+      const d = calculateDistance(st.lat, st.lng, spot.lat, spot.lng);
+      if (d < minDistance) {
+        minDistance = d;
+        closestCandidate = st;
       }
+    }
 
-      if (closestCandidate && minDistance <= 2500) {
+    // 3. If a significantly closer station exists or existing was out of close range (> 600m)
+    if (closestCandidate && minDistance <= 2500) {
+      if (!matchedStation || minDistance < existingDist - 250) {
         matchedStation = stationStats.get(closestCandidate.name);
         spot.nearestStation = closestCandidate.name;
         spot.stationLine = closestCandidate.line;
         spot.walkMinutes = calculateWalkingMinutes(minDistance);
         spot.stationAccess = `鄰近 ${closestCandidate.name} 步行約 ${spot.walkMinutes} 分鐘`;
-      } else {
-        // True suburban or regional location far from major stations
-        spot.nearestStation = '周邊生活圈';
-        if (spot.walkMinutes > 30 || isNaN(spot.walkMinutes)) {
-          spot.walkMinutes = 15;
-        }
+      }
+    } else if (!matchedStation) {
+      // True suburban or regional location far from major stations
+      spot.nearestStation = '周邊生活圈';
+      if (spot.walkMinutes > 30 || isNaN(spot.walkMinutes)) {
+        spot.walkMinutes = 15;
       }
     }
 

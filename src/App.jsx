@@ -8,6 +8,7 @@ import InteractiveMap from './components/InteractiveMap';
 import WelcomeExplorer from './components/WelcomeExplorer';
 import { Train, MapPin, RefreshCw, X, SlidersHorizontal, BedDouble, ChevronLeft, ChevronUp, ChevronDown, ExternalLink, Navigation, Map, List } from 'lucide-react';
 import { isBrandMatch } from './constants/taxonomy.js';
+import { buildWalkingNavUrl } from './utils/navigation.js';
 
 // Attempt to load generated spots and stations data
 let initialSpots = [];
@@ -691,7 +692,7 @@ export default function App() {
                     {/* 行動按鈕 */}
                     <div style={{ display: 'flex', gap: '0.45rem' }}>
                       <a
-                        href={`https://www.google.com/maps/dir/?api=1&destination=${selectedSpot.lat},${selectedSpot.lng}&travelmode=walking`}
+                        href={buildWalkingNavUrl(selectedSpot, selectedStation)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-action btn-primary"
@@ -972,7 +973,7 @@ export default function App() {
               </div>
               <div className="preview-card-actions">
                 <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${selectedSpot.lat},${selectedSpot.lng}&travelmode=walking`}
+                  href={buildWalkingNavUrl(selectedSpot, selectedStation)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="preview-nav-btn"

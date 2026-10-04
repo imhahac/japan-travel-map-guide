@@ -1,7 +1,7 @@
 # 系統架構與演算法規格手冊 (Architecture & Algorithm Specification)
 
-> **版本**：v3.2 (全國 10,176 筆門市、三層分類階層、323 站生活圈與零預設渲染架構)  
-> **更新日期**：2026-10-03  
+> **版本**：v3.4 (全國 10,176 筆門市、三層分類階層、350 站生活圈、零預設渲染與智慧步行導航架構)  
+> **更新日期**：2026-10-04  
 > **維護人員**：`imhahac`
 
 ---
@@ -20,14 +20,14 @@ graph TD
 
     subgraph Core Processing [核心計算與品質檢驗 scripts/core]
         B1["geo.js: Haversine 球面距離 & 1.25x 日本都市街廓係數"]
-        B2["station_anchors.js: 323 座權威實體車站 300m / 500m / 1000m 生活圈配對"]
+        B2["station_anchors.js: 350 座權威實體車站 300m / 500m / 1000m 生活圈配對"]
         B3["validator.js: 日本國土邊界盒 (24.0°N~46.0°N, 122.0°E~154.0°E) 檢驗"]
         B4["dedupe.js: 空間鄰近座標 (50m) 與店名標準化去重"]
     end
 
     subgraph Data Aggregator [資料彙整與靜態索引 scripts/datagenerate.js]
         C1[("src/data/spots.json: 10,176 筆全域生活與旅遊地標")]
-        C2[("src/data/stations.json: 323 座日本樞紐車站生活圈索引")]
+        C2[("src/data/stations.json: 350 座日本樞紐車站生活圈索引")]
         C3[("src/data/station_master.json: 車站實體坐標權威母檔")]
     end
 
@@ -78,7 +78,7 @@ $$d = R \cdot \Delta\sigma \quad (\text{其中地球平均半徑 } R = 6,371,000
   $$\text{步行時間（分鐘）} = \left\lceil \frac{\text{實際步行距離}}{80} \right\rceil$$
 
 ### 3. 車站生活圈多環半徑模型 (Multi-Ring Station Proximity Model)
-系統內建全日本 **323 座權威實體樞紐車站**（涵蓋 JR 新幹線、在來線、各主要私鐵與地下鐵系統），並建立三層步行生活圈環形模型：
+系統內建全日本 **350 座權威實體樞紐車站**（涵蓋 JR 新幹線、在來線、各主要私鐵與地下鐵系統），並建立三層步行生活圈環形模型：
 - **核心出站環（300 公尺）**：步行約 3~4 分鐘內，涵蓋站前商店街、飯店大廳及地下街直通門市。
 - **生活圈環（500 公尺）**：步行約 6~7 分鐘內，為一般自由行旅客最理想的採買與住宿半徑。
 - **延伸商圈環（1,000 公尺）**：步行約 12~15 分鐘內，涵蓋主要市區延伸商圈與大型量販購物中心。
@@ -115,7 +115,7 @@ stateDiagram-v2
     state "第三層：空間與生活圈維度 (L3 Spatial Filters)" as L3 {
         8大地理分區 (關東、近畿、中部、北海道、九州等)
         47都道府縣
-        323座權威車站生活圈 (300m / 500m / 1000m)
+        350座權威車站生活圈 (300m / 500m / 1000m)
     }
 
     state "前端展示與防禦機制" as Output {
@@ -201,7 +201,11 @@ stateDiagram-v2
 專案於 `scripts/scrapers/` 建立了各核心指標品牌專屬官方爬蟲，統籌於 `crawl_all_nationwide.js`：
 
 1. **しゃぶ葉 (Syabuyo / 涮乃葉)**：對接雲雀集團 GOGA Store Locator REST 端點，以 45 個日本生活圈 Geohash 3 碼並行採集全日本 337 間火鍋/壽喜燒吃到飽門市，直接回傳高精度經緯度與營業細節。
-2. **六厘舎 (Rokurinsha) & 舎鈴 (Sharin)**：解析松富士食品官網 Nuxt 3 SSR Hydration Payload，抽取 Google Maps 嵌入座標與電話，取得 6 間東京沾麵王者門市與 77 間特製魚介沾麵門市。
+2. **六厘舎 (Rokurinsha) & 舎鈴 (Sharin)**：解析松富士食品官網 Nuxt 3 SSR Hydration Payload，收錄 6 間東京沾麵王者門市與 77 間特製魚介沾麵門市。全面實施**雙軌高精幾何坐標校準**，徹底修復 Google Maps 側邊欄導致之 220m 系統性西偏：
+   - **根本原因 (Root Cause)**：官方網頁 `googleMapIframe` 參數內之 `!2d` 與 `!3d` 為電腦版地圖 Viewport Center（視窗中心），因側邊 400px 卡片而往西平移約 220 公尺（$\Delta\text{lng} \approx -0.0024^\circ$），直接抓取會導致圖釘落在對街或河道，並引發生活圈錯配。
+   - **六厘舎旗艦店黃金定錨**：6 大名店（東京站一番街、上野 Atre、大崎 Wiz City、押上晴空塔 Solamachi、羽田機場第3航廈、池袋東口）套用實體驗證之黃金 WGS84 坐標與地下/天橋改札直通資訊，步行時間全數鎖定於 1~2 分鐘。
+   - **舎鈴 GSI 國土地理院街廓定位**：以門市日本地址實時串接日本國土地理院官方 AddressSearch API 獲取地番精準經緯度；離線或未匹配時自動套用反向視窗中心平移補償向量（`lng + 0.0024`）。
+   - **生活圈車站擴充與嚴格鄰近優先**：於 `station_anchors.js` 補充登戶、武藏小杉、海濱幕張、勝鬨、龜戶、西小山、大山、龜有等 27 個關鍵生活圈車站，並優化 `datagenerate.js` 嚴格優先綁定 600m 內之實體出站生活圈。
 3. **薩莉亞 (Saizeriya)**：對接 Navitime Citrus API 官方圖資，擷取全日本 1,085 間義式平價家庭餐廳之經緯度與地址。
 4. **Shake Shack**：解析官方網站門市清單與嵌入圖資，收錄 19 間日本官方美式漢堡輕食門市。
 5. **すき家 (Sukiya) & はま寿司 (Hama Sushi)**：對接 Zensho Holdings 官方分店查詢 API，批次擷取各都道府縣經緯度與營業標籤。
@@ -216,5 +220,59 @@ stateDiagram-v2
 **防禦與品質控制規範**：
 - **User-Agent 與禮貌延遲**：模擬正規瀏覽器 Header，每次請求間隔 300~500ms，杜絕伺服器負載風險。
 - **經緯度有效性與國土邊界盒驗證**：若爬取到的經緯度為空、為 0 或超出日本國土邊界（24°N~46°N, 122°E~154°E），一律自動剔除。
-- **鄰近車站智慧配對**：自動比對 323 座權威實體樞紐車站，計算離站距離與 1.25x 步行時間，補齊 `nearestStation` 與 `walkMinutes`。
+- **鄰近車站智慧配對**：自動比對 350 座權威實體樞紐車站，計算離站距離與 1.25x 步行時間，補齊 `nearestStation` 與 `walkMinutes`。
 - **離線基準數據雙模備援**：每支爬蟲皆內建代表性 Benchmark 離線門市清單，若外部網路遭遇震盪或逾時，自動無縫切換，確保 100% 高可用性。
+
+---
+
+## 七、智慧步行導航與路徑生成引擎規格 (`src/utils/navigation.js`)
+
+為解決過去點擊「🚶 步行導航」使用純經緯度坐標（`destination=lat,lng`）導致 Google 地圖將終點誤判為無名 Dropped Pin，並因行人路網強制吸附至鄰近車道而導致旅客被引導至後方卸貨區或死胡同的痛點，專案研發**智慧步行導航與路徑生成引擎**。
+
+### 1. 純經緯度導航痛點與技術成因分析
+
+| 導航方式 | Google Maps 內部處理機制 | 行人路線規劃後果 | 旅客體驗痛點 |
+| :--- | :--- | :--- | :--- |
+| **舊版：純經緯度**<br>`destination=lat,lng` | 視為幾何座標點 (Dropped Pin)，無法掛載 Google Place Entity | 行人路網強行將座標投影吸附至最近的車行幹道（如高架道路、商場後棟道路） | 被帶到封閉卸貨道、停車場出口、對街天橋下或死胡同 |
+| **新版：店名 + 在地地址**<br>`destination=name + address` | 直擊官方 Google Place Entity 商家卡片，取得官方登錄出入口與營業資訊 | 路網精準匹配至官方行人入口、商場主出入口或大廳迎賓門 | 100% 正確出站，直達店家店門口 |
+
+### 2. 四級安全降級查詢演算法 (Four-Tier Fallback Algorithm)
+
+模組提供 `buildNavigationQuery(spot)` 與 `buildWalkingNavUrl(spot, originStation)` 函式，依據資料豐富度自動降級：
+
+```mermaid
+flowchart TD
+    Start([輸入 Spot 商家資料]) --> CheckT1{日文/中文店名<br>且具備詳細日本地址?}
+    CheckT1 -- 是 --> T1["Tier 1 (最優直連):<br>『店名 + 日本在地清洗地址』<br>直擊官方商戶出入口"]
+    CheckT1 -- 否 --> CheckT2{具備店名<br>且具都道府縣或車站?}
+    CheckT2 -- 是 --> T2["Tier 2 (次級空間組合):<br>『店名 + 都道府縣 + 最鄰近車站』"]
+    CheckT2 -- 否 --> CheckT3{具備店名?}
+    CheckT3 -- 是 --> T3["Tier 3 (名詞檢索):<br>『純店名』"]
+    CheckT3 -- 否 --> CheckT4{具備經緯度?}
+    CheckT4 -- 是 --> T4["Tier 4 (兜底保障):<br>『lat,lng 浮點數坐標』"]
+    CheckT4 -- 否 --> SafeEmpty["返回空字串 (安全防禦)"]
+```
+
+### 3. 日本地址字串標準化與清洗規格 (`cleanJapaneseAddress`)
+
+日本官方爬取之地址常夾雜郵遞區號標記、全形括號商場樓層或不規則註記，若直接送入 Google Maps 搜尋容易干擾匹配精度。清洗規則如下：
+1. **移除郵遞區號**：過濾 `〒`、`〒[0-9]{3}-?[0-9]{4}` 及 `郵便番号` 開頭前綴。
+2. **移除大樓樓層與括號資訊**：過濾 `（...）`、`(...)`、`【...】`、`[...]`、`1F`、`2階`、`B1F` 等室內樓層標示（Google 地圖外網步行導航需要的是建築物地址本體）。
+3. **字串清理**：過濾多餘半形與全形空白，確保檢索詞簡潔精準。
+
+### 4. 出發點 (Origin) 智慧動態判定機制
+
+- **在路上漫遊情境 (`originStation` 為空)**：
+  - 產製 URL 格式：`https://www.google.com/maps/dir/?api=1&destination={Query}&travelmode=walking&dir_action=navigate`
+  - 主動省略 `origin` 參數，Google Maps 應用程式啟動時會自動讀取手機當前 GPS 坐標作為出發點，直接啟動實時步行導航。
+- **特定車站出站導覽情境 (`originStation` 有值)**：
+  - 格式化站名：自動呼叫 `formatStationOrigin(station)`，去除「站」字並補上「駅」（如 `新宿` $\rightarrow$ `新宿駅`、`梅田站` $\rightarrow$ `梅田駅`）。
+  - 產製 URL 格式：`https://www.google.com/maps/dir/?api=1&origin={Station}駅&destination={Query}&travelmode=walking`
+  - 讓旅客在行前或出站時預覽從該車站檢票口步行至門市的最佳路徑與所需時間。
+
+### 5. Google Maps 搜尋與商戶落地頁直連 (`buildGoogleMapSearchUrl`)
+
+- 針對「查看詳情」或卡片地圖超連結，使用官方標準 Search URL：
+  `https://www.google.com/maps/search/?api=1&query={EncodedQuery}`
+- 同樣支援 Tier 1 ~ Tier 4 降級，並自動相容保留既有合法 Google Maps 網址（例如試算表匯入之專屬短網址 `maps.app.goo.gl`）。
+

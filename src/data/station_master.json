@@ -207,6 +207,267 @@
     "source": "precise_railway"
   },
   {
+    "name": "登戶站",
+    "lat": 35.620958,
+    "lng": 139.570183,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR南武線 / 小田急小田原線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "武藏小杉站",
+    "lat": 35.576444,
+    "lng": 139.659611,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR橫須賀線 / 湘南新宿線 / 南武線 / 東急東橫線 / 目黑線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "海濱幕張站",
+    "lat": 35.648641,
+    "lng": 140.042138,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR京葉線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "幕張豐砂站",
+    "lat": 35.658171,
+    "lng": 140.026815,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR京葉線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "勝鬨站",
+    "lat": 35.659364,
+    "lng": 139.776639,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "都營地下鐵大江戶線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "勝どき站",
+    "lat": 35.659364,
+    "lng": 139.776639,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "都營地下鐵大江戶線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "龜戶站",
+    "lat": 35.697472,
+    "lng": 139.826722,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR總武線 / 東武龜戶線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "西小山站",
+    "lat": 35.615694,
+    "lng": 139.700139,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "東急目黑線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "大島站",
+    "lat": 35.689889,
+    "lng": 139.837833,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "都營地下鐵新宿線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "大山站",
+    "lat": 35.748361,
+    "lng": 139.702889,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "東武東上線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "龜有站",
+    "lat": 35.766722,
+    "lng": 139.849194,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR常磐線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "小岩站",
+    "lat": 35.733472,
+    "lng": 139.882194,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR總武線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "西荻窪站",
+    "lat": 35.703806,
+    "lng": 139.600111,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR中央線 / 總武線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "北浦和站",
+    "lat": 35.872222,
+    "lng": 139.646861,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR京濱東北線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "武藏浦和站",
+    "lat": 35.845833,
+    "lng": 139.648611,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR埼京線 / 武藏野線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "市谷站",
+    "lat": 35.691167,
+    "lng": 139.736028,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR中央總武線 / 東京地下鐵南北線 / 有樂町線 / 都營新宿線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "市ヶ谷站",
+    "lat": 35.691167,
+    "lng": 139.736028,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR中央總武線 / 東京地下鐵南北線 / 有樂町線 / 都營新宿線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "葛西臨海公園站",
+    "lat": 35.644444,
+    "lng": 139.862222,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR京葉線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "相模大野站",
+    "lat": 35.531889,
+    "lng": 139.438028,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "小田急小田原線 / 江之島線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "町田站",
+    "lat": 35.542472,
+    "lng": 139.445583,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR橫濱線 / 小田急小田原線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "國分寺站",
+    "lat": 35.700139,
+    "lng": 139.480389,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "JR中央線 / 西武國分寺線 / 多摩湖線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "南柏站",
+    "lat": 35.844722,
+    "lng": 139.953889,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR常磐線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "川越站",
+    "lat": 35.906944,
+    "lng": 139.482778,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR川越線 / 東武東上線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "西宮北口站",
+    "lat": 34.745556,
+    "lng": 135.358889,
+    "prefecture": "兵庫縣",
+    "region": "關西",
+    "line": "阪急神戶本線 / 今津線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "稻田堤站",
+    "lat": 35.633528,
+    "lng": 139.535861,
+    "prefecture": "神奈川縣",
+    "region": "關東",
+    "line": "JR南武線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "北品川站",
+    "lat": 35.622341,
+    "lng": 139.740021,
+    "prefecture": "東京都",
+    "region": "關東",
+    "line": "京急本線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "東大宮站",
+    "lat": 35.948889,
+    "lng": 139.639722,
+    "prefecture": "埼玉縣",
+    "region": "關東",
+    "line": "JR宇都宮線",
+    "source": "precise_railway"
+  },
+  {
+    "name": "本八幡站",
+    "lat": 35.720833,
+    "lng": 139.927222,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR總武線 / 都營新宿線 / 京成電鐵",
+    "source": "precise_railway"
+  },
+  {
+    "name": "新浦安站",
+    "lat": 35.649944,
+    "lng": 139.912556,
+    "prefecture": "千葉縣",
+    "region": "關東",
+    "line": "JR京葉線",
+    "source": "precise_railway"
+  },
+  {
     "name": "札幌站",
     "lat": 43.068661,
     "lng": 141.350755,
@@ -2145,15 +2406,6 @@
     "name": "巢鴨站",
     "lat": 35.734474,
     "lng": 139.737701,
-    "prefecture": "東京都",
-    "region": "關東",
-    "line": "JR / 私鐵",
-    "source": "seed_hotel_APA飯店"
-  },
-  {
-    "name": "町田站",
-    "lat": 35.542038,
-    "lng": 139.450363,
     "prefecture": "東京都",
     "region": "關東",
     "line": "JR / 私鐵",

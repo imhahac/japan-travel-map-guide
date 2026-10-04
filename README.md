@@ -2,14 +2,14 @@
 
 > **專為赴日旅人量身打造的「車站生活圈導覽地圖與全日本連鎖門市資料庫」**。徹底解決自由行行前規劃與現場導航時「想在特定車站周邊快速找到推薦飯店、生活採買、平價美食、火鍋鍋物與便利商店」的痛點。
 >
-> 完整收錄 **全日本 10,176+ 處真實門市與地標**、**323 座樞紐鐵路與地下鐵車站索引**，全數門市皆由官方 API 與公開圖資實時爬取，經嚴謹的日本國土邊界盒與街廓演算法驗證，拒絕虛構資料！
+> 完整收錄 **全日本 10,176+ 處真實門市與地標**、**350 座樞紐鐵路與地下鐵車站索引**，全數門市皆由官方 API 與公開圖資實時爬取，經嚴謹的日本國土邊界盒與街廓演算法驗證，拒絕虛構資料！
 
 ![Frontend](https://img.shields.io/badge/Frontend-Vite%20%2B%20React%2019-blue?style=flat-square)
 ![Map Engine](https://img.shields.io/badge/Map-Leaflet%201.9%20%2B%20MarkerCluster-green?style=flat-square)
 ![Database](https://img.shields.io/badge/Database-Google%20Sheets%20%2B%20GAS-amber?style=flat-square)
 ![Data Volume](https://img.shields.io/badge/Verified%20Spots-10%2C176%2B-orange?style=flat-square)
-![Stations](https://img.shields.io/badge/Indexed%20Stations-323%20Stations-red?style=flat-square)
-![Test Coverage](https://img.shields.io/badge/Vitest-14%20Suites%20%7C%2095%20Passed-brightgreen?style=flat-square)
+![Stations](https://img.shields.io/badge/Indexed%20Stations-350%20Stations-red?style=flat-square)
+![Test Coverage](https://img.shields.io/badge/Vitest-16%20Suites%20%7C%20112%20Passed-brightgreen?style=flat-square)
 ![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-purple?style=flat-square)
 
 ---
@@ -18,7 +18,7 @@
 
 本專案提供無死角的繁體中文（台灣）維運與架構指南，所有設定步驟皆具備精確指令與圖文級引導：
 
-- 🏛️ **[系統架構與演算法規格手冊 (docs/ARCHITECTURE.md)](docs/ARCHITECTURE.md)**：三層分類架構、1.25x 街廓係數、國土邊界盒防禦、零預設渲染效能機制與資料模型規範。
+- 🏛️ **[系統架構與演算法規格手冊 (docs/ARCHITECTURE.md)](docs/ARCHITECTURE.md)**：三層分類架構、1.25x 街廓係數、六厘舎/舎鈴坐標校準演算法、國土邊界盒防禦、零預設渲染效能機制與資料模型規範。
 - 📖 **[部署與維運手冊 (docs/DEPLOYMENT.md)](docs/DEPLOYMENT.md)**：GitHub Pages 免費 10 分鐘部署、Repository Secrets/Variables 完整清單、Actions 自動化工作流。
 - 📊 **[Google 試算表對齊與 GAS Webhook 手冊 (docs/GOOGLE_SHEETS_GUIDE.md)](docs/GOOGLE_SHEETS_GUIDE.md)**：Google Apps Script 網頁應用程式部署、動態標頭對齊、二維矩陣批次寫入防逾時與個人筆記保護。
 
@@ -32,7 +32,7 @@
 | :--- | :--- | :---: | :--- |
 | **住宿飯店** | **東橫 INN** (354 間)<br>**APA 飯店** (287 間) | **634 間** | 官方預訂系統 REST API、地理座標反查 |
 | **購物藥妝** | **Bic Camera** 大型電器旗艦店 (45 間)<br>**友都八喜 Yodobashi** (24 間)<br>**唐吉訶德 Don Quijote** (28 間)<br>**松本清 Matsumoto Kiyoshi** (116 間)<br>其他生活家電與藥妝 (757 間) | **970 間** | 官網分店導覽、Mapion LBS、官方分店 API |
-| **美食餐廳** | **すき家 Sukiya** (1,962 間)<br>**松屋 Matsuya** (1,146 間)<br>**薩莉亞 Saizeriya** (1,085 間)<br>**客美多咖啡 Komeda** (1,029 間)<br>**壽司郎 Sushiro** (685 間)<br>**はま寿司 Hama Sushi** (617 間)<br>**藏壽司 Kura Sushi** (551 間)<br>**やよい軒 Yayoiken** (360 間)<br>**大戶屋 Ootoya** (339 間)<br>**しゃぶ葉 Syabuyo** (337 間)<br>**一蘭 / 一風堂** (336 間)<br>**舎鈴 Sharin** (77 間)<br>**Shake Shack** (19 間)<br>**六厘舎 Rokurinsha** (6 間) | **8,549 間** | 雲雀集團 GOGA API、松富士 Nuxt3 Payload、Zensho API、Navitime Citrus API、Canly 官方 API、Komeda REST API、Mapion LBS API |
+| **美食餐廳** | **すき家 Sukiya** (1,962 間)<br>**松屋 Matsuya** (1,146 間)<br>**薩莉亞 Saizeriya** (1,085 間)<br>**客美多咖啡 Komeda** (1,029 間)<br>**壽司郎 Sushiro** (685 間)<br>**はま寿司 Hama Sushi** (617 間)<br>**藏壽司 Kura Sushi** (551 間)<br>**やよい軒 Yayoiken** (360 間)<br>**大戶屋 Ootoya** (339 間)<br>**しゃぶ葉 Syabuyo** (337 間)<br>**一蘭 / 一風堂** (336 間)<br>**舎鈴 Sharin** (77 間)<br>**Shake Shack** (19 間)<br>**六厘舎 Rokurinsha** (6 間) | **8,549 間** | 雲雀集團 GOGA API、國土地理院 GSI 校準、松富士 Nuxt3 Payload、Zensho API、Navitime Citrus API、Canly 官方 API、Komeda REST API、Mapion LBS API |
 | **便利商店** | **7-Eleven、FamilyMart 全家、Lawson 羅森** | **23 間** | 500m 車站生活圈站前精選種子店 |
 | **全站總計** | **4 大核心領域、18+ 指標連鎖品牌** | **10,176 筆** | **100% 通過日本國土範圍與車站配對驗證** |
 
@@ -47,7 +47,7 @@
   - 🛍️ **購物藥妝**：`藥妝量販`（唐吉訶德、松本清）、`3C家電`（Bic Camera、友都八喜）
   - 🍜 **美食餐廳**：`日式拉麵`（六厘舎、舎鈴、一蘭、一風堂）、`鍋物料理`（しゃぶ葉 / 涮乃葉）、`家庭餐廳`（薩莉亞）、`漢堡輕食`（Shake Shack）、`平價牛丼`（すき家、松屋、吉野家）、`迴轉壽司`（壽司郎、藏壽司、はま寿司）、`和風定食`（大戶屋、やよい軒）、`喫茶咖啡`（客美多咖啡）
   - 🏪 **便利商店**：`連鎖超商`（7-Eleven、全家 FamilyMart、羅森 Lawson）
-- **第三層（空間生活圈）**：日本 8 大地區（關東、近畿、中部、九州等） $\rightarrow$ 47 都道府縣 $\rightarrow$ 323 座主要車站。
+- **第三層（空間生活圈）**：日本 8 大地區（關東、近畿、中部、九州等） $\rightarrow$ 47 都道府縣 $\rightarrow$ 350 座主要車站。
 
 ### 2. ⚡ 零預設渲染與左側單頁 100 筆極速效能 (Zero-Default Render)
 - **拒絕無效浪費與卡頓**：進入網頁時預設不強制渲染 10,000+ 筆 DOM 節點，維持首屏極速加載與流暢體驗。
@@ -56,18 +56,32 @@
   - 點擊地圖圖釘時，左側欄頂部會立即展開高對比度**「地圖選取商家資訊」**獨立面板，呈現完整地址、電話、即時步行距離與導航按鈕，避免圖釘被彈窗遮擋或產生誤會。
   - 點擊左側卡片，地圖平滑滾動聚焦（PanTo）並展開專屬色彩標記。
 
-### 3. 🎯 零偏移實體定位與街廓繞行演算法
+### 3. 🎯 零偏移實體定位與六厘舎/舎鈴幾何校準
+- **六厘舎與舎鈴坐標偏移徹底修復**：深入排查發現 Google Maps iframe 嵌入參數（`!2d` 與 `!3d`）包含側邊欄視窗偏移量，導致全數門市原始坐標系統性西偏 220 公尺。專案導入**雙軌幾何校準演算法**：六厘舎 6 大旗艦店直接套用實體改札黃金坐標（出站 1~2 分鐘），舎鈴門市全面介接**日本國土地理院 (GSI)** AddressSearch API 實施地番街廓精準校準。
 - **實地經緯度校準**：針對重點飯店進行精準街廓定位（例如：修正小傳馬町 APA 飯店至大傳馬町 14 番街區，而非偏移至對街地鐵出口）。
 - **1.25x 日本都市街廓係數**：依據日本國土交通省市區道路迂迴標準與不動產公正競爭規約（80m/min 步行基準），真實推算離站步行時間，不再使用虛假直線距離。
 
 ### 4. 🚉 車站 300m / 500m / 1000m 生活圈多環聚焦
-- **智慧自動完成**：即時支援全日本 340 座樞紐車站名稱搜尋（如：新宿、澀谷、東京、梅田、博多、京都、札幌等）。
+- **智慧自動完成**：即時支援全日本 350 座樞紐車站名稱搜尋（如：新宿、澀谷、東京、梅田、博多、京都、札幌、登戶、海濱幕張、武藏小杉、勝鬨等）。
 - **半透明多環光圈**：選定車站後自動在地圖繪製 **300m（出站即達）**、**500m（核心生活圈）** 與 **1000m（周邊延伸商圈）** 光圈，卡片清單依離站公尺數由近至遠嚴格排序。
+- **真生活圈優先綁定**：生活圈演算法優先尊重 600m 範圍內之實體出站生活圈，杜絕門市被拉扯錯配至數公里外的其他車站。
 
 ### 5. ☁️ Google 試算表雙向原子同步 (GAS Webhook Pipeline)
 - 透過 Google Apps Script (GAS) 部署為無伺服器 Webhook 端點，支援二維矩陣原子操作（`setValues`）。
 - 每次推送 100~200 筆，全量 7,000+ 筆資料可在 1 分鐘內寫入完畢，徹底解決 Google 試算表 6 分鐘逾時限制。
 - 內建**使用者個人筆記（Notes）永久保護機制**，同步更新時絕不抹除個人旅遊心得。
+
+### 6. 🚶 智慧步行導航與店名在地地址直連引擎 (Smart Walking Navigation)
+- **告別純經緯度 Dropped Pin 盲區**：過去導航若單純使用經緯度坐標（`destination=lat,lng`），Google 地圖會將其視為隨機放置的無名圖釘（Dropped Pin），行人導航路網會強行將終點吸附至最近的車行幹道，常導致自由行旅客被導引至商場封閉的後方卸貨道、停車場出口或無法通行的死胡同。
+- **四級降級導航演算法 (Four-Tier Fallback)**：
+  - **Tier 1 (最優)**：`日文官方店名 + 日本在地詳細地址`（直擊 Google Place Entity 官方地標卡片，精準對齊行人出入口與商場大門）。
+  - **Tier 2 (次級)**：`店名 + 都道府縣 + 最鄰近車站`（地址缺失時自動補齊空間特徵）。
+  - **Tier 3 (一般)**：`單純店名`。
+  - **Tier 4 (兜底)**：`物理坐標浮點數`（100% 確保連結可導航且不拋出空指標）。
+- **起點智慧動態判斷 (Dynamic Origin)**：
+  - **在路上漫步**：若未選定特定車站，導航連結主動省略 `origin` 參數，Google Maps App 自動讀取手機當前即時 GPS 發起實時步行指引。
+  - **出站步行規劃**：若左側已選定特定車站（如「新宿」），自動注入日文標準化出發點（如 `origin=新宿駅`），精確規劃出站行走動線。
+- **Universal URL 與手機 App 深度喚醒**：支援 `dir_action=navigate&travelmode=walking` 標準通用協定，手機瀏覽時可秒級無縫喚醒原生 Google Maps App 進入 AR 實景或行人羅盤導航模式。
 
 ---
 
@@ -92,7 +106,7 @@ npm run dev
 
 ### 3. 執行全套品質測試 (Vitest)
 ```bash
-# 執行全部單元測試與端到端篩選整合測試 (12 套件、82 測資)
+# 執行全部單元測試與端到端篩選整合測試 (16 套件、112 測資全部通過)
 npm test
 ```
 
@@ -174,7 +188,7 @@ japan-travel-map-guide/
 │   │   ├── geo.js                  # Haversine、1.25x 街廓係數與車站半徑計算
 │   │   ├── validator.js            # 日本國土邊界盒與資料結構校驗
 │   │   ├── dedupe.js               # 距離與名稱標準化去重
-│   │   └── station_anchors.js      # 323 座權威實體車站坐標與生活圈錨點
+│   │   └── station_anchors.js      # 350 座權威實體車站坐標與生活圈錨點
 │   ├── scrapers/                   # 全國 18 大指標品牌與生活通路官方爬蟲
 │   │   ├── crawl_all_nationwide.js # 全國總體爬蟲管線
 │   │   ├── crawl_syabuyo.js        # しゃぶ葉 (涮乃葉) 官方 GOGA API 爬蟲
@@ -191,7 +205,7 @@ japan-travel-map-guide/
 │   │   ├── crawl_komeda.js         # 客美多咖啡官方爬蟲 (REST API)
 │   │   ├── crawl_bic_camera.js     # Bic Camera 旗艦店爬蟲
 │   │   └── apa.js / donki.js ...   # 飯店與生活採買爬蟲
-│   ├── datagenerate.js             # 靜態打包與車站 323 站生活圈索引生成器
+│   ├── datagenerate.js             # 靜態打包與車站 350 站生活圈索引生成器
 │   └── sync_to_sheet.js            # Google 試算表批次同步 CLI
 ├── src/
 │   ├── components/                 # React UI 元件
@@ -204,7 +218,7 @@ japan-travel-map-guide/
 │   │   └── SyncModal.jsx           # Google Sheet 雲端同步設定導覽彈窗
 │   ├── data/                       # 核心產物與離線種子庫
 │   │   ├── spots.json              # 10,176 筆全域有效景點資料庫
-│   │   ├── stations.json           # 323 座日本樞紐車站座標與生活圈索引
+│   │   ├── stations.json           # 350 座日本樞紐車站座標與生活圈索引
 │   │   ├── station_master.json     # 車站權威物理母檔資料
 │   │   ├── syabuyo_seed.json       # 337 間しゃぶ葉官方直營門市庫
 │   │   ├── matsufuji_seed.json     # 83 間六厘舎與舎鈴官方門市庫
@@ -217,11 +231,13 @@ japan-travel-map-guide/
 │   │   └── convenience_seed.json   # 23 間出站 500m 站前超商精選庫
 │   ├── constants/
 │   │   └── taxonomy.js             # 核心三層分類與品牌辭典 (Single Source of Truth)
+│   ├── utils/
+│   │   └── navigation.js           # 智慧步行導航與店名在地地址四級降級引擎
 │   ├── App.jsx                     # 應用程式主畫面與效能狀態管理
 │   ├── index.css                   # 現代日式美學色彩系統與響應式排版
 │   └── main.jsx                    # React 19 掛載入口
-├── tests/                          # 測試套件 (14 個測試檔案、95 個測試全部通過)
-│   ├── unit/                       # 爬蟲、幾何運算、去重與資料驗證測試
+├── tests/                          # 測試套件 (16 個測試檔案、112 個測試全部通過)
+│   ├── unit/                       # 爬蟲、導航、幾何運算、去重與資料驗證測試
 │   └── integration/                # 多層篩選、定位精度與左側看板連動測試
 ├── index.html                      # SEO 優化入口 HTML
 ├── package.json

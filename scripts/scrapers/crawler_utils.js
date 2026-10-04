@@ -143,8 +143,14 @@ export function formatSpotRecord(raw, stationsList = []) {
     lat,
     lng,
     phone: raw.phone || '',
-    bookingUrl: raw.bookingUrl || raw.url || 'https://www.google.com/',
-    googleMapUrl: `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
+    googleMapUrl: (() => {
+      if (raw.googleMapUrl && !/^https?:\/\/(www\.)?google\.com\/maps\/search\/\?api=1&query=[0-9.-]+,[0-9.-]+$/i.test(raw.googleMapUrl)) {
+        return raw.googleMapUrl;
+      }
+      const cleanAddr = (raw.address || '').replace(/〒?\s*\d{3}[-－]?\d{4}\s*/g, '').trim();
+      const q = raw.name && cleanAddr ? `${raw.nameJa || raw.name} ${cleanAddr}` : (raw.name || cleanAddr || `${lat},${lng}`);
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q.replace(/[\u3000\s]+/g, ' ').trim())}`;
+    })(),
     imageUrl,
     images: [imageUrl],
     tags: tags.join(', '),

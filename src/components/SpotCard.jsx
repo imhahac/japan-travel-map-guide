@@ -1,5 +1,6 @@
 import React from 'react';
 import { Train, Navigation, Phone, ExternalLink, MapPin, Coffee, Car } from 'lucide-react';
+import { buildWalkingNavUrl, buildGoogleMapSearchUrl } from '../utils/navigation.js';
 
 export default function SpotCard({ spot, isSelected, selectedStation, onSelect }) {
   // If selectedStation exists, calculate distance in meters and walking time
@@ -23,10 +24,8 @@ export default function SpotCard({ spot, isSelected, selectedStation, onSelect }
       : `距 ${selectedStation.name} ${(distMeters / 1000).toFixed(1)}km (約 ${walkMin} 分)`;
   }
 
-  // Google Maps Walking Navigation URL
-  const navUrl = selectedStation
-    ? `https://www.google.com/maps/dir/?api=1&origin=${selectedStation.lat},${selectedStation.lng}&destination=${spot.lat},${spot.lng}&travelmode=walking`
-    : (spot.googleMapUrl || `https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}`);
+  // Google Maps Smart Walking Navigation URL (官方店名 + 日本在地地址)
+  const navUrl = buildWalkingNavUrl(spot, selectedStation);
 
   return (
     <div
@@ -126,7 +125,7 @@ export default function SpotCard({ spot, isSelected, selectedStation, onSelect }
             </a>
           ) : (
             <a
-              href={spot.googleMapUrl}
+              href={spot.googleMapUrl || buildGoogleMapSearchUrl(spot)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-action btn-primary"
