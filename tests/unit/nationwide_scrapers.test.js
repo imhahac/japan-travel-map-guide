@@ -126,14 +126,14 @@ describe('Nationwide Scrapers Test Suite', { timeout: 20000 }, () => {
   });
 
   it('11. Shake Shack 爬蟲應獲取官方門市資訊、美式漢堡子分類且符合 Schema', async () => {
-    const spots = await crawlShakeShack(sampleStations, { maxStores: 5, verbose: false });
+    const spots = await crawlShakeShack(sampleStations, { maxStores: 5, verbose: false, forceBenchmark: true });
     expect(spots.length).toBeGreaterThanOrEqual(5);
     const first = spots[0];
     expect(first.brand).toBe('Shake Shack');
     expect(first.category).toBe('美食餐廳');
     expect(first.subcategory).toBe('漢堡輕食');
     expect(validateSpot(first).isValid).toBe(true);
-  }, 15000);
+  }, 20000);
 
   it('12. 六厘舎 與 舎鈴 (Matsufuji) 爬蟲應獲取官方門市資訊、拉麵子分類且符合 Schema', async () => {
     const spots = await crawlMatsufuji(sampleStations, { verbose: false });

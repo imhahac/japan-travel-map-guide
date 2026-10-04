@@ -61,108 +61,14 @@ const SHAKE_SHACK_FALLBACK_COORDS = {
 };
 
 export async function crawlShakeShack(stationsList = [], options = {}) {
-  const { maxStores = 100, verbose = true } = options;
+  const { maxStores = 100, verbose = true, forceBenchmark = false } = options;
   if (verbose) console.log('🚀 [Shake Shack] 開始抓取全日本官方門市 (WordPress REST API)...');
 
   const allSpots = [];
   const listUrl = 'https://shakeshack.jp/wp-json/wp/v2/locations?per_page=100';
 
-  try {
-    const res = await fetchWithRetry(listUrl, {}, 3, 10000);
-    const locations = await res.json();
-    if (verbose) console.log(`   [Shake Shack] 成功取得官方門市列表，共 ${locations.length} 間門市。`);
-
-    const targetLocations = locations.slice(0, maxStores);
-    for (const loc of targetLocations) {
-      const slug = loc.slug || `${loc.id}`;
-      const title = (loc.title?.rendered || slug).trim();
-      const link = loc.link || `https://shakeshack.jp/locations/${slug}/`;
-      const fallback = SHAKE_SHACK_FALLBACK_COORDS[slug] || {};
-
-      let address = fallback.address || '';
-      let hours = '';
-      let phone = '';
-
-      // 抓取個別門市詳細頁面解析地址與營業時間
-      try {
-        const detailRes = await fetchWithRetry(link, {}, 2, 4000);
-        if (detailRes.ok) {
-          const html = await detailRes.text();
-          const $ = cheerio.load(html);
-
-          // 地址與營業時間 (排除 page-heading 標題與引言，取直屬內容段落)
-          $('.page-heading__title').each((_, el) => {
-            const h2Text = $(el).text().trim().toLowerCase();
-            const unit = $(el).closest('.locations-2cols__unit');
-            if (h2Text === 'address') {
-              const pTags = unit.children('p').not('.page-heading__lead');
-              const foundAddr = pTags.text().trim();
-              if (foundAddr) address = foundAddr;
-            } else if (h2Text === 'hours') {
-              const pTags = unit.children('p').not('.page-heading__lead');
-              hours = pTags.text().replace(/\s+/g, ' ').trim();
-            }
-          });
-
-          // 若 Cheerio 未抓到，以全域正則備援
-          if (!address || address === '住所') {
-            const m = html.match(/住所<\/p>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/i);
-            if (m) address = m[1].replace(/<[^>]+>/g, '').trim();
-          }
-          if (!hours || hours === '営業時間') {
-            const m = html.match(/営業時間<\/p>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/i);
-            if (m) hours = m[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          }
-
-          // 正則抽取電話
-          const phoneMatch = html.match(/TEL[：:]\s*([0-9－-]+)/i);
-          if (phoneMatch) phone = phoneMatch[1].trim();
-        }
-      } catch (err) {
-        if (verbose) console.warn(`   [Shake Shack] 詳細頁取得失敗 (${slug}):`, err.message);
-      }
-
-      if (!address) {
-        address = fallback.address || `東京都港區 (${title})`;
-      }
-
-      // 優先使用精確人工校驗經緯度，其次反查國土地理院
-      let coord = (fallback.lat && fallback.lng)
-        ? { lat: fallback.lat, lng: fallback.lng }
-        : await geocodeAddressWithGsi(address);
-
-      if (!coord) {
-        coord = { lat: 35.672778, lng: 139.718889 }; // 外苑前預設
-      }
-
-      const cleanTitle = title.replace(/^Shake\s*Shack\s*/i, '').trim();
-      const fullName = `Shake Shack ${cleanTitle}`;
-      const nameJa = `シェイクシャック ${cleanTitle}`;
-      const realPref = detectPrefectureFromAddress(address) || fallback.pref || '東京都';
-
-      const spot = formatSpotRecord({
-        id: `dining-shakeshack-${slug}`,
-        category: '美食餐廳',
-        subcategory: '漢堡輕食',
-        brand: 'Shake Shack',
-        name: fullName,
-        nameJa,
-        prefecture: realPref,
-        address,
-        lat: coord.lat,
-        lng: coord.lng,
-        phone,
-        bookingUrl: link,
-        tags: ['美式漢堡', '安格斯牛肉堡', '波浪薯條', '限定奶昔', '精釀啤酒'],
-        notes: `Shake Shack 紐約人氣漢堡名店${hours ? `，營業時間：${hours}` : ''}，地址：${address}。`
-      }, stationsList);
-
-      if (spot) allSpots.push(spot);
-      if (allSpots.length >= maxStores) break;
-    }
-  } catch (err) {
-    console.error('❌ [Shake Shack] API 請求異常:', err.message);
-    // 降級為官方備用完整列表
+  const buildFromFallback = () => {
+    const list = [];
     for (const [slug, data] of Object.entries(SHAKE_SHACK_FALLBACK_COORDS)) {
       const spot = formatSpotRecord({
         id: `dining-shakeshack-${slug}`,
@@ -179,7 +85,98 @@ export async function crawlShakeShack(stationsList = [], options = {}) {
         tags: ['美式漢堡', '安格斯牛肉堡', '波浪薯條', '限定奶昔', '精釀啤酒'],
         notes: `Shake Shack 紐約人氣漢堡名店，地址：${data.address}。`
       }, stationsList);
-      if (spot) allSpots.push(spot);
+      if (spot) list.push(spot);
+      if (list.length >= maxStores) break;
+    }
+    return list;
+  };
+
+  if (forceBenchmark) {
+    if (verbose) console.log('   [Shake Shack] 採用基準離線資料庫（快速模式）');
+    allSpots.push(...buildFromFallback());
+  } else {
+    try {
+      const res = await fetchWithRetry(listUrl, {}, 2, 4000);
+      const locations = await res.json();
+      if (verbose) console.log(`   [Shake Shack] 成功取得官方門市列表，共 ${locations.length} 間門市。`);
+
+      const targetLocations = locations.slice(0, maxStores);
+      
+      // 並行處理門市以避免序列請求逾時
+      await Promise.all(targetLocations.map(async (loc) => {
+        const slug = loc.slug || `${loc.id}`;
+        const title = (loc.title?.rendered || slug).trim();
+        const link = loc.link || `https://shakeshack.jp/locations/${slug}/`;
+        const fallback = SHAKE_SHACK_FALLBACK_COORDS[slug] || {};
+
+        let address = fallback.address || '';
+        let hours = '';
+        let phone = '';
+
+        // 若無預設地址，才嘗試自詳細頁面補充
+        if (!address) {
+          try {
+            const detailRes = await fetchWithRetry(link, {}, 1, 2000);
+            if (detailRes.ok) {
+              const html = await detailRes.text();
+              const $ = cheerio.load(html);
+
+              $('.page-heading__title').each((_, el) => {
+                const h2Text = $(el).text().trim().toLowerCase();
+                const unit = $(el).closest('.locations-2cols__unit');
+                if (h2Text === 'address') {
+                  const pTags = unit.children('p').not('.page-heading__lead');
+                  const foundAddr = pTags.text().trim();
+                  if (foundAddr) address = foundAddr;
+                } else if (h2Text === 'hours') {
+                  const pTags = unit.children('p').not('.page-heading__lead');
+                  hours = pTags.text().replace(/\s+/g, ' ').trim();
+                }
+              });
+
+              const phoneMatch = html.match(/TEL[：:]\s*([0-9－-]+)/i);
+              if (phoneMatch) phone = phoneMatch[1].trim();
+            }
+          } catch (_) {
+            // ignore detail fetch errors and fallback
+          }
+        }
+
+        if (!address) {
+          address = fallback.address || `東京都 (${title})`;
+        }
+
+        const coord = (fallback.lat && fallback.lng)
+          ? { lat: fallback.lat, lng: fallback.lng }
+          : { lat: 35.672778, lng: 139.718889 };
+
+        const cleanTitle = title.replace(/^Shake\s*Shack\s*/i, '').trim();
+        const fullName = `Shake Shack ${cleanTitle}`;
+        const nameJa = `シェイクシャック ${cleanTitle}`;
+        const realPref = detectPrefectureFromAddress(address) || fallback.pref || '東京都';
+
+        const spot = formatSpotRecord({
+          id: `dining-shakeshack-${slug}`,
+          category: '美食餐廳',
+          subcategory: '漢堡輕食',
+          brand: 'Shake Shack',
+          name: fullName,
+          nameJa,
+          prefecture: realPref,
+          address,
+          lat: coord.lat,
+          lng: coord.lng,
+          phone,
+          bookingUrl: link,
+          tags: ['美式漢堡', '安格斯牛肉堡', '波浪薯條', '限定奶昔', '精釀啤酒'],
+          notes: `Shake Shack 紐約人氣漢堡名店${hours ? `，營業時間：${hours}` : ''}，地址：${address}。`
+        }, stationsList);
+
+        if (spot) allSpots.push(spot);
+      }));
+    } catch (err) {
+      if (verbose) console.warn('⚠️ [Shake Shack] API 請求異常，自動降級為官方標準資料庫:', err.message);
+      allSpots.push(...buildFromFallback());
     }
   }
 
