@@ -28,7 +28,7 @@ const GAS_WEBHOOK_URL = nonFlagArgs[0] || process.env.GAS_WEBHOOK_URL || DEFAULT
 const target = flags.target || 'all';
 const customFile = flags.file;
 const customSheet = flags.sheet || '飯店';
-const customBatchSize = parseInt(flags['batch-size'] || flags.batchSize || '100', 10);
+const customBatchSize = parseInt(flags['batch-size'] || flags.batchSize || '80', 10);
 
 const TARGET_CONFIGS = {
   apa: [
@@ -37,26 +37,81 @@ const TARGET_CONFIGS = {
   toyoko: [
     { file: 'src/data/toyoko_seed.json', sheetName: '飯店', label: '東橫 INN' }
   ],
+  hotel: [
+    { file: 'src/data/toyoko_seed.json', sheetName: '飯店', label: '東橫 INN' },
+    { file: 'src/data/apa_seed.json', sheetName: '飯店', label: 'APA 飯店' }
+  ],
+  uniqlo: [
+    { file: 'src/data/uniqlo_seed.json', sheetName: '購物藥妝', label: 'UNIQLO 優衣庫 (788門市)' }
+  ],
+  muji: [
+    { file: 'src/data/muji_seed.json', sheetName: '購物藥妝', label: '無印良品 MUJI (767門市)' }
+  ],
+  '3coins': [
+    { file: 'src/data/3coins_seed.json', sheetName: '購物藥妝', label: '3COINS (390門市)' }
+  ],
+  loft: [
+    { file: 'src/data/loft_seed.json', sheetName: '購物藥妝', label: 'LOFT 生活雜貨 (193門市)' }
+  ],
+  daiso: [
+    { file: 'src/data/daiso_seed.json', sheetName: '購物藥妝', label: '大創百貨 DAISO (1,823門市)' }
+  ],
   shopping: [
-    { file: 'src/data/shopping_seed.json', sheetName: '購物藥妝', label: '購物藥妝' }
+    { file: 'src/data/shopping_seed.json', sheetName: '購物藥妝', label: '購物藥妝基礎 (Bic Camera/唐吉訶德/松本清)' },
+    { file: 'src/data/uniqlo_seed.json', sheetName: '購物藥妝', label: 'UNIQLO 優衣庫 (788門市)' },
+    { file: 'src/data/muji_seed.json', sheetName: '購物藥妝', label: '無印良品 MUJI (767門市)' },
+    { file: 'src/data/3coins_seed.json', sheetName: '購物藥妝', label: '3COINS (390門市)' },
+    { file: 'src/data/loft_seed.json', sheetName: '購物藥妝', label: 'LOFT 生活雜貨 (193門市)' },
+    { file: 'src/data/daiso_seed.json', sheetName: '購物藥妝', label: '大創百貨 DAISO (1,823門市)' }
+  ],
+  matsufuji: [
+    { file: 'src/data/matsufuji_seed.json', sheetName: '美食餐廳', label: '六厘舎 / 舎鈴 (83門市)' }
+  ],
+  syabuyo: [
+    { file: 'src/data/syabuyo_seed.json', sheetName: '美食餐廳', label: 'しゃぶ葉 (337門市)' }
+  ],
+  wendys: [
+    { file: 'src/data/wendys_seed.json', sheetName: '美食餐廳', label: 'Wendy\'s First Kitchen (75門市)' }
+  ],
+  negishi: [
+    { file: 'src/data/negishi_seed.json', sheetName: '美食餐廳', label: 'ねぎし (52門市)' }
+  ],
+  new_brands: [
+    { file: 'src/data/muji_seed.json', sheetName: '購物藥妝', label: '無印良品 MUJI (767門市)' },
+    { file: 'src/data/3coins_seed.json', sheetName: '購物藥妝', label: '3COINS (390門市)' },
+    { file: 'src/data/loft_seed.json', sheetName: '購物藥妝', label: 'LOFT 生活雜貨 (193門市)' },
+    { file: 'src/data/daiso_seed.json', sheetName: '購物藥妝', label: '大創百貨 DAISO (1,823門市)' }
+  ],
+  new_dining: [
+    { file: 'src/data/matsufuji_seed.json', sheetName: '美食餐廳', label: '六厘舎 / 舎鈴 (83門市)' },
+    { file: 'src/data/syabuyo_seed.json', sheetName: '美食餐廳', label: 'しゃぶ葉 (337門市)' },
+    { file: 'src/data/wendys_seed.json', sheetName: '美食餐廳', label: 'Wendy\'s First Kitchen (75門市)' },
+    { file: 'src/data/negishi_seed.json', sheetName: '美食餐廳', label: 'ねぎし (52門市)' }
   ],
   dining: [
-    { file: 'src/data/dining_seed.json', sheetName: '美食餐廳', label: '美食餐廳' }
-  ],
-  saizeriya: [
-    { file: 'src/data/saizeriya_seed.json', sheetName: '美食餐廳', label: '薩莉亞 (1,085門市)' }
-  ],
-  shakeshack: [
-    { file: 'src/data/shakeshack_seed.json', sheetName: '美食餐廳', label: 'Shake Shack (19門市)' }
+    { file: 'src/data/dining_seed.json', sheetName: '美食餐廳', label: '美食餐廳 (全國連鎖名店 8,000+門市)' },
+    { file: 'src/data/matsufuji_seed.json', sheetName: '美食餐廳', label: '六厘舎 / 舎鈴 (83門市)' },
+    { file: 'src/data/syabuyo_seed.json', sheetName: '美食餐廳', label: 'しゃぶ葉 (337門市)' },
+    { file: 'src/data/wendys_seed.json', sheetName: '美食餐廳', label: 'Wendy\'s First Kitchen (75門市)' },
+    { file: 'src/data/negishi_seed.json', sheetName: '美食餐廳', label: 'ねぎし (52門市)' }
   ],
   convenience: [
     { file: 'src/data/convenience_seed.json', sheetName: '便利商店', label: '便利商店' }
   ],
   all: [
-    { file: 'src/data/dining_seed.json', sheetName: '美食餐廳', label: '美食餐廳 (全國7,000+門市)' },
-    { file: 'src/data/shopping_seed.json', sheetName: '購物藥妝', label: '購物藥妝 (含Bic Camera/唐吉訶德/松本清)' },
     { file: 'src/data/toyoko_seed.json', sheetName: '飯店', label: '東橫 INN' },
     { file: 'src/data/apa_seed.json', sheetName: '飯店', label: 'APA 飯店' },
+    { file: 'src/data/shopping_seed.json', sheetName: '購物藥妝', label: '購物藥妝基礎 (Bic Camera/唐吉訶德/松本清)' },
+    { file: 'src/data/uniqlo_seed.json', sheetName: '購物藥妝', label: 'UNIQLO 優衣庫 (788門市)' },
+    { file: 'src/data/muji_seed.json', sheetName: '購物藥妝', label: '無印良品 MUJI (767門市)' },
+    { file: 'src/data/3coins_seed.json', sheetName: '購物藥妝', label: '3COINS (390門市)' },
+    { file: 'src/data/loft_seed.json', sheetName: '購物藥妝', label: 'LOFT 生活雜貨 (193門市)' },
+    { file: 'src/data/daiso_seed.json', sheetName: '購物藥妝', label: '大創百貨 DAISO (1,823門市)' },
+    { file: 'src/data/dining_seed.json', sheetName: '美食餐廳', label: '美食餐廳 (全國連鎖名店)' },
+    { file: 'src/data/matsufuji_seed.json', sheetName: '美食餐廳', label: '六厘舎 / 舎鈴 (83門市)' },
+    { file: 'src/data/syabuyo_seed.json', sheetName: '美食餐廳', label: 'しゃぶ葉 (337門市)' },
+    { file: 'src/data/wendys_seed.json', sheetName: '美食餐廳', label: 'Wendy\'s First Kitchen (75門市)' },
+    { file: 'src/data/negishi_seed.json', sheetName: '美食餐廳', label: 'ねぎし (52門市)' },
     { file: 'src/data/convenience_seed.json', sheetName: '便利商店', label: '便利商店' }
   ]
 };
@@ -73,7 +128,7 @@ async function syncDataset(filePath, sheetName, label) {
   console.log(`📡 開始同步 [${label}] (共 ${spots.length} 筆) 至 Google Sheet「${sheetName}」分頁...`);
   console.log(`==================================================`);
 
-  const batchSize = isNaN(customBatchSize) ? 100 : customBatchSize;
+  const batchSize = isNaN(customBatchSize) ? 80 : customBatchSize;
   let successCount = 0;
   let errorCount = 0;
 
@@ -88,11 +143,14 @@ async function syncDataset(filePath, sheetName, label) {
       attempts++;
       try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 20000);
+        const timeout = setTimeout(() => controller.abort(), 45000);
 
         const res = await fetch(GAS_WEBHOOK_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+          },
           body: JSON.stringify({
             action: 'upsert',
             sheetName,
@@ -102,7 +160,14 @@ async function syncDataset(filePath, sheetName, label) {
         });
         clearTimeout(timeout);
 
-        const result = await res.json();
+        const text = await res.text();
+        let result;
+        try {
+          result = JSON.parse(text);
+        } catch {
+          throw new Error(`GAS 回傳非 JSON (HTTP ${res.status}): ${text.slice(0, 120)}`);
+        }
+
         if (result.success) {
           successCount += chunk.length;
           console.log(`  ✅ [${progress}] 成功寫入 ${chunk.length} 筆 (累積成功: ${successCount})`);
@@ -121,8 +186,8 @@ async function syncDataset(filePath, sheetName, label) {
       console.error(`  ❌ [${progress}] 批次推送失敗，跳過此批次`);
     }
 
-    // 禮貌性延遲 300ms 避免 Google Apps Script 執行頻率限制
-    await new Promise(r => setTimeout(r, 300));
+    // 禮貌性延遲 500ms 避免 Google Apps Script 執行頻率限制
+    await new Promise(r => setTimeout(r, 500));
   }
 
   return { success: errorCount === 0, count: successCount, total: spots.length };

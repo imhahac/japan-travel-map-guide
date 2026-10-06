@@ -60,7 +60,7 @@ describe('Seed Datasets Integrity Tests', () => {
       const validation = validateSpot(spot);
       expect(validation.isValid, `Dining seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
     }
-  });
+  }, 15000);
 
   it('convenience_seed.json 中的每一筆資料皆為三大超商且符合 Schema 驗證', async () => {
     const { default: convSeed } = await import('../../src/data/convenience_seed.json');
