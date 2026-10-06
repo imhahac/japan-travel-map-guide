@@ -1,6 +1,6 @@
 # 系統架構與演算法規格手冊 (Architecture & Algorithm Specification)
 
-> **版本**：v3.6 (全國 10,649 筆門市、三層分類階層、364 站生活圈、生活雜貨/流行服飾/百円百貨與智慧步行導航架構)  
+> **版本**：v4.0 (全國 14,264 筆真實官方門市、三層分類階層、364 站生活圈、生活雜貨/流行服飾/百円百貨與智慧步行導航架構)  
 > **更新日期**：2026-10-06  
 > **維護人員**：`imhahac`
 
@@ -15,7 +15,7 @@ graph TD
     subgraph Data Sources [資料來源層 Data Sources]
         A1[Google Sheets 雲端試算表 5 大分頁]
         A2[25+ 大指標品牌官方爬蟲 REST / GOGA / Nuxt3 / Navitime / Canly / LBS API]
-        A3[離線種子資料庫 Seed JSONs: 10,649 筆真實地標]
+        A3[離線種子資料庫 Seed JSONs: 14,264 筆真實地標]
     end
 
     subgraph Core Processing [核心計算與品質檢驗 scripts/core]
@@ -26,7 +26,7 @@ graph TD
     end
 
     subgraph Data Aggregator [資料彙整與靜態索引 scripts/datagenerate.js]
-        C1[("src/data/spots.json: 10,649 筆全域生活與旅遊地標")]
+        C1[("src/data/spots.json: 14,264 筆全域生活與旅遊地標")]
         C2[("src/data/stations.json: 364 座日本樞紐車站生活圈索引")]
         C3[("src/data/station_master.json: 車站實體坐標權威母檔")]
     end
@@ -96,7 +96,7 @@ stateDiagram-v2
     state "第一層：核心大分類 (L1 Categories)" as L1 {
         全部
         住宿飯店 (634間)
-        購物藥妝 (1,316間)
+        購物藥妝 (4,931間)
         美食餐廳 (8,676間)
         便利商店 (23間精選)
     }

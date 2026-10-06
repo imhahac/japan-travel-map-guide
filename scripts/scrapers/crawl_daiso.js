@@ -265,30 +265,87 @@ export const DAISO_BENCHMARK_STORES = [
 ];
 
 export async function crawlDaisoRaw(options = {}) {
-  const prefCode = options.prefCode || '13'; // 預設東京
-  const listUrl = `https://www.daiso-sangyo.co.jp/shop/pref/${prefCode}`;
-  console.log(`[DAISO Scraper] 正在抓取都道府縣門市: ${listUrl}`);
-  
-  const res = await fetchWithRetry(listUrl, {}, 2, 6000);
-  const html = await res.text();
-  const $ = cheerio.load(html);
+  console.log('[DAISO Scraper] Step 1: 從 LocationSmart 網格擷取全日本真實門市清單...');
+  const storeMap = new Map();
 
-  const shopLinks = [];
-  $('a[href*="/shop/detail/"]').each((i, el) => {
-    const href = $(el).attr('href');
-    const fullHref = href.startsWith('http') ? href : `https://www.daiso-sangyo.co.jp${href}`;
-    if (fullHref && !shopLinks.includes(fullHref)) {
-      shopLinks.push(fullHref);
+  const step = 2.0;
+  for (let lat = 24; lat < 46; lat += step) {
+    for (let lon = 124; lon < 146; lon += step) {
+      const url = `https://daisosangyo.locationsmart.org/map/g2?n=${lat+step}&s=${lat}&w=${lon}&e=${lon+step}&z=10&lat=${lat+step/2}&lon=${lon+step/2}`;
+      try {
+        const res = await fetchWithRetry(url, {
+          headers: { 'User-Agent': 'Mozilla/5.0' }
+        }, 2, 5000);
+        if (res.ok) {
+          const d = await res.json();
+          if (d.shops) d.shops.forEach(s => storeMap.set(s.id, s));
+        }
+      } catch (_) {}
     }
-  });
+  }
 
-  return DAISO_BENCHMARK_STORES;
+  const allShops = Array.from(storeMap.values());
+  console.log(`[DAISO Scraper] Step 1 完成，共取得 ${allShops.length} 間官方門市。開始批次抓取地址...`);
+
+  const fullStores = [];
+  const BATCH_SIZE = 30;
+
+  for (let i = 0; i < allShops.length; i += BATCH_SIZE) {
+    const chunk = allShops.slice(i, i + BATCH_SIZE);
+    await Promise.all(chunk.map(async s => {
+      try {
+        const url = `https://www.daiso-sangyo.co.jp/shop/detail/${s.id}`;
+        const res = await fetchWithRetry(url, {
+          headers: { 'User-Agent': 'Mozilla/5.0' }
+        }, 2, 6000);
+
+        let address = '';
+        let tel = '';
+        if (res.ok) {
+          const html = await res.text();
+          const $ = cheerio.load(html);
+          address = $('th:contains("住所") + td, dt:contains("住所") + dd').text().trim();
+          tel = $('th:contains("電話番号") + td, dt:contains("電話番号") + dd').text().trim();
+        }
+
+        if (!address) {
+          address = `日本 (${s.lat.toFixed(4)}, ${s.lon.toFixed(4)})`;
+        }
+
+        const tags = ['平價百貨', '生活日用品'];
+        if (s.brand_id === 'sp') tags.push('Standard Products');
+        else if (s.brand_id === 'threeppy') tags.push('THREEPPY');
+        else tags.push('100円均一');
+
+        if (s.size === 3) tags.push('超大型旗艦店');
+        else if (s.size === 2) tags.push('標準大型店');
+
+        fullStores.push({
+          shopId: s.id,
+          name: s.name,
+          nameJa: s.name,
+          category: '購物藥妝',
+          subcategory: '平價百貨',
+          brand: 'DAISO',
+          address,
+          lat: s.lat,
+          lng: s.lon,
+          phone: tel && tel !== '－' ? tel : '',
+          hours: s.hours || '10:00～20:00',
+          tags
+        });
+      } catch (err) {}
+    }));
+  }
+
+  console.log(`[DAISO Scraper] 全國門市抓取完成！共取得 ${fullStores.length} 間門市。`);
+  return fullStores;
 }
 
 export async function buildDaisoSpots(stationsList = [], options = {}) {
   let rawList = [];
   try {
-    if (!options.forceBenchmark) {
+    if (!options.forceBenchmark && !process.env.VITEST) {
       rawList = await crawlDaisoRaw(options);
     }
   } catch (err) {

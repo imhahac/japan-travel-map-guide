@@ -264,14 +264,89 @@ export const UNIQLO_BENCHMARK_STORES = [
 ];
 
 export async function crawlUniqloRaw(options = {}) {
-  // 嘗試透過 Fast Retailing 官方 storelocator 網址讀取或降級
-  return UNIQLO_BENCHMARK_STORES;
+  const allStores = [];
+  let offset = 0;
+  const limit = 100;
+
+  console.log('[UNIQLO Scraper] 開始從 Fast Retailing 官方 Store Locator API 爬取全日本門市...');
+
+  while (true) {
+    const url = `https://map.uniqlo.com/jp/api/storelocator/v1/ja/stores?limit=${limit}&offset=${offset}&r=storelocator`;
+    const res = await fetchWithRetry(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Referer': 'https://map.uniqlo.com/jp/ja/'
+      }
+    }, 3, 10000);
+
+    if (!res.ok) {
+      console.warn(`[UNIQLO Scraper] API 回傳狀態碼異常: ${res.status}`);
+      break;
+    }
+
+    const data = await res.json();
+    const stores = data?.result?.stores || [];
+    if (stores.length === 0) break;
+
+    for (const s of stores) {
+      if (!s.latitude || !s.longitude) continue;
+      const lat = parseFloat(s.latitude);
+      const lng = parseFloat(s.longitude);
+      if (isNaN(lat) || isNaN(lng)) continue;
+
+      let hours = '10:00～20:00';
+      if (s.wdOpenAt && s.wdCloseAt) {
+        if (s.weHolOpenAt && s.weHolCloseAt && (s.weHolOpenAt !== s.wdOpenAt || s.weHolCloseAt !== s.wdCloseAt)) {
+          hours = `平日 ${s.wdOpenAt}～${s.wdCloseAt} / 土日祝 ${s.weHolOpenAt}～${s.weHolCloseAt}`;
+        } else {
+          hours = `${s.wdOpenAt}～${s.wdCloseAt}`;
+        }
+      }
+
+      const tags = ['流行服飾', '免稅退稅'];
+      if (s.storeTypeName && s.storeTypeName !== 'なし' && s.storeTypeName !== 'NONE') {
+        tags.push(s.storeTypeName);
+      }
+      if (s.parkingFlag) {
+        tags.push('停車場あり');
+      }
+      if (Array.isArray(s.productTypeList)) {
+        s.productTypeList.forEach(p => {
+          const pName = p.name ? p.name.trim() : '';
+          if (pName && !tags.includes(pName)) tags.push(pName);
+        });
+      }
+
+      allStores.push({
+        shopId: s.id,
+        name: s.name || `UNIQLO ${s.id}`,
+        nameJa: s.name || `ユニクロ`,
+        category: '購物藥妝',
+        subcategory: '流行服飾',
+        brand: 'UNIQLO',
+        address: s.address || '',
+        lat,
+        lng,
+        phone: s.phone || '',
+        hours,
+        tags
+      });
+    }
+
+    console.log(`[UNIQLO Scraper] 已抓取 ${allStores.length} 間門市 (offset: ${offset})...`);
+    offset += limit;
+    if (stores.length < limit) break;
+    await new Promise(r => setTimeout(r, 150));
+  }
+
+  console.log(`[UNIQLO Scraper] 官方 API 爬取完畢，全日本共取得 ${allStores.length} 間門市。`);
+  return allStores;
 }
 
 export async function buildUniqloSpots(stationsList = [], options = {}) {
   let rawList = [];
   try {
-    if (!options.forceBenchmark) {
+    if (!options.forceBenchmark && !process.env.VITEST) {
       rawList = await crawlUniqloRaw(options);
     }
   } catch (err) {

@@ -237,28 +237,92 @@ export const THREECOINS_BENCHMARK_STORES = [
 ];
 
 export async function crawl3CoinsRaw(options = {}) {
-  const url = 'https://www.palcloset.jp/addons/pal/shoplist/?b=3coins';
-  console.log(`[3COINS Scraper] 正在抓取官方門市頁面: ${url}`);
-  
-  const res = await fetchWithRetry(url, {}, 2, 6000);
-  const html = await res.text();
-  const $ = cheerio.load(html);
+  const url = 'https://palcloset.storelocator.jp/api/pointlist/?limit=2000';
+  console.log(`[3COINS Scraper] 正在從 PAL CLOSET 官方 Store Locator API 擷取全量門市: ${url}`);
 
-  const rawShops = [];
-  $('.shop_item, .shop-list__item, .p-shop-item, tr').each((_, el) => {
-    const text = $(el).text().replace(/\s+/g, ' ').trim();
-    if (text.includes('3COINS') && (text.includes('都') || text.includes('県') || text.includes('府'))) {
-      rawShops.push(text);
+  const res = await fetchWithRetry(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Referer': 'https://palcloset.storelocator.jp/list/?iframe&c=3coins'
     }
-  });
+  }, 3, 10000);
 
-  return THREECOINS_BENCHMARK_STORES;
+  if (!res.ok) {
+    throw new Error(`PAL CLOSET API 回應失敗 (${res.status})`);
+  }
+
+  const data = await res.json();
+  const rawItems = data?.items || [];
+  console.log(`[3COINS Scraper] API 總門市項目: ${rawItems.length}，正在篩選 3COINS 旗下品牌門市...`);
+
+  const threeCoinsStores = [];
+  for (const item of rawItems) {
+    const brand = (item.extra_fields?.['代表ブランドコード'] || '').toLowerCase();
+    const brands = (item.extra_fields?.['取り扱いブランドコード'] || '').toLowerCase();
+    const name = item.name || '';
+
+    const is3Coins = brand.includes('3coins') ||
+      brands.includes('3coins') ||
+      name.includes('3COINS') ||
+      name.includes('スリーコインズ');
+
+    if (!is3Coins) continue;
+    if (!item.latitude || !item.longitude) continue;
+
+    const lat = parseFloat(item.latitude);
+    const lng = parseFloat(item.longitude);
+    if (isNaN(lat) || isNaN(lng)) continue;
+    // 嚴格過濾日本國內門市 (排除海外店如吉隆坡門市)
+    if (lat < 24.0 || lat > 46.0 || lng < 122.0 || lng > 154.0) continue;
+
+    // 格式化店名：確保具備 3COINS 品牌標識
+    let displayName = name.trim();
+    if (!displayName.toUpperCase().includes('3COINS')) {
+      displayName = `3COINS ${displayName}`;
+    }
+
+    const tags = ['生活雜貨', '平價日雜', '300円均一'];
+    if (name.includes('+plus') || name.includes('プラス')) {
+      tags.push('3COINS+plus大型店');
+    }
+    if (name.toLowerCase().includes('station')) {
+      tags.push('3COINS station車站店');
+    }
+    if (name.toLowerCase().includes('oooops')) {
+      tags.push('3COINS Oooops');
+    }
+
+    const phone = item.extra_fields?.['電話番号'] && item.extra_fields?.['電話番号'] !== '-'
+      ? item.extra_fields?.['電話番号'].trim()
+      : '';
+    const hours = item.extra_fields?.['営業時間'] && item.extra_fields?.['営業時間'] !== '-'
+      ? item.extra_fields?.['営業時間'].trim()
+      : '10:00～20:00';
+
+    threeCoinsStores.push({
+      shopId: String(item.id),
+      name: displayName,
+      nameJa: displayName,
+      category: '購物藥妝',
+      subcategory: '生活雜貨',
+      brand: '3COINS',
+      address: item.address || '',
+      lat,
+      lng,
+      phone,
+      hours,
+      tags
+    });
+  }
+
+  console.log(`[3COINS Scraper] 官方 API 篩選完畢，共取得 ${threeCoinsStores.length} 間 3COINS 門市。`);
+  return threeCoinsStores;
 }
 
 export async function build3CoinsSpots(stationsList = [], options = {}) {
   let rawList = [];
   try {
-    if (!options.forceBenchmark) {
+    if (!options.forceBenchmark && !process.env.VITEST) {
       rawList = await crawl3CoinsRaw(options);
     }
   } catch (err) {

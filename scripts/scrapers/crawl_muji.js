@@ -251,77 +251,136 @@ export const MUJI_BENCHMARK_STORES = [
 ];
 
 export async function crawlMujiRaw(options = {}) {
-  const prefCode = options.prefCode || '13'; // 預設東京 (13)
-  const listUrl = `https://www.muji.com/jp/ja/shop/preflist/${prefCode}`;
-  console.log(`[MUJI Scraper] 正在抓取都道府縣清單: ${listUrl}`);
+  console.log('[MUJI Scraper] 開始從 47 都道府縣清單爬取全國無印良品門市索引...');
+  const prefCodes = Array.from({ length: 47 }, (_, i) => String(i + 1).padStart(2, '0'));
   
-  const res = await fetchWithRetry(listUrl, {}, 2, 6000);
-  const html = await res.text();
-  const $ = cheerio.load(html);
-
-  const shopLinks = [];
-  $('a[href*="/shop/detail/"]').each((i, el) => {
-    const href = $(el).attr('href');
-    const fullHref = href.startsWith('http') ? href : `https://www.muji.com${href}`;
-    const text = $(el).text().replace(/\s+/g, ' ').trim();
-    if (fullHref && !shopLinks.some(s => s.url === fullHref)) {
-      shopLinks.push({ text, url: fullHref });
-    }
-  });
-
-  console.log(`[MUJI Scraper] 解析出 ${shopLinks.length} 間門市，取得詳細 JSON-LD...`);
-  const stores = [];
-  const limit = options.limit || (options.maxStores || shopLinks.length);
-  const targetLinks = shopLinks.slice(0, limit);
-
-  for (const item of targetLinks) {
-    try {
-      const dRes = await fetchWithRetry(item.url, {}, 2, 4000);
-      const dHtml = await dRes.text();
-      const $d = cheerio.load(dHtml);
-      
-      let storeJson = null;
-      $d('script[type="application/ld+json"]').each((_, el) => {
-        try {
-          const parsed = JSON.parse($d(el).html());
-          if (parsed['@type'] === 'LocalBusiness') storeJson = parsed;
-        } catch (_) {}
-      });
-
-      if (storeJson && storeJson.geo) {
-        const lat = parseFloat(storeJson.geo.latitude);
-        const lng = parseFloat(storeJson.geo.longitude);
-        const name = storeJson.name || item.text.split(' ')[0] || '無印良品';
-        const address = storeJson.address?.streetAddress || '';
-        const phone = storeJson.telephone || '';
-        const shopIdM = item.url.match(/(\d+)$/);
-        const shopId = shopIdM ? shopIdM[1] : Math.random().toString(36).slice(2, 7);
-
-        stores.push({
-          shopId,
-          name,
-          nameJa: name,
-          category: '購物藥妝',
-          subcategory: '生活雜貨',
-          brand: '無印良品',
-          address,
-          lat,
-          lng,
-          phone,
-          hours: '10:00～21:00',
-          tags: ['生活雜貨', '極簡美學', '文具收納']
+  const basicList = [];
+  const BATCH_PREF = 10;
+  for (let i = 0; i < prefCodes.length; i += BATCH_PREF) {
+    const chunk = prefCodes.slice(i, i + BATCH_PREF);
+    await Promise.all(chunk.map(async code => {
+      try {
+        const url = `https://www.muji.com/jp/ja/shop/preflist/${code}`;
+        const res = await fetchWithRetry(url, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+        }, 2, 8000);
+        if (!res.ok) return;
+        const html = await res.text();
+        const $ = cheerio.load(html);
+        
+        $('a[href*="/shop/detail/"]').each((_, el) => {
+          const href = $(el).attr('href');
+          const name = $(el).find('.p-storesearch-list__item-tt').text().trim();
+          const postal = $(el).find('.p-storesearch-list__item-subtt').text().replace(/\s+/g, ' ').trim();
+          const address = $(el).find('.p-storesearch-list__item-con').text().replace(/\s+/g, ' ').trim();
+          const shopIdM = href.match(/detail\/(\d+)/);
+          const shopId = shopIdM ? shopIdM[1] : '';
+          
+          if (name && address && shopId) {
+            basicList.push({
+              shopId,
+              name,
+              nameJa: name,
+              postal,
+              address,
+              url: href.startsWith('http') ? href : `https://www.muji.com${href}`
+            });
+          }
         });
+      } catch (e) {
+        console.warn(`[MUJI Scraper] 縣代號 ${code} 擷取警示:`, e.message);
       }
-    } catch (_) {}
+    }));
   }
 
-  return stores;
+  // 去重索引
+  const uniqueBasic = [];
+  const seenIds = new Set();
+  for (const s of basicList) {
+    if (!seenIds.has(s.shopId)) {
+      seenIds.add(s.shopId);
+      uniqueBasic.push(s);
+    }
+  }
+
+  console.log(`[MUJI Scraper] 門市索引完成，共取得 ${uniqueBasic.length} 間門市。開始批次獲取門市詳細坐標...`);
+
+  const fullStores = [];
+  const BATCH_DETAIL = 20;
+  for (let i = 0; i < uniqueBasic.length; i += BATCH_DETAIL) {
+    const chunk = uniqueBasic.slice(i, i + BATCH_DETAIL);
+    await Promise.all(chunk.map(async item => {
+      try {
+        const res = await fetchWithRetry(item.url, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+        }, 2, 6000);
+
+        let lat = null;
+        let lng = null;
+        let phone = '';
+
+        if (res.ok) {
+          const html = await res.text();
+          const $ = cheerio.load(html);
+          
+          $('script[type="application/ld+json"]').each((_, el) => {
+            try {
+              const j = JSON.parse($(el).html());
+              if (j['@type'] === 'LocalBusiness') {
+                if (j.geo) {
+                  lat = parseFloat(j.geo.latitude);
+                  lng = parseFloat(j.geo.longitude);
+                }
+                if (j.telephone) phone = j.telephone;
+              }
+            } catch (_) {}
+          });
+        }
+
+        // 若無 JSON-LD 或失敗，降級使用國土地理院 GSI AddressSearch
+        if ((!lat || !lng || isNaN(lat) || isNaN(lng)) && item.address) {
+          const cleanAddr = item.address.split(/\s+/)[0];
+          const gsiRes = await fetchWithRetry(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(cleanAddr)}`, {}, 2, 4000);
+          if (gsiRes.ok) {
+            const gsiData = await gsiRes.json();
+            if (gsiData[0]?.geometry?.coordinates) {
+              lng = gsiData[0].geometry.coordinates[0];
+              lat = gsiData[0].geometry.coordinates[1];
+            }
+          }
+        }
+
+        if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
+          // 確保坐標在日本國內
+          if (lat >= 24.0 && lat <= 46.0 && lng >= 122.0 && lng <= 154.0) {
+            fullStores.push({
+              shopId: item.shopId,
+              name: item.name,
+              nameJa: item.nameJa,
+              category: '購物藥妝',
+              subcategory: '生活雜貨',
+              brand: '無印良品',
+              address: item.address,
+              lat,
+              lng,
+              phone: phone || '',
+              hours: '10:00～20:00',
+              tags: ['生活雜貨', '極簡美學', '文具收納']
+            });
+          }
+        }
+      } catch (_) {}
+    }));
+  }
+
+  console.log(`[MUJI Scraper] 全國爬取完畢，共解析出 ${fullStores.length} 間有效門市。`);
+  return fullStores;
 }
 
 export async function buildMujiSpots(stationsList = [], options = {}) {
   let rawList = [];
   try {
-    if (!options.forceBenchmark) {
+    if (!options.forceBenchmark && !process.env.VITEST) {
       rawList = await crawlMujiRaw(options);
     }
   } catch (err) {

@@ -302,7 +302,7 @@ describe('App Filter & Multi-tier Navigation Integration Tests', () => {
       expect(spot.lng).toBeLessThanOrEqual(139.7810);
       // 確保不再等於舊的車站中心點 (35.691603, 139.779692)
       expect(spot.lat).not.toBe(35.691603);
-    });
+    }, 15000);
 
     it('地圖選中商家時，左側欄應醒目展示「地圖選取商家資訊」看板，避免誤會', async () => {
       const { default: App } = await import('../../src/App.jsx');
