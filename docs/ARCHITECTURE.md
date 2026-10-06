@@ -1,7 +1,7 @@
 # 系統架構與演算法規格手冊 (Architecture & Algorithm Specification)
 
-> **版本**：v3.5 (全國 10,303 筆門市、三層分類階層、350 站生活圈、零預設渲染與智慧步行導航架構)  
-> **更新日期**：2026-10-04  
+> **版本**：v3.6 (全國 10,649 筆門市、三層分類階層、364 站生活圈、生活雜貨/流行服飾/百円百貨與智慧步行導航架構)  
+> **更新日期**：2026-10-06  
 > **維護人員**：`imhahac`
 
 ---
@@ -14,20 +14,20 @@
 graph TD
     subgraph Data Sources [資料來源層 Data Sources]
         A1[Google Sheets 雲端試算表 5 大分頁]
-        A2[20+ 大指標品牌官方爬蟲 REST / GOGA / Nuxt3 / Navitime / Canly / LBS API]
-        A3[離線種子資料庫 Seed JSONs: 10,303 筆真實地標]
+        A2[25+ 大指標品牌官方爬蟲 REST / GOGA / Nuxt3 / Navitime / Canly / LBS API]
+        A3[離線種子資料庫 Seed JSONs: 10,649 筆真實地標]
     end
 
     subgraph Core Processing [核心計算與品質檢驗 scripts/core]
         B1["geo.js: Haversine 球面距離 & 1.25x 日本都市街廓係數"]
-        B2["station_anchors.js: 350 座權威實體車站 300m / 500m / 1000m 生活圈配對"]
+        B2["station_anchors.js: 364 座權威實體車站 300m / 500m / 1000m 生活圈配對"]
         B3["validator.js: 日本國土邊界盒 (24.0°N~46.0°N, 122.0°E~154.0°E) 檢驗"]
         B4["dedupe.js: 空間鄰近座標 (50m) 與店名標準化去重"]
     end
 
     subgraph Data Aggregator [資料彙整與靜態索引 scripts/datagenerate.js]
-        C1[("src/data/spots.json: 10,303 筆全域生活與旅遊地標")]
-        C2[("src/data/stations.json: 350 座日本樞紐車站生活圈索引")]
+        C1[("src/data/spots.json: 10,649 筆全域生活與旅遊地標")]
+        C2[("src/data/stations.json: 364 座日本樞紐車站生活圈索引")]
         C3[("src/data/station_master.json: 車站實體坐標權威母檔")]
     end
 
@@ -96,14 +96,14 @@ stateDiagram-v2
     state "第一層：核心大分類 (L1 Categories)" as L1 {
         全部
         住宿飯店 (634間)
-        購物藥妝 (970間)
-        美食餐廳 (8676間)
+        購物藥妝 (1,316間)
+        美食餐廳 (8,676間)
         便利商店 (23間精選)
     }
 
     state "第二層：品牌與料理次分類晶片 (L2 Subcategories & Brands)" as L2 {
         住宿: 商務飯店 (東橫INN / APA飯店)
-        購物: 藥妝量販 (唐吉訶德 / 松本清) / 3C家電 (Bic Camera / 友都八喜)
+        購物: 生活雜貨 (無印良品 / LOFT / 3COINS) / 流行服飾 (UNIQLO) / 百円百貨 (DAISO) / 藥妝量販 (唐吉訶德 / 松本清) / 3C家電 (Bic Camera / 友都八喜)
         拉麵: 六厘舎 / 舎鈴 / 一蘭 / 一風堂
         鍋物: しゃぶ葉 (涮乃葉日式涮涮鍋/壽喜燒)
         洋食家庭: 薩莉亞 (Saizeriya) / Shake Shack / Wendy's First Kitchen
@@ -115,7 +115,7 @@ stateDiagram-v2
     state "第三層：空間與生活圈維度 (L3 Spatial Filters)" as L3 {
         8大地理分區 (關東、近畿、中部、北海道、九州等)
         47都道府縣
-        350座權威車站生活圈 (300m / 500m / 1000m)
+        364座權威車站生活圈 (300m / 500m / 1000m)
     }
 
     state "前端展示與防禦機制" as Output {

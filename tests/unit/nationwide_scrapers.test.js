@@ -17,6 +17,11 @@ import { crawlMatsufuji } from '../../scripts/scrapers/crawl_matsufuji.js';
 import { crawlSyabuyo } from '../../scripts/scrapers/crawl_syabuyo.js';
 import { buildWendysSpots } from '../../scripts/scrapers/crawl_wendys.js';
 import { buildNegishiSpots } from '../../scripts/scrapers/crawl_negishi.js';
+import { buildUniqloSpots } from '../../scripts/scrapers/crawl_uniqlo.js';
+import { buildMujiSpots } from '../../scripts/scrapers/crawl_muji.js';
+import { build3CoinsSpots } from '../../scripts/scrapers/crawl_3coins.js';
+import { buildLoftSpots } from '../../scripts/scrapers/crawl_loft.js';
+import { buildDaisoSpots } from '../../scripts/scrapers/crawl_daiso.js';
 
 describe('Nationwide Scrapers Test Suite', { timeout: 20000 }, () => {
   const sampleStations = [
@@ -136,7 +141,7 @@ describe('Nationwide Scrapers Test Suite', { timeout: 20000 }, () => {
   }, 20000);
 
   it('12. 六厘舎 與 舎鈴 (Matsufuji) 爬蟲應獲取官方門市資訊、拉麵子分類且符合 Schema', async () => {
-    const spots = await crawlMatsufuji(sampleStations, { verbose: false });
+    const spots = await crawlMatsufuji(sampleStations, { verbose: false, forceBenchmark: true });
     expect(spots.length).toBeGreaterThanOrEqual(80);
     
     // 應同時涵蓋六厘舎與舎鈴
@@ -187,6 +192,71 @@ describe('Nationwide Scrapers Test Suite', { timeout: 20000 }, () => {
     expect(first.brand).toBe('ねぎし');
     expect(first.category).toBe('美食餐廳');
     expect(first.subcategory).toBe('定食');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  });
+
+  it('16. UNIQLO (優衣庫) 爬蟲應獲取官方門市、流行服飾子分類且符合 Schema', async () => {
+    const spots = await buildUniqloSpots(sampleStations, { forceBenchmark: true });
+    expect(spots.length).toBeGreaterThanOrEqual(15);
+    const first = spots[0];
+    expect(first.brand).toBe('UNIQLO');
+    expect(first.category).toBe('購物藥妝');
+    expect(first.subcategory).toBe('流行服飾');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  });
+
+  it('17. 無印良品 (MUJI) 爬蟲應獲取官方門市、生活雜貨子分類且符合 Schema', async () => {
+    const spots = await buildMujiSpots(sampleStations, { forceBenchmark: true });
+    expect(spots.length).toBeGreaterThanOrEqual(15);
+    const first = spots[0];
+    expect(first.brand).toBe('無印良品');
+    expect(first.category).toBe('購物藥妝');
+    expect(first.subcategory).toBe('生活雜貨');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  });
+
+  it('18. 3COINS 爬蟲應獲取官方門市、生活雜貨子分類且符合 Schema', async () => {
+    const spots = await build3CoinsSpots(sampleStations, { forceBenchmark: true });
+    expect(spots.length).toBeGreaterThanOrEqual(15);
+    const first = spots[0];
+    expect(first.brand).toBe('3COINS');
+    expect(first.category).toBe('購物藥妝');
+    expect(first.subcategory).toBe('生活雜貨');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  });
+
+  it('19. LOFT (ロフト) 爬蟲應獲取官方門市、生活雜貨子分類且符合 Schema', async () => {
+    const spots = await buildLoftSpots(sampleStations, { forceBenchmark: true });
+    expect(spots.length).toBeGreaterThanOrEqual(15);
+    const first = spots[0];
+    expect(first.brand).toBe('LOFT');
+    expect(first.category).toBe('購物藥妝');
+    expect(first.subcategory).toBe('生活雜貨');
+    expect(validateSpot(first).isValid).toBe(true);
+
+    const val = validateSpotsBatch(spots);
+    expect(val.invalidCount).toBe(0);
+  });
+
+  it('20. 大創百貨 (DAISO) 爬蟲應獲取官方門市、平價百貨子分類且符合 Schema', async () => {
+    const spots = await buildDaisoSpots(sampleStations, { forceBenchmark: true });
+    expect(spots.length).toBeGreaterThanOrEqual(15);
+    const first = spots[0];
+    expect(first.brand).toBe('DAISO');
+    expect(first.category).toBe('購物藥妝');
+    expect(first.subcategory).toBe('平價百貨');
     expect(validateSpot(first).isValid).toBe(true);
 
     const val = validateSpotsBatch(spots);

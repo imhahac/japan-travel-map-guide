@@ -43,6 +43,15 @@ function getSubcategory(category, brand = '', name = '') {
     return '商務飯店';
   }
   if (category === '購物藥妝') {
+    if (/UNIQLO|優衣庫|ユニクロ|服飾|GU/i.test(brand) || /UNIQLO|優衣庫|ユニクロ/i.test(name)) {
+      return '流行服飾';
+    }
+    if (/DAISO|大創|ダイソー|百円|百元|Standard Products|THREEPPY/i.test(brand) || /DAISO|大創|ダイソー/i.test(name)) {
+      return '平價百貨';
+    }
+    if (/MUJI|無印良品|LOFT|ロフト|3COINS|スリーコインズ|生活雜貨|文具/i.test(brand) || /MUJI|無印良品|LOFT|ロフト|3COINS/i.test(name)) {
+      return '生活雜貨';
+    }
     if (
       /Bic|Camera|友都八喜|Yodobashi|Kojima|Sofmap|ビック|ヨドバシ|コジマ|ソフマップ/i.test(brand) ||
       /Bic|Camera|友都八喜|Yodobashi|Kojima|Sofmap|ビック|ヨドバシ|コジマ|ソフマップ/i.test(name)
@@ -217,6 +226,46 @@ async function generate() {
       const convSpots = JSON.parse(fs.readFileSync(conveniencePath, 'utf8'));
       convSpots.forEach(s => allSpots.push(normalizeSpot(s, '便利商店')));
       console.log(`Loaded ${convSpots.length} convenience store spots from seed data.`);
+    }
+
+    // Also load UNIQLO seed if present
+    const uniqloPath = path.join(outputDir, 'uniqlo_seed.json');
+    if (fs.existsSync(uniqloPath)) {
+      const uniqloSpots = JSON.parse(fs.readFileSync(uniqloPath, 'utf8'));
+      uniqloSpots.forEach(s => allSpots.push(normalizeSpot(s, '購物藥妝')));
+      console.log(`Loaded ${uniqloSpots.length} UNIQLO spots from seed data.`);
+    }
+
+    // Also load MUJI (無印良品) seed if present
+    const mujiPath = path.join(outputDir, 'muji_seed.json');
+    if (fs.existsSync(mujiPath)) {
+      const mujiSpots = JSON.parse(fs.readFileSync(mujiPath, 'utf8'));
+      mujiSpots.forEach(s => allSpots.push(normalizeSpot(s, '購物藥妝')));
+      console.log(`Loaded ${mujiSpots.length} MUJI spots from seed data.`);
+    }
+
+    // Also load 3COINS seed if present
+    const threeCoinsPath = path.join(outputDir, '3coins_seed.json');
+    if (fs.existsSync(threeCoinsPath)) {
+      const threeCoinsSpots = JSON.parse(fs.readFileSync(threeCoinsPath, 'utf8'));
+      threeCoinsSpots.forEach(s => allSpots.push(normalizeSpot(s, '購物藥妝')));
+      console.log(`Loaded ${threeCoinsSpots.length} 3COINS spots from seed data.`);
+    }
+
+    // Also load LOFT seed if present
+    const loftPath = path.join(outputDir, 'loft_seed.json');
+    if (fs.existsSync(loftPath)) {
+      const loftSpots = JSON.parse(fs.readFileSync(loftPath, 'utf8'));
+      loftSpots.forEach(s => allSpots.push(normalizeSpot(s, '購物藥妝')));
+      console.log(`Loaded ${loftSpots.length} LOFT spots from seed data.`);
+    }
+
+    // Also load DAISO seed if present
+    const daisoPath = path.join(outputDir, 'daiso_seed.json');
+    if (fs.existsSync(daisoPath)) {
+      const daisoSpots = JSON.parse(fs.readFileSync(daisoPath, 'utf8'));
+      daisoSpots.forEach(s => allSpots.push(normalizeSpot(s, '購物藥妝')));
+      console.log(`Loaded ${daisoSpots.length} DAISO spots from seed data.`);
     }
 
     // Also load any custom spots if present

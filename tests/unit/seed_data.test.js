@@ -72,4 +72,34 @@ describe('Seed Datasets Integrity Tests', () => {
       expect(validation.isValid, `Convenience seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
     }
   });
+
+  it('新收錄 5 大品牌種子資料庫皆符合 Schema 驗證且品牌類別相符', async () => {
+    const { default: uniqloSeed } = await import('../../src/data/uniqlo_seed.json');
+    const { default: mujiSeed } = await import('../../src/data/muji_seed.json');
+    const { default: threeCoinsSeed } = await import('../../src/data/3coins_seed.json');
+    const { default: loftSeed } = await import('../../src/data/loft_seed.json');
+    const { default: daisoSeed } = await import('../../src/data/daiso_seed.json');
+
+    expect(uniqloSeed.length).toBeGreaterThanOrEqual(15);
+    expect(mujiSeed.length).toBeGreaterThanOrEqual(15);
+    expect(threeCoinsSeed.length).toBeGreaterThanOrEqual(15);
+    expect(loftSeed.length).toBeGreaterThanOrEqual(15);
+    expect(daisoSeed.length).toBeGreaterThanOrEqual(15);
+
+    const checkSeed = (seed, brand, expectedSubcategory) => {
+      for (const spot of seed) {
+        expect(spot.brand).toBe(brand);
+        expect(spot.category).toBe('購物藥妝');
+        expect(spot.subcategory).toBe(expectedSubcategory);
+        const validation = validateSpot(spot);
+        expect(validation.isValid, `${brand} seed ${spot.name} failed: ${validation.errors.join(', ')}`).toBe(true);
+      }
+    };
+
+    checkSeed(uniqloSeed, 'UNIQLO', '流行服飾');
+    checkSeed(mujiSeed, '無印良品', '生活雜貨');
+    checkSeed(threeCoinsSeed, '3COINS', '生活雜貨');
+    checkSeed(loftSeed, 'LOFT', '生活雜貨');
+    checkSeed(daisoSeed, 'DAISO', '平價百貨');
+  });
 });

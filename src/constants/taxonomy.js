@@ -18,6 +18,9 @@ export const SUBCATEGORIES_MAP = {
   ],
   購物藥妝: [
     { id: 'all', label: '全部購物' },
+    { id: '生活雜貨', label: '生活文具雜貨' },
+    { id: '流行服飾', label: '流行服飾配件' },
+    { id: '平價百貨', label: '百円平價百貨' },
     { id: '藥妝量販', label: '綜合藥妝量販' },
     { id: '3C家電', label: '3C數位家電' }
   ],
@@ -139,6 +142,72 @@ export const BRANDS_REGISTRY = [
     dotBg: '#2563eb',
     activeBg: '#eff6ff',
     activeText: '#1d4ed8'
+  },
+
+  // ── 購物藥妝 (流行服飾配件) ──
+  {
+    id: 'UNIQLO',
+    label: 'UNIQLO (優衣庫)',
+    shortLabel: 'UNIQLO',
+    category: '購物藥妝',
+    subcategory: '流行服飾',
+    aliases: ['UNIQLO', '優衣庫', 'Uniqlo', 'ユニクロ', 'UQ', 'UNIQLO (優衣庫)'],
+    color: '#ef4444',
+    dotBg: '#ef4444',
+    activeBg: '#fee2e2',
+    activeText: '#b91c1c'
+  },
+
+  // ── 購物藥妝 (生活文具雜貨) ──
+  {
+    id: '無印良品',
+    label: '無印良品 (MUJI)',
+    shortLabel: '無印良品',
+    category: '購物藥妝',
+    subcategory: '生活雜貨',
+    aliases: ['無印良品', 'MUJI', '無印', 'ムジ', '無印良品 (MUJI)', 'CafeMUJI', 'Cafe & Meal MUJI'],
+    color: '#7f1d1d',
+    dotBg: '#991b1b',
+    activeBg: '#fef2f2',
+    activeText: '#991b1b'
+  },
+  {
+    id: '3COINS',
+    label: '3COINS (スリーコインズ)',
+    shortLabel: '3COINS',
+    category: '購物藥妝',
+    subcategory: '生活雜貨',
+    aliases: ['3COINS', '3coins', '3COINS+plus', '3COINS OOOPS', '3COINS station', 'スリーコインズ', '3コインズ', '3COINS (スリーコインズ)'],
+    color: '#0d9488',
+    dotBg: '#0f766e',
+    activeBg: '#f0fdfa',
+    activeText: '#115e59'
+  },
+  {
+    id: 'LOFT',
+    label: 'LOFT (ロフト)',
+    shortLabel: 'LOFT',
+    category: '購物藥妝',
+    subcategory: '生活雜貨',
+    aliases: ['LOFT', 'ロフト', 'Loft', 'LOFT (ロフト)'],
+    color: '#eab308',
+    dotBg: '#ca8a04',
+    activeBg: '#fef9c3',
+    activeText: '#854d0e'
+  },
+
+  // ── 購物藥妝 (百円平價百貨) ──
+  {
+    id: 'DAISO',
+    label: '大創百貨 (DAISO)',
+    shortLabel: 'DAISO',
+    category: '購物藥妝',
+    subcategory: '平價百貨',
+    aliases: ['DAISO', '大創', '大創百貨', 'ダイソー', '大創百貨 (DAISO)', 'Standard Products', 'THREEPPY'],
+    color: '#ec4899',
+    dotBg: '#db2777',
+    activeBg: '#fdf2f8',
+    activeText: '#be185d'
   },
 
   // ── 在地美食 (牛丼) ──
@@ -474,6 +543,15 @@ export function determineSubcategory(category, brand = '', name = '') {
   }
 
   if (category === '購物藥妝') {
+    if (/UNIQLO|優衣庫|ユニクロ|服飾|GU/i.test(brand) || /UNIQLO|優衣庫|ユニクロ/i.test(name)) {
+      return '流行服飾';
+    }
+    if (/DAISO|大創|ダイソー|百円|百元|Standard Products|THREEPPY/i.test(brand) || /DAISO|大創|ダイソー/i.test(name)) {
+      return '平價百貨';
+    }
+    if (/MUJI|無印良品|LOFT|ロフト|3COINS|スリーコインズ|生活雜貨|文具/i.test(brand) || /MUJI|無印良品|LOFT|ロフト|3COINS/i.test(name)) {
+      return '生活雜貨';
+    }
     // 3C 數位家電檢驗
     if (
       /Bic|Camera|友都八喜|Yodobashi|Kojima|Sofmap|ビック|ヨドバシ|コジマ|ソフマップ/i.test(brand) ||

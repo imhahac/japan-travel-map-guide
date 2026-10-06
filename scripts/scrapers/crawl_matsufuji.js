@@ -222,6 +222,17 @@ function resolveNuxtDevalue(val, parsed, seen = new Map()) {
  */
 export async function crawlMatsufuji(stationsList = [], options = {}) {
   const { brands = ['六厘舎', '舎鈴'], maxStores = 200, verbose = true } = options;
+
+  if (options.forceBenchmark) {
+    const seedPath = path.resolve('src/data/matsufuji_seed.json');
+    if (fs.existsSync(seedPath)) {
+      try {
+        const loaded = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+        return loaded.filter(s => brands.includes(s.brand));
+      } catch (_) {}
+    }
+  }
+
   if (verbose) console.log(`🍜 [松富士食品] 開始抓取門市 (${brands.join('、')})...`);
 
   // 若未提供車站列表，從權威主檔載入
