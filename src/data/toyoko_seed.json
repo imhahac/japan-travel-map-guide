@@ -5600,6 +5600,34 @@
     "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
   },
   {
+    "id": "toyoko-00373",
+    "hotelCode": "00373",
+    "category": "飯店",
+    "brand": "東橫INN",
+    "name": "東橫INN 濱松站南口",
+    "nameJa": "Toyoko Inn Hamamatsu-eki Minami-guchi",
+    "region": "東海・甲信越・北陸",
+    "prefecture": "靜岡縣",
+    "nearestStation": "濱松站",
+    "stationLine": "JR line",
+    "stationAccess": "JR line 濱松站 步行約 3 分鐘",
+    "walkMinutes": 3,
+    "address": "〒430-0926 Hamamatsu City 329-4 Sunayamacho, Chuo Ward",
+    "coordinates": "34.70354252767633, 137.73741801340705",
+    "lat": 34.70354252767633,
+    "lng": 137.73741801340705,
+    "phone": "053-452-3745",
+    "bookingUrl": "https://www.toyoko-inn.com/china/search/detail/00373/",
+    "googleMapUrl": "https://maps.app.goo.gl/Z6o7jFjyb319V6BD7",
+    "imageUrl": "https://imagedelivery.net/eWIoXELxFsjrCqoBwekbcw/8c8efc55-e20c-476d-6f25-5feecbcea400/public",
+    "images": [
+      "https://imagedelivery.net/eWIoXELxFsjrCqoBwekbcw/8c8efc55-e20c-476d-6f25-5feecbcea400/public",
+      "https://imagedelivery.net/eWIoXELxFsjrCqoBwekbcw/67fa2538-6c22-4eb6-8708-435bab87f000/public"
+    ],
+    "tags": "免費早餐, 附停車場, 車站步行3分內",
+    "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
+  },
+  {
     "id": "toyoko-00222",
     "hotelCode": "00222",
     "category": "飯店",
@@ -6328,6 +6356,34 @@
     "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
   },
   {
+    "id": "toyoko-00344",
+    "hotelCode": "00344",
+    "category": "飯店",
+    "brand": "東橫INN",
+    "name": "東橫INN 京都二條城南",
+    "nameJa": "Toyoko Inn Kyoto Nijojo Minami",
+    "region": "近畿",
+    "prefecture": "京都府",
+    "nearestStation": "Nijojo-mae站",
+    "stationLine": "Kyoto City Subway Tozai Line",
+    "stationAccess": "Kyoto City Subway Tozai Line Nijojo-mae站 步行約 6 分鐘",
+    "walkMinutes": 6,
+    "address": "〒604-8257 Kyoto city 223 Hashiura-cho, Horikawadori Sanjo Sagaru, Nakagyo-ku",
+    "coordinates": "35.0079393, 135.7518901",
+    "lat": 35.0079393,
+    "lng": 135.7518901,
+    "phone": "075-213-1045",
+    "bookingUrl": "https://www.toyoko-inn.com/china/search/detail/00344/",
+    "googleMapUrl": "https://goo.gl/maps/PsHE1v7C3nJ12Wfy5",
+    "imageUrl": "https://toyoko-inn.imagewave.pictures/dUnzzYj2EmTYGMmkbUNCTK",
+    "images": [
+      "https://toyoko-inn.imagewave.pictures/dUnzzYj2EmTYGMmkbUNCTK",
+      "https://toyoko-inn.imagewave.pictures/m45qCavUzLbqCR8WWYUYcL"
+    ],
+    "tags": "免費早餐, 附停車場, 安心認證",
+    "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
+  },
+  {
     "id": "toyoko-00027",
     "hotelCode": "00027",
     "category": "飯店",
@@ -6437,34 +6493,6 @@
       "https://toyoko-inn.imagewave.pictures/7xdCS2uWn5v7iptohcV8Nc"
     ],
     "tags": "免費早餐, 車站步行3分內, 安心認證",
-    "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
-  },
-  {
-    "id": "toyoko-00344",
-    "hotelCode": "00344",
-    "category": "飯店",
-    "brand": "東橫INN",
-    "name": "東橫INN 京都二條城南",
-    "nameJa": "Toyoko Inn Kyoto Nijojo Minami",
-    "region": "近畿",
-    "prefecture": "京都府",
-    "nearestStation": "Nijojo-mae站",
-    "stationLine": "Kyoto City Subway Tozai Line",
-    "stationAccess": "Kyoto City Subway Tozai Line Nijojo-mae站 步行約 6 分鐘",
-    "walkMinutes": 6,
-    "address": "〒604-8257 Kyoto city 223 Hashiura-cho, Horikawadori Sanjo Sagaru, Nakagyo-ku",
-    "coordinates": "35.0079393, 135.7518901",
-    "lat": 35.0079393,
-    "lng": 135.7518901,
-    "phone": "075-213-1045",
-    "bookingUrl": "https://www.toyoko-inn.com/china/search/detail/00344/",
-    "googleMapUrl": "https://goo.gl/maps/PsHE1v7C3nJ12Wfy5",
-    "imageUrl": "https://toyoko-inn.imagewave.pictures/dUnzzYj2EmTYGMmkbUNCTK",
-    "images": [
-      "https://toyoko-inn.imagewave.pictures/dUnzzYj2EmTYGMmkbUNCTK",
-      "https://toyoko-inn.imagewave.pictures/m45qCavUzLbqCR8WWYUYcL"
-    ],
-    "tags": "免費早餐, 附停車場, 安心認證",
     "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
   },
   {
@@ -8173,6 +8201,34 @@
       "https://toyoko-inn.imagewave.pictures/SWWtbSnrZiEjT7WQc5Sobn"
     ],
     "tags": "免費早餐, 附停車場, 安心認證",
+    "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
+  },
+  {
+    "id": "toyoko-00374",
+    "hotelCode": "00374",
+    "category": "飯店",
+    "brand": "東橫INN",
+    "name": "東橫INN 吳站",
+    "nameJa": "Toyoko Inn Kure-eki",
+    "region": "cyugoku",
+    "prefecture": "廣島縣",
+    "nearestStation": "吳站",
+    "stationLine": "JR",
+    "stationAccess": "JR 吳站 步行約 3 分鐘",
+    "walkMinutes": 3,
+    "address": "〒737-0029 Kure City 3-33 Takara-machi",
+    "coordinates": "34.24276444930797, 132.55834280194154",
+    "lat": 34.24276444930797,
+    "lng": 132.55834280194154,
+    "phone": "0823-23-1045",
+    "bookingUrl": "https://www.toyoko-inn.com/china/search/detail/00374/",
+    "googleMapUrl": "https://maps.app.goo.gl/Hd9SCyxukvqfKUkU7",
+    "imageUrl": "https://imagedelivery.net/eWIoXELxFsjrCqoBwekbcw/d9401a35-0624-44ff-985e-40f2c65e9d00/public",
+    "images": [
+      "https://imagedelivery.net/eWIoXELxFsjrCqoBwekbcw/d9401a35-0624-44ff-985e-40f2c65e9d00/public",
+      "https://imagedelivery.net/eWIoXELxFsjrCqoBwekbcw/3476e2eb-d352-4b4f-7745-87ff020ee300/public"
+    ],
+    "tags": "免費早餐, 附停車場, 車站步行3分內",
     "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
   },
   {
