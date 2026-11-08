@@ -168,34 +168,6 @@
     "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
   },
   {
-    "id": "toyoko-00018",
-    "hotelCode": "00018",
-    "category": "飯店",
-    "brand": "東橫INN",
-    "name": "東橫INN 北海道札幌站西口北大前",
-    "nameJa": "Toyoko Inn Hokkaido Sapporo-eki Nishi-guchi Hokudai Mae",
-    "region": "北海道",
-    "prefecture": "北海道",
-    "nearestStation": "札幌站",
-    "stationLine": "JR line",
-    "stationAccess": "JR line 札幌站 步行約 5 分鐘",
-    "walkMinutes": 5,
-    "address": "〒060-0808 Sapporo city 4-22-7 Kita 8-jo, Nishi, Kita-ku",
-    "coordinates": "43.070956, 141.34809",
-    "lat": 43.070956,
-    "lng": 141.34809,
-    "phone": "011-717-1045",
-    "bookingUrl": "https://www.toyoko-inn.com/china/search/detail/00018/",
-    "googleMapUrl": "https://goo.gl/maps/kNMxaWpyUQobK9K3A",
-    "imageUrl": "https://toyoko-inn.imagewave.pictures/jt9FQH9HktR6sMhNFPSDUh",
-    "images": [
-      "https://toyoko-inn.imagewave.pictures/jt9FQH9HktR6sMhNFPSDUh",
-      "https://toyoko-inn.imagewave.pictures/onBUZELLfrKTEtEmc9FrTE"
-    ],
-    "tags": "免費早餐, 安心認證",
-    "notes": "東橫 INN 連鎖飯店，提供免費自助早餐與便利交通。"
-  },
-  {
     "id": "toyoko-00059",
     "hotelCode": "00059",
     "category": "飯店",
